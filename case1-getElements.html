@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <h1>What to buy</h1>
+    <p title="a gentle reminder">Don't forget to buy this stuff.</p>
+    <ul id="purchase">
+        <li>Strawberries</li>
+        <li class="sale">Yogurt</li>
+        <li class="sale important">Coffee</li>
+    </ul>
+    
+    <h1>shopping cart</h1>
+    <p>You may buy it in the future.</p>
+    <ul>
+        <li class="sale">Car</li>
+        <li>Ring</li>
+    </ul>
+    <hr>
+
+    <h2>Script</h2>
+    <script>
+        // 通过id获取对象，并查看返回值。
+        document.write(document.getElementById("purchase"));
+        // 打印html元素
+        document.write("<br>");
+        
+        // 通过tag获取对象，得到的是一个数组，使用length查看数组内元素的个数，使用for循环和typeof查看数组元素的类型。
+        var arr = document.getElementsByTagName("li");
+        document.write("The number of elements with 'li' tag: " + arr.length);
+        document.write("<br>"); 
+        document.write("The type of every element: ");      
+        for (var i = 0; i < arr.length; i++) {
+            document.write(typeof arr[i] + " ");      
+        }
+        document.write("<br>");  
+        
+        // 使用通配符和length查看文档内元素节点的个数。
+        document.write("The number of element nodes in this document: " + document.getElementsByTagName("*").length);
+        document.write("<br>");  
+        
+        // 获取特定id下的元素节点个数。
+        var shopping = document.getElementById("purchase");
+        var items = shopping.getElementsByTagName("*");
+        document.write("The number of element nodes included in the ul with 'purchase' tag: " + items.length); 
+        document.write("<br>");         
+
+        // 通过class获取对象。
+        var stuff = document.getElementsByClassName("sale");
+        document.write(stuff);                
+        document.write(typeof stuff);
+        document.write("<br>");         
+        document.write("The number of elements with 'sale' class: " + stuff.length);
+        var stuff1 = document.getElementsByClassName("sale important");
+        document.write("<br>");                 
+        document.write("The number of elements with 'sale' and 'important' class: " + stuff1.length);
+
+        // 获取特定id下带有特定class的对象。
+        var shopping = document.getElementById("purchase");
+        var stuff2 = shopping.getElementsByClassName("sale");
+        document.write("<br>");                 
+        document.write("The number of elements with 'sale' class included in 'purchase' id: " + stuff2.length);
+
+        // 使用DOM实现getElementsByClassName的功能。
+        function getElementsByClassName(node, classname) {
+            // 两个参数：node表示DOM树中的搜索起点，classname是要搜索的类名
+            if (node.getElementsByClassName) { 
+                // 如果已存在此方法，则直接返回相应的节点列表；
+                return node.getElementsByClassName(classname);
+            } else {
+                // 若没有此方法，则通过循环遍历所有标签，查找带有相应类名的元素。此例不适用于多类名。
+                var results = new Array();
+                var elems = node.getElementsByTagName("*");
+                for (var i = 0; i < elems.length; i++) {
+                    if (elems[i].classname.indexOf(classname) != -1) {
+                        results[results.length] = elems[i];
+                    }
+                }
+                return results;
+            }
+        }
+        // 应用该函数获取特定对象，可以写为
+        var shopping = document.getElementById("purchase");
+        var stuff3 = getElementsByClassName(shopping, "sale");
+        document.write("<br>");                            
+        document.write("The number of elements with 'sale' class included in 'purchase' id: " + stuff3.length);            
+        
+
+    </script>
+</body>
+</html>
