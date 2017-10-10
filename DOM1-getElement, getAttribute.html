@@ -5,7 +5,7 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>What to buy</h1>
+    <h1>what to buy</h1>
     <p title="a gentle reminder">Don't forget to buy this stuff.</p>
     <ul id="purchase">
         <li>Strawberries</li>
@@ -14,15 +14,26 @@
     </ul>
     
     <h1>shopping cart</h1>
-    <p>You may buy it in the future.</p>
+    <p id="fact" title="encourage you to earn more money">You may buy them in the future.</p>
     <ul>
         <li class="sale">Car</li>
         <li>Ring</li>
     </ul>
-    <hr>
+   
+    <h1>recycling bin</h1>
+    <p>You can't afford to buy this stuff.</p>
+    <ul>
+        <li>Hotel</li>
+        <li>Air Plane</li>
+    </ul>
 
+
+    <hr>
     <h2>Script</h2>
     <script>
+        // getElementById, getElementsByTagName, getElementsByTagName 用于获取元素。
+        // getAttribute, setAttribute 分别用于获取属性和更改属性。
+
         // 通过id获取对象，并查看返回值。
         document.write(document.getElementById("purchase"));
         // 打印html元素
@@ -34,7 +45,7 @@
         document.write("<br>"); 
         document.write("The type of every element: ");      
         for (var i = 0; i < arr.length; i++) {
-            document.write(typeof arr[i] + " ");      
+            document.write(typeof arr[i] + "; ");      
         }
         document.write("<br>");  
         
@@ -75,6 +86,7 @@
                 var results = new Array();
                 var elems = node.getElementsByTagName("*");
                 for (var i = 0; i < elems.length; i++) {
+                    // to be learned
                     if (elems[i].classname.indexOf(classname) != -1) {
                         results[results.length] = elems[i];
                     }
@@ -86,9 +98,43 @@
         var shopping = document.getElementById("purchase");
         var stuff3 = getElementsByClassName(shopping, "sale");
         document.write("<br>");                            
-        document.write("The number of elements with 'sale' class included in 'purchase' id: " + stuff3.length);            
+        document.write("The number of elements with 'sale' class included in 'purchase' id (by function): " + stuff3.length); 
+        document.write("<br>");                                          
+        
+        // getAttribute 只能通过元素节点对象调用。
+        // 与getElementsByTagName合用，获取p元素的title属性。
+        var paras = document.getElementsByTagName("p");
+        document.write("The title attributes of p elements: ");
+        for (var i = 0; i < paras.length; i++) {
+            var content = paras[i].getAttribute("title");
+            // 当p元素有title属性时，先打印原有值，修改新title，再打印新属性值；
+            // 当p元素没有title属性时(返回值为null)，设置为不显示；
+            if (content) {
+                document.write(content + "; ");
+                paras[i].setAttribute("title","new text");
+                document.write(paras[i].getAttribute("title") + "; ");
+            } 
+        }
+        document.write("<br>");                                          
+        
+        // setAttribute 只能通过元素节点对象调用。
+        // 对于不存在的属性，为元素节点创建属性，然后设置属性值。
+        var shopping = document.getElementById("purchase");
+        document.write("The original title of the element with 'purchase' id: " + shopping.getAttribute("title")); 
+        document.write("<br>");                                                         
+        shopping.setAttribute("title","a list of goods");
+        document.write("The changed title of the element with 'purchase' id: " + shopping.getAttribute("title"));
+        document.write("<br>");                                                                 
+
+        // 对于存在的属性，覆盖它的值
+        var noshopping = document.getElementById("fact");
+        document.write("The original title of the element with 'fact' id: " + noshopping.getAttribute("title")); 
+        document.write("<br>"); 
+        noshopping.setAttribute("title","a list of expensive goods");
+        document.write("The changed title of the element with 'fact' id: " + noshopping.getAttribute("title"));        
         
 
+        
     </script>
 </body>
 </html>
