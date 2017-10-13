@@ -12,23 +12,23 @@
         鼠标点击链接时触发函数，使用onclick事件。
         当把onlick事件嵌入到一个链接中，需要把这个链接本身作为showImage函数的参数，使用this。
         event="js statements" 
-        event是元素的事件属性，js代码包含在引号中间，注意以；结尾。
+        event是元素的事件属性，js代码包含在引号中间，注意以分号结尾。
     
         任务2:阻止点击链接时的默认行为（自动跳转到新页面）
         为js代码添加返回值，传递给事件处理函数，当返回值为false，则认为“这个链接没有被点击”，链接的默认行为不会被触发。
     -->
     <ul>
         <li>
-            <a href="image/coffee.png" title="A cup of warm coffee" onclick="showImage(this); return false;">Coffee</a>
+            <a href="image/coffee.png" title="A cup of warm coffee" onclick="showImg(this); return false;">Coffee</a>
         </li>
         <li>
-            <a href="image/phone.png" title="Brand-new phone" onclick="showImage(this); return false;">Phone</a>            
+            <a href="image/phone.png" title="Brand-new phone" onclick="showImg(this); return false;">Phone</a>            
         </li>
         <li>
-            <a href="image/watermelon.png" title="Fresh watermelon" onclick="showImage(this); return false;">Watermelon</a>            
+            <a href="image/watermelon.png" title="Fresh watermelon" onclick="showImg(this); return false;">Watermelon</a>            
         </li>
         <li>
-            <a href="image/sofa.png" title="Comfortable sofa" onclick="showImage(this); return false;">Sofa</a>            
+            <a href="image/sofa.png" title="Comfortable sofa" onclick="showImg(this); return false;">Sofa</a>            
         </li>
     </ul>
     
