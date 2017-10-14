@@ -1,0 +1,41 @@
+body {
+    color: #454A5F;
+    background-color: #ccc;
+    /*margin：top&bottom left&right*/
+    margin: 1em 5%; 
+}
+
+ul {
+    padding: 0;
+}
+
+li {
+    /*put the items in one line*/
+    float: left;
+    padding-right: 1.5em;
+    /*remove the dot before the items*/
+    list-style: none;
+    margin-bottom: 1em;
+}
+
+a {
+    text-decoration: none;
+    font-size: 25px;
+    color: #454A5F;
+}
+
+a:hover {
+    color: #FFFFFF;
+    background-color: #454A5F;
+}
+
+img {
+    /*以下两个条件共同保证图片独占一行*/
+    display: block;
+    clear: both;
+}
+
+#description {
+    font-size: 20px;
+    font-style: italic;    
+}
