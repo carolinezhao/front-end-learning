@@ -164,8 +164,20 @@
         var body_element = document.getElementsByTagName("body")[0];
         // 获得body元素的全体子元素
         var count_element = body_element.childNodes.length;
-        show("The number of all child elements of body: " + count_element);
+        show("The number of all child elements of body: " + count_element); // 56
         show("<br>");
+
+        // 获得body全体子元素的个数
+        function countBodyChildren() {
+            var body_element = document.getElementsByTagName("body")[0];
+            alert("The number of children of body: " + body_element.childNodes.length); // 76
+        }
+        // 使函数在页面加载时执行
+        window.onload = countBodyChildren;
+
+        // ？？？
+        // 为什么得到的body子元素个数不一样？
+        // ？？？
 
         // 注意：通过getAttribute得到的是“属性值”，不是属性节点。
         // attribute node 怎么获得？？？
