@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>DOM-basic-usage</title>
+</head>
+
+<body>
+    <h1>what to buy</h1>
+    <p title="a gentle reminder">Don't forget to buy this stuff.</p>
+    <ul id="purchase">
+        <li>Strawberries</li>
+        <li class="sale">Yogurt</li>
+        <li class="sale important">Coffee</li>
+    </ul>
+
+    <h1>shopping cart</h1>
+    <p id="fact" title="encourage you to earn more money">You may buy them in the future.</p>
+    <ul>
+        <li class="sale">Car</li>
+        <li>Ring</li>
+    </ul>
+
+    <h1>recycling bin</h1>
+    <p>You can't afford to buy this stuff.</p>
+    <ul>
+        <li>Hotel</li>
+        <li>Air Plane</li>
+    </ul>
+
+    <hr>
+    <h2>Script</h2>
+
+    <script>
+        // ***********************
+        // 
+        // 获取元素节点：getElementById, getElementsByTagName, getElementsByTagName
+        // 
+        // ***********************
+
+        // 通过id获取对象，并查看返回值。
+        document.write(document.getElementById("purchase"));
+        // 打印html元素
+        document.write("<br>");
+
+        // 通过tag获取对象，得到的是一个数组，使用length查看数组内元素的个数，使用for循环和typeof查看数组元素的类型。
+        var arr = document.getElementsByTagName("li");
+        document.write("The number of elements with 'li' tag: " + arr.length);
+        document.write("<br>");
+        document.write("The type of every element: ");
+        for (var i = 0; i < arr.length; i++) {
+            document.write(typeof arr[i] + "; ");
+        }
+        document.write("<br>");
+
+        // 使用通配符和length查看文档内元素节点的个数。
+        document.write("The number of element nodes in this document: " + document.getElementsByTagName("*").length);
+        document.write("<br>");
+
+        // 获取特定id下的元素节点个数。
+        var shopping = document.getElementById("purchase");
+        var items = shopping.getElementsByTagName("*");
+        document.write("The number of element nodes included in the ul with 'purchase' tag: " + items.length);
+        document.write("<br>");
+
+        // 通过class获取对象。
+        var stuff = document.getElementsByClassName("sale");
+        document.write(stuff);
+        document.write(typeof stuff);
+        document.write("<br>");
+        document.write("The number of elements with 'sale' class: " + stuff.length);
+        var stuff1 = document.getElementsByClassName("sale important");
+        document.write("<br>");
+        document.write("The number of elements with 'sale' and 'important' class: " + stuff1.length);
+
+        // 获取特定id下带有特定class的对象。
+        var shopping = document.getElementById("purchase");
+        var stuff2 = shopping.getElementsByClassName("sale");
+        document.write("<br>");
+        document.write("The number of elements with 'sale' class included in 'purchase' id: " + stuff2.length);
+
+        // 使用DOM实现getElementsByClassName的功能。
+        function getElementsByClassName(node, classname) {
+            // 两个参数：node表示DOM树中的搜索起点，classname是要搜索的类名
+            if (node.getElementsByClassName) {
+                // 如果已存在此方法，则直接返回相应的节点列表；
+                return node.getElementsByClassName(classname);
+            } else {
+                // 若没有此方法，则通过循环遍历所有标签，查找带有相应类名的元素。此例不适用于多类名。
+                var results = new Array();
+                var elems = node.getElementsByTagName("*");
+                for (var i = 0; i < elems.length; i++) {
+                    // to be learned
+                    if (elems[i].classname.indexOf(classname) != -1) {
+                        results[results.length] = elems[i];
+                    }
+                }
+                return results;
+            }
+        }
+        // 应用该函数获取特定对象，可以写为
+        var shopping = document.getElementById("purchase");
+        var stuff3 = getElementsByClassName(shopping, "sale");
+        document.write("<br>");
+        document.write("The number of elements with 'sale' class included in 'purchase' id (by function): " + stuff3.length);
+        document.write("<br>");
+
+
+        // ***********************
+        // 
+        // getAttribute, setAttribute 分别用于获取属性值和更改属性值。
+        // 
+        // *********************** 
+
+        // getAttribute 只能通过元素节点对象调用。
+        // 与getElementsByTagName合用，获取p元素的title属性。
+        var paras = document.getElementsByTagName("p");
+        document.write("The title attributes of p elements: ");
+        for (var i = 0; i < paras.length; i++) {
+            var content = paras[i].getAttribute("title");
+            // 当p元素有title属性时，先打印原有值，修改新title，再打印新属性值；
+            // 当p元素没有title属性时(返回值为null)，设置为不显示；
+            if (content) {
+                document.write(content + "; ");
+                paras[i].setAttribute("title", "new text");
+                document.write(paras[i].getAttribute("title") + "; ");
+            }
+        }
+        document.write("<br>");
+
+        function show(element) {
+            document.write(element);
+        }
+
+        // setAttribute 只能通过元素节点对象调用。
+        // 对于不存在的属性，为元素节点创建属性，然后设置属性值。
+        var shopping = document.getElementById("purchase");
+        show("The original title of the element with 'purchase' id: " + shopping.getAttribute("title"));
+        show("<br>");
+        shopping.setAttribute("title", "a list of goods");
+        show("The changed title of the element with 'purchase' id: " + shopping.getAttribute("title"));
+        show("<br>");
+
+        // 对于存在的属性，覆盖它的值
+        var noshopping = document.getElementById("fact");
+        show("The original title of the element with 'fact' id: " + noshopping.getAttribute("title"));
+        show("<br>");
+        noshopping.setAttribute("title", "a list of expensive goods");
+        show("The changed title of the element with 'fact' id: " + noshopping.getAttribute("title"));
+
+        show("<br>");
+        show("<br>");
+        show("<br>");
+
+        // ***********************
+        // 
+        // childNodes, firstChild, lastChild
+        // nodeType 区分节点类型, nodeValue 获得和修改节点值
+        // 
+        // ***********************  
+
+        // body元素是返回的数组中的第一个（也是唯一的）元素
+        var body_element = document.getElementsByTagName("body")[0];
+        // 获得body元素的全体子元素
+        var count_element = body_element.childNodes.length;
+        show("The number of all child elements of body: " + count_element);
+        show("<br>");
+
+        // 注意：通过getAttribute得到的是“属性值”，不是属性节点。
+        // attribute node 怎么获得？？？
+        var ul_element = document.getElementById("purchase");
+        var attribute_value = ul_element.getAttribute("id");
+        show(attribute_value); // purchase
+        show("<br>");
+        show(attribute_value.nodeType); // undefined
+        show("<br>");
+
+        var p_element = document.getElementById("fact");
+        // 文本节点是p元素节点的唯一子节点
+        var text_node = p_element.firstChild;
+        var text_node1 = p_element.lastChild;
+
+        // element node vs. text node        
+        show("The nodeType of an element node: " + p_element.nodeType); // 1
+        show("<br>");
+        show("The nodeType of a text node: " + text_node.nodeType); // 3
+        show("<br>");
+        show(text_node1.nodeType); // 3
+        show("<br>");
+
+        show("The nodeValue of an element node: " + p_element.nodeValue); // null
+        show("<br>");
+        show("The nodeValue of a text node: " + text_node.nodeValue); // You may buy them in the future.
+        show("<br>");
+
+        show("<br>");
+        show("<br>");
+        show("<br>");
+    </script>
+</body>
+
+</html>
