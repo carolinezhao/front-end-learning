@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Best Practice</title>
+</head>
+
+<body>
+    <ul>
+        <!--不推荐使用的旧方法-->
+        <li>
+            <!--“javascript:” 伪协议-->
+            <a href="javascript:popUp('http://www.example.com/');">Example 1</a>
+            <!--效果：弹出-->
+        </li>
+        <li>
+            <!--内嵌的事件处理函数-->
+            <a href="#" onclick="popUp('http://www.example.com/'); return false;">Example 2</a>
+            <!--效果：弹出，但是没有按照规定的大小-->
+        </li>
+
+        <!--＊＊＊分离JavaScript＊＊＊-->
+        <li>
+        <!--
+        js不要求事件必须在html文档里处理，可以在外部js文件里把一个事件添加到html文档中的某个元素上。
+        element.event = action
+        当涉及某一个特定元素：getElementById("id").event = action
+        当涉及多个元素：通过 getElementsByTagName 和 getAttribute 把事件添加到有着特定属性 (class) 的一组元素上。
+        -->
+            <a href="http://www.example.com/" class="popup">Example 3</a>
+            <!--效果：跳转网页，没有达到预期-->
+        </li>
+    </ul>
+
+    <script src="./DOM-best-practice.js"></script>
+</body>
+
+</html>
