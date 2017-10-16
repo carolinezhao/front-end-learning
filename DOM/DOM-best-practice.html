@@ -7,8 +7,8 @@
 </head>
 
 <body>
-    <!--目的：点击链接时弹出新窗口，而不是被带离当前页-->
-
+    <!--最佳实践：平稳退化，渐进增强，向后兼容，优化性能
+        案例：点击链接时弹出新窗口，而不是被带离当前页-->
     <ul>
         <li>
             <!--方法1: “javascript:” 伪协议（不推荐使用）-->
@@ -19,9 +19,9 @@
             <a href="#" onclick="popUp('http://www.example.com/'); return false;">Example 2</a>
         </li>
         <li>
-            <!--方法3: 为js预留退路，把href属性设为真实存在的url
-               （可用：即使js被禁用，这个链接也可用，但是在功能上打了折扣——没有打开新窗口）
-                经典的平稳退化案例，但仍有改进余地-->
+            <!--＊＊＊平稳退化＊＊＊的经典案例，但仍有改进余地
+                方法3: 为js预留退路，把href属性设为真实存在的url
+               （可用：即使js被禁用，这个链接也可用，但是在功能上打了折扣——没有打开新窗口）-->
             <a href="http://www.example.com/" onclick="popUp('http://www.example.com/'); return false;">Example 3</a>
             <!--简化：-->
             <a href="http://www.example.com/" onclick="popUp(this.getAttribute('href')); return false;">Example 3</a>
@@ -29,7 +29,8 @@
         </li>
 
         <li>
-            <!--方法4: ＊＊＊分离JavaScript＊＊＊
+            <!--＊＊＊渐进增强＊＊＊
+                方法4: 分离JavaScript（推荐使用）
                 js不要求事件必须在html文档里处理，可以在外部js文件里把一个事件添加到html文档中的某个元素上。
                 element.event = action
                 当涉及某一个特定元素：getElementById("id").event = action

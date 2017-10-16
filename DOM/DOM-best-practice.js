@@ -6,7 +6,7 @@ function popUp(winURL) {
     window.open(winURL, "popup", "width = 320, height = 480");
 }
 
-// ＊＊＊分离JavaScript＊＊＊
+// ＊＊＊渐进增强：分离JavaScript＊＊＊
 // js不要求事件必须在html文档里处理，可以在外部js文件里把一个事件添加到html文档中的某个元素上。
 // 即 element.event = action
 // 当涉及某一个特定元素：getElementById("id").event = action
@@ -14,8 +14,14 @@ function popUp(winURL) {
 
 // 浏览器可能一次加载多个文件，不能保证html和js哪个先加载完。必须让脚本在html文档全部加载到浏览器后马上开始执行。
 // document对象是window对象的一个属性。当window对象触发onload事件时，document对象已经存在。
-window.onload = prepareLinks;
-function prepareLinks() {
+window.onload = function () {
+    // ＊＊＊向后兼容＊＊＊
+    // 对象检测：如果浏览器不理解这个函数，则退出函数。如果需要检测多个方法或属性，则用“逻辑或”即||分隔。
+    // 使用对象检测时，一定要删掉方法名后面的括号，否则测试的将是方法的结果，无论方法是否存在。
+    // if () {} 当{}内只有一条语句时，可简写成一行：
+    if (!document.getElementsByTagName) return false;
+    // ＊＊＊优化性能＊＊＊
+    // 将搜索结果保存在变量中，以便复用，避免重复搜索
     var links = document.getElementsByTagName("a");
     for (var i = 0; i < links.length; i++) {
         if (links[i].getAttribute("class") === "popup") {
