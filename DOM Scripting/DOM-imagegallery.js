@@ -1,4 +1,4 @@
-// 使用到的方法：getElementById, getAttribute, setAttributegi
+// 使用到的方法：getElementById, getAttribute, setAttribute
 // 使用到的属性：nodeValue, firstChild
 
 // 函数目标：点击某链接时，占位符替换为该链接要显示的图片。
@@ -16,3 +16,19 @@ function showImg(targetImg) {
     // 获得id为description的p元素节点的第一个子节点－文本节点－的nodeValue属性值，并设置为变量text的值。
     description.firstChild.nodeValue = text;
 }
+
+function prepareGallery() {
+    if (!document.getElementsByTagName) return false;
+    if (!document.getElementById) return false;
+    if (!document.getElementById("imagegallery")) return false;
+    var gallery = document.getElementById("imagegallery");
+    var links = gallery.getElementsByTagName("a");
+    for (var i = 0; i < links.length; i++) {
+        links[i].onclick = function () {
+            showImg(this);
+            return false;
+        }
+    }
+}
+
+window.onload = prepareGallery;

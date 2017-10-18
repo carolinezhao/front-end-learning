@@ -7,25 +7,25 @@
 </head>
 <body>
     <h1>Image Gallery</h1>
-    <!--
-        ＊＊＊学习目的＊＊＊
+    <!--＊＊＊学习目的＊＊＊
         1 利用DOM提供的方法编写图片库脚本；
         2 利用事件处理函数把JavaScript代码与网页集成在一起。
         
         ＊＊＊具体任务＊＊＊
         任务1:点击链接，调用js中的showImage函数
-        需要给html中图片的链接添加event handler，才能触发JS中的函数。
+        需要给html中图片的链接添加event handler，才能触发js中的函数。
         鼠标点击链接时触发函数，使用onclick事件。
         当把onlick事件嵌入到一个链接中，需要把这个链接本身作为showImage函数的参数，使用this关键字，表示“这个<a>元素节点”。
         event="js statements;" 
         event是元素节点的事件属性，js代码包含在引号中间，注意以分号分隔各语句。
 
-        JS中的函数showImg的功能：
+        js中的函数showImg的功能：
         点击链接时，placeholder替换为相应的图片，description替换为图片的title
     
         任务2:阻止点击链接时的默认行为（自动跳转到新页面）
-        为js代码添加返回值，传递给事件处理函数，当返回值为false，则认为“这个链接没有被点击”，链接的默认行为不会被触发。
-    -->
+        为js代码添加返回值，传递给事件处理函数，当返回值为false，则认为“这个链接没有被点击”，链接的默认行为不会被触发。-->
+
+    <!--基础版本
     <ul>
         <li>
             <a href="image/coffee.png" title="A cup of warm coffee" onclick="showImg(this); return false;">Coffee</a>
@@ -39,7 +39,24 @@
         <li>
             <a href="image/sofa.png" title="Comfortable sofa" onclick="showImg(this); return false;">Sofa</a>            
         </li>
+    </ul>-->
+
+    <!--改进版本：行为层js与结构层html分离-->
+    <ul id="imagegallery">
+        <li>
+            <a href="image/coffee.png" title="A cup of warm coffee">Coffee</a>
+        </li>
+        <li>
+            <a href="image/phone.png" title="Brand-new phone">Phone</a>            
+        </li>
+        <li>
+            <a href="image/watermelon.png" title="Fresh watermelon">Watermelon</a>            
+        </li>
+        <li>
+            <a href="image/sofa.png" title="Comfortable sofa">Sofa</a>            
+        </li>
     </ul>
+
     
     <!--占位图片，用于替换为链接图片-->
     <img id="placeholder" src="image/placeholder.png" alt="Hey, I am a placeholder.">
