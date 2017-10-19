@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    
+</head>
+<body>
+    <!--如果此条语句放在最下面，则调用外部函数的结果无法显示-->
+    <script src="./test.js"></script>
+    <script>
+        // 需要在<body>内的<script>标签里才能使用 document.write 或调用包含他的外部函数。
+        document.write('This is inserted.');
+        document.write('<p>This is inserted.</p>');
+        document.write('<h1>This is inserted.</h1>');
+
+        useDocWrite('This is inserted.');
+    </script>
+</body>
+</html>
