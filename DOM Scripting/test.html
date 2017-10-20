@@ -6,15 +6,40 @@
     
 </head>
 <body>
+    <div id="testdiv1">
+        <p>This is <em>my</em> content.</p>
+    </div>
+
+    <div id="testdiv2">
+    </div>
+
     <!--如果此条语句放在最下面，则调用外部函数的结果无法显示-->
     <script src="./test.js"></script>
     <script>
-        // 需要在<body>内的<script>标签里才能使用 document.write 或调用包含他的外部函数。
+        // 需要在<body>内的<script>标签里才能使用 document.write 或调用包含他的外部函数，无法彻底与html分离。
+        // <p>在这里的角色是字符串的组成部分
+        document.write('<p>This is inserted by document.write.</p>');
+        document.write('<h1>This is inserted by document.write.</h1>');
+        // 字符串内不引用html标签也可以？
         document.write('This is inserted.');
-        document.write('<p>This is inserted.</p>');
-        document.write('<h1>This is inserted.</h1>');
+        // 通过外部函数使用 document.write
+        useDocWrite('This is inserted by external document.write.');
+        
+        // innerHTML 没有对<script>标签的依赖，可以单独写在外部函数中，见js中的 test 3
+        // 使用 innerHTML 读取，得到的是元素内所有内容（标签，文本等），区别于DOM树。
+        var testdiv1 = document.getElementById("testdiv1");
+        alert(testdiv1.innerHTML); 
+        // 显示：<p>This is <em>my</em> content.</p>
 
-        useDocWrite('This is inserted.');
+        // 使用 innerHTML 写入，但是无法区分“插入”和“替代”，一旦使用则原有内容全被覆盖。
+        var testdiv2 = document.getElementById("testdiv2");
+        testdiv2.innerHTML = "<h2>I inserted <em>this</em> content by innerHTML.</h2>";
+
+
+        // 不推荐使用 document.write，因为无法与html分离。
+        // innerHTML 比 document.write 值得推荐，可以与html分离，单独写入js。
+        // 两者都是html专有属性，不能用于其它标记语言文档，功能可以被标准DOM替代。
+
     </script>
 </body>
 </html>
