@@ -1,4 +1,4 @@
-// 使用到的方法：getElementById, getAttribute, setAttribute
+// 使用到的方法：getElementById, getElementsByTagName，getAttribute, setAttribute
 // 使用到的属性：nodeValue, firstChild
 
 // 函数目标：点击某链接时，占位符替换为该链接要显示的图片。
@@ -18,20 +18,33 @@ function showImg(targetImg) {
 }
 
 // 改进版本：行为层js与结构层html分离
+// 函数目标：为带有特定id的链接添加onclick事件，将操作关联到onclick事件上。
 function prepareGallery() {
+    // 检查当前浏览器是否理解特定方法
     if (!document.getElementsByTagName) return false;
     if (!document.getElementById) return false;
+    // 检查当前网页是否存在一个特定id的元素
+    // 这是一个预防性措施。现在虽然知道网页中有，但是不确定以后是否会发生变化。如果将来从网页上删掉列表，也不必担心js代码会突然出错。
+    // 原则：如果想用js给网页添加一些行为，要保证js代码对这个网页的结构没有任何依赖。
     if (!document.getElementById("imagegallery")) return false;
     var gallery = document.getElementById("imagegallery");
     var links = gallery.getElementsByTagName("a");
-    for (var i = 0; i < links.length; i++) {
+    // links是一个节点列表 node list，这个集合里的每个节点都有自己的属性和方法。
+    // 通过遍历获得每个节点，设置onclick事件，让它在有关链接被点击时完成以下操作：
+    // 1.把链接作为参数传递给showImg；2.取消默认行为
+    for (var i = 0; i < links.length; i++) { 
         links[i].onclick = function () {
             showImg(this);
             return false;
         }
     }
 }
+// 结构化程序设计 structed programming 有一条原则：函数应该只有一个入口和一个出口。
+// prepareGallery中使用了多条return false语句，它们都是这个函数的出口。但如果将其改为只有一个出口，会使代码变得冗长且难以阅读。
+// 作者认为，如果一个函数有多个出口，只要它们集中出现在函数的开头部分，就是可以接受的。
 
+
+// ＊＊＊ 为函数绑定 window.onload ＊＊＊
 // prepareGallery函数中涉及对DOM元素的检查，因此需要函数在页面全部加载完毕后执行。
 // window.onload = prepareGallery;
 

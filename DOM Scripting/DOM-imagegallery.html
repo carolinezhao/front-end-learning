@@ -7,11 +7,11 @@
 </head>
 <body>
     <h1>Image Gallery</h1>
-    <!--＊＊＊学习目的＊＊＊
+    <!--＊＊＊ 学习目的 ＊＊＊
         1 利用DOM提供的方法编写图片库脚本；
         2 利用事件处理函数把JavaScript代码与网页集成在一起。
         
-        ＊＊＊具体任务＊＊＊
+        ＊＊＊ 基础版本 具体任务 ＊＊＊
         任务1:点击链接，调用js中的showImage函数
         需要给html中图片的链接添加event handler，才能触发js中的函数。
         鼠标点击链接时触发函数，使用onclick事件。
@@ -23,9 +23,8 @@
         点击链接时，placeholder替换为相应的图片，description替换为图片的title
     
         任务2:阻止点击链接时的默认行为（自动跳转到新页面）
-        为js代码添加返回值，传递给事件处理函数，当返回值为false，则认为“这个链接没有被点击”，链接的默认行为不会被触发。-->
+        为js代码添加返回值，传递给事件处理函数，当返回值为false，则认为“这个链接没有被点击”，链接的默认行为不会被触发。
 
-    <!--基础版本
     <ul>
         <li>
             <a href="image/coffee.png" title="A cup of warm coffee" onclick="showImg(this); return false;">Coffee</a>
@@ -41,7 +40,11 @@
         </li>
     </ul>-->
 
-    <!--改进版本：行为层js与结构层html分离-->
+
+    <!--＊＊＊ 改进版本 ＊＊＊
+        满足最佳实践：平稳退化，行为层js与结构层html分离。
+        需要使用“挂钩”将js与html中的标记关联起来。相比于给每个链接分别添加class属性，给列表元素添加id更便捷。-->
+
     <ul id="imagegallery">
         <li>
             <a href="image/coffee.png" title="A cup of warm coffee">Coffee</a>
