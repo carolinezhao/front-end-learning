@@ -1,4 +1,5 @@
 body {
+    font-family: sans-serif;
     color: #454A5F;
     background-color: #ccc;
     /*margin：top&bottom left&right*/
@@ -7,14 +8,14 @@ body {
 
 ul {
     padding: 0;
+    /*remove the dot in front of the items*/
+    list-style: none;
 }
 
-li {
-    /*put the items in one line*/
-    float: left;
+#imagegallery li {
+    /*put the items in one line, or use "float: left;" to achieve the same effect*/
+    display: inline;
     padding-right: 1.5em;
-    /*remove the dot before the items*/
-    list-style: none;
     margin-bottom: 1em;
 }
 
@@ -33,6 +34,7 @@ img {
     /*以下两个条件共同保证图片独占一行*/
     display: block;
     clear: both;
+    border: 2px dotted #454A5F;
 }
 
 #description {
