@@ -31,11 +31,12 @@
 
     <hr>
     <h2>Script</h2>
+    <h3>在html中使用script标签输出结果并不是推荐用法，在此使用仅仅是为了在练习DOM的基本用法时，可以直观地看到结果。</h3>
 
     <script>
         // ***********************
         // 
-        // 获取元素节点：getElementById, getElementsByTagName, getElementsByTagName
+        // 获取元素节点：getElementById, getElementsByTagName, getElementsByClassName
         // 
         // ***********************
 
@@ -155,8 +156,8 @@
 
         // ***********************
         // 
-        // childNodes, firstChild, lastChild
-        // nodeType 区分节点类型, nodeValue 获得和修改节点值
+        // childNodes, firstChild, lastChild 用于获得子元素
+        // nodeType 区分节点类型, nodeValue 获得和修改节点值（尤其是元素节点包含的文本）
         // 
         // ***********************  
 
@@ -205,6 +206,10 @@
         show("<br>");
         show("The nodeValue of a text node: " + text_node.nodeValue); // You may buy them in the future.
         show("<br>");
+
+        var text_changed = "You may buy them using credit card.";
+        text_node.nodeValue = text_changed;
+        show("The changed nodeValue: " + text_node.nodeValue);
 
         show("<br>");
         show("<br>");
