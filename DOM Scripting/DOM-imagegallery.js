@@ -51,7 +51,9 @@ function prepareGallery() {
     // 通过遍历获得每个节点，设置onclick事件，让它在有关链接被点击时完成以下操作：
     // 1.把链接作为参数传递给showImg；2.取消默认行为
     for (var i = 0; i < links.length; i++) {
-        links[i].onclick = function () {
+        // links[i].onclick= function () {
+        // 使用onmouseover事件替代onclick，减少操作，获得更好的用户体验。
+        links[i].onmouseover = function () {
             // showImg(this);
             // return false;
             // ＊＊＊ 补充测试和检查 ＊＊＊
