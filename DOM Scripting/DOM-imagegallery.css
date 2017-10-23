@@ -1,9 +1,14 @@
 body {
     font-family: sans-serif;
     color: #454A5F;
-    background-color: #ccc;
+    background-color: #E0DFDF;
     /*margin：top&bottom left&right*/
-    margin: 1em 5%; 
+    margin: 1em 5%;
+    text-align: center;
+}
+
+h1 {
+    font-size: 45px;
 }
 
 ul {
@@ -13,10 +18,13 @@ ul {
 }
 
 #imagegallery li {
-    /*put the items in one line, or use "float: left;" to achieve the same effect*/
-    display: inline;
-    padding-right: 1.5em;
+    /*put the items in one line*/
+    /*display: inline; 可以实现item同行排列的效果，但是宽高由文本长度决定，无法设置*/
+    /*float: left;*/
+    display: inline-block;
+    padding: 0 1em;
     margin-bottom: 1em;
+    /*border: 1px solid #454A5F;*/
 }
 
 a {
@@ -31,13 +39,14 @@ a:hover {
 }
 
 img {
-    /*以下两个条件共同保证图片独占一行*/
-    display: block;
+    /*display: block; 此情况下无法实现居中*/
+    display: inline-block;
     clear: both;
     border: 2px dotted #454A5F;
+    margin-bottom: 1em;
 }
 
 #description {
     font-size: 20px;
-    font-style: italic;    
+    font-style: italic;
 }
