@@ -35,7 +35,7 @@ function showImg(targetImg) {
     return true;
 }
 
-// 改进版本：行为层js与结构层html分离
+// 改进版本1.0：行为层js与结构层html分离
 // 函数目标：为带有特定id的链接添加onclick事件，将操作关联到onclick事件上。
 function prepareGallery() {
     // 检查当前浏览器是否理解特定方法
@@ -52,7 +52,7 @@ function prepareGallery() {
     // 1.把链接作为参数传递给showImg；2.取消默认行为
     for (var i = 0; i < links.length; i++) {
         // links[i].onclick= function () {
-        // 使用onmouseover事件替代onclick，减少操作，获得更好的用户体验。
+        // 使用onmouseover事件替代onclick，减少操作，获得更好的用户体验。但原函数中对onclick默认行为的禁止就会失效。
         links[i].onmouseover = function () {
             // showImg(this);
             // return false;
@@ -72,6 +72,19 @@ function prepareGallery() {
 // prepareGallery中使用了多条return false语句，它们都是这个函数的出口。但如果将其改为只有一个出口，会使代码变得冗长且难以阅读。
 // 作者认为，如果一个函数有多个出口，只要它们集中出现在函数的开头部分，就是可以接受的。
 
+// 改进版本2.0
+function preparePlaceholder() {
+    var placeholder = document.createElement("img");
+    placeholder.setAttribute("id", "placeholder");
+    placeholder.setAttribute("src", "image/placeholder.png");
+    placeholder.setAttribute("alt", "Hey, I am a placeholder.");
+    var description = document.createElement("p");
+    description.setAttribute("id", "description");
+    var destext = document.createTextNode("Choose an item from the list to view the image.");
+    description.appendChild(destext);
+    document.getElementsByTagName("body")[0].appendChild(placeholder);
+    document.getElementsByTagName("body")[0].appendChild(description);
+}
 
 // ＊＊＊ 为函数绑定 window.onload ＊＊＊
 // prepareGallery函数中涉及对DOM元素的检查，因此需要函数在页面全部加载完毕后执行。
@@ -103,5 +116,5 @@ function addLoadEvent(func) {
 // 把页面加载完毕时要执行的函数创建为一个队列。当代码比较复杂时，这个函数尤其实用，只需要添加如下语句
 // addLoadEvent(firstFunction);
 // addLoadEvent(secondFunction);
-// 本案例中需要执行的函数暂时只有 prepareGallery
 addLoadEvent(prepareGallery);
+addLoadEvent(preparePlaceholder);

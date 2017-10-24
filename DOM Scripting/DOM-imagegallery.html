@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Image Gallery</title>
     <link rel="stylesheet" type="text/css" href="./DOM-imagegallery.css">
 </head>
+
 <body>
     <h1>Image Gallery</h1>
     <!--＊＊＊ 学习目的 ＊＊＊
@@ -41,31 +43,34 @@
     </ul>-->
 
 
-    <!--＊＊＊ 改进版本 ＊＊＊
+    <!--＊＊＊ 改进版本1.0 ＊＊＊
         满足最佳实践：平稳退化，行为层js与结构层html分离。
         需要使用“挂钩”将js与html中的标记关联起来。相比于给每个链接分别添加class属性，给列表元素添加id更便捷。-->
 
     <ul id="imagegallery">
-        <li>
+        <li id="left">
             <a href="image/coffee.png" title="A cup of warm coffee">Coffee</a>
         </li>
         <li>
-            <a href="image/phone.png" title="Brand-new phone">Phone</a>            
+            <a href="image/phone.png" title="Brand-new phone">Phone</a>
         </li>
         <li>
-            <a href="image/watermelon.png" title="Fresh watermelon">Watermelon</a>            
+            <a href="image/watermelon.png" title="Fresh watermelon">Watermelon</a>
         </li>
         <li>
-            <a href="image/sofa.png" title="Comfortable sofa">Sofa</a>            
+            <a href="image/sofa.png" title="Comfortable sofa">Sofa</a>
         </li>
     </ul>
-    
-    <!--占位图片，用于替换为链接图片-->
-    <img id="placeholder" src="image/placeholder.png" alt="Hey, I am a placeholder.">
 
-    <!--占位文本，用于替换为图片title-->
-    <p id="description">Choose an image from the list above.</p>
+    <!--＊＊＊ 改进版本2.0 ＊＊＊
+        以下的图片和文字仅仅是为了showImg脚本服务的。既然它们的存在只是为了让DOM方法处理它们，那么用DOM方法来创建它们才是最合适的选择。
+    
+    [版本1.0] 占位图片，用于替换为链接图片
+    <img id="placeholder" src="image/placeholder.png" alt="Hey, I am a placeholder.">
+    [版本1.0] 占位文本，用于替换为图片title
+    <p id="description">Choose an item from the list to view the image.</p>-->
 
     <script src="./DOM-imagegallery.js"></script>
 </body>
+
 </html>
