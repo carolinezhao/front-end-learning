@@ -38,3 +38,36 @@ para.appendChild(txt2);
 // 1. 逐一创建子节点，并追加到父节点上；
 // 2. 先创建所有子节点，再追加到相应的父节点上。
 
+
+// 在现有元素前插入一个新元素 insertBefore()
+// 语法：parentElement.insertBefore(newElement, targetElement);
+// 父元素可以间接获得：targetElement.parentNode（DOM中，元素节点的父元素必为元素节点）
+var hding2 = document.createElement("h2");
+var txt3 = document.createTextNode("This is inserted by insertBefore.")
+hding2.appendChild(txt3);
+var second = document.getElementById("second");
+second.parentNode.insertBefore(hding2, second);
+
+// 在现有元素后插入一个新元素 insertAfter()
+// DOM没有提供现成的方法，但是可以通过其它方法实现。
+// 使用 nextSibling
+function insertAfter(newElement, targetElement) {
+    var parent2 = targetElement.parentNode;
+    if (parent2.lastChild == targetElement) {
+        parent2.appendChild(newElement);
+    } else {
+        parent2.insertBefore(newElement, targetElement.nextSibling);
+    } 
+}
+// 目标：在id为first的p元素后插入一个h3元素。
+// 最初，first之后的元素是id为second的p元素，但是前面的函数在p之前又插入了一个元素h2。因此h3元素应该出现在h2之前。
+var hding3 = document.createElement("h3");
+var txt4 = document.createTextNode("This is inserted by insertAfter.");
+hding3.appendChild(txt4);
+var first = document.getElementById("first");
+// 注意这里应直接调用 insertAfter，因为其内部已经定义了 parentElement.insertBefore
+insertAfter(hding3, first);
+
+
+
+
