@@ -1,0 +1,14 @@
+/*对于同一元素的同一属性，DOM设置的样式会覆盖CSS中的样式*/
+
+h1 {
+    color: #333333;
+}
+
+h2 {
+    font-style: italic;
+    color: #123456;
+}
+
+#example {
+    color: wheat;
+}
