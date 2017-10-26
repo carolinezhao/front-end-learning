@@ -15,6 +15,36 @@ function exampleStyle() {
     para.style.font = "30px Times, serif";
 }
 
+// 根据元素在节点树中的位置来设置样式。
+// 函数目的：找出紧跟在每个h1元素后面的元素，并把样式添加给它。
+// 应用场景：当文档内有许多h1元素，其后的内容需要定期更新，逐一添加clss属性（通过CSS实现样式）就会是一种负担。
+function styleHeaderSiblings() {
+    if (!document.getElementsByTagName) return false;
+    var headers = document.getElementsByTagName("h1");
+    for (var i = 0; i < headers.length; i++) {
+        // 在两个标签之间（即一个元素的闭合标签之后，下一个元素的起始标签之前）有空白出现时，会有#text节点被插入到DOM中。
+        // alert(headers[i].nextSibling.nodeName); // 显示 #text #text（两个h1的下一个节点都是文本节点）
+        // 如果写为<h1>...</h1><h1>...</h1>，则显示为：H1 #text
+        // alert(headers[i].nextSibling.nodeValue); // 显示空白，因为不是实质的文本节点。
+
+        // 注意：这里需要的不是“下一个节点”，而是“下一个元素节点”。通过 getNextElement 函数实现。
+        var elem = getNextElement(headers[i].nextSibling);
+        elem.style.fontWeight = "bold";
+        elem.style.color = "#20C8A3";
+    }
+}
+
+// 目的：返回下一个元素节点。
+function getNextElement(node) {
+    if (node.nodeType === 1) {
+        return node;
+    }
+    if (node.nextSibling) {
+        return getNextElement(node.nextSibling);
+    }
+    return null;
+}
+
 // 页面加载完毕后执行函数，详见DOM-imagegallery.js
 function addLoadEvent(func) {
     var oldonload = window.onload;
@@ -29,3 +59,4 @@ function addLoadEvent(func) {
 }
 
 addLoadEvent(exampleStyle);
+addLoadEvent(styleHeaderSiblings);
