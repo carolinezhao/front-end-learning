@@ -50,7 +50,7 @@ second.parentNode.insertBefore(hding2, second);
 
 // 在现有元素后插入一个新元素 insertAfter()
 // DOM没有提供现成的方法，但是可以通过其它方法实现。
-// 使用 nextSibling
+// 下一个兄弟元素 nextSibling
 function insertAfter(newElement, targetElement) {
     var parent2 = targetElement.parentNode;
     if (parent2.lastChild == targetElement) {

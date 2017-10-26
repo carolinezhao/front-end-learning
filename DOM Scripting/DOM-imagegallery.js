@@ -119,5 +119,5 @@ function addLoadEvent(func) {
 // 把页面加载完毕时要执行的函数创建为一个队列。当代码比较复杂时，这个函数尤其实用，只需要添加如下语句
 // addLoadEvent(firstFunction);
 // addLoadEvent(secondFunction);
-addLoadEvent(prepareGallery);
 addLoadEvent(preparePlaceholder);
+addLoadEvent(prepareGallery);
