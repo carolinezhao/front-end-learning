@@ -15,7 +15,8 @@ function exampleStyle() {
     para.style.font = "30px Times, serif";
 }
 
-// 根据元素在节点树中的位置来设置样式。
+
+// ＊＊＊ 根据元素在节点树中的位置来设置样式 ＊＊＊
 // 函数目的：找出紧跟在每个h1元素后面的元素，并把样式添加给它。
 // 应用场景：当文档内有许多h1元素，其后的内容需要定期更新，逐一添加clss属性（通过CSS实现样式）就会是一种负担。
 function styleHeaderSiblings() {
@@ -33,7 +34,6 @@ function styleHeaderSiblings() {
         elem.style.color = "#20C8A3";
     }
 }
-
 // 目的：返回下一个元素节点。
 function getNextElement(node) {
     if (node.nodeType === 1) {
@@ -44,6 +44,43 @@ function getNextElement(node) {
     }
     return null;
 }
+
+
+// ＊＊＊ 根据某种条件反复设置某种样式 ＊＊＊
+// 为表格隔行设置样式：当浏览器支持CSS3时使用nth-child，否则通过DOM进行设置。
+// js特别擅长处理重复性任务，使用for或while循环遍历。
+function stripeTables() {
+    if (!document.getElementsByTagName) return false;
+    var tables = document.getElementsByTagName("table");
+    var odd, rows;
+    for (var i = 0; i < tables.length; i++) {
+        // 预设odd为false。第1行，odd为false不染色，odd设为true；第2行，odd为true，染色后odd设为flase……依次循环。
+        odd = false;
+        rows = tables[i].getElementsByTagName("tr");
+        for (var j = 0; j < rows.length; j++) {
+            if (odd == true) {
+                rows[j].style.backgroundColor = "#ddd";
+                odd = false;
+            } else {
+                odd = true;
+            }
+        }
+    }
+}
+// 书中方法相比于以下方法有什么优势？
+// function stripeTables() {
+//     if (!document.getElementsByTagName) return false;
+//     var tables = document.getElementsByTagName("table");
+//     for (var i = 0; i < tables.length; i++) {
+//         var rows = tables[i].getElementsByTagName("tr");
+//         for (var j = 0; j < rows.length; j++) {
+//             if (j % 2 != 0) {
+//                 rows[j].style.backgroundColor = "#777";
+//             }
+//         }
+//     }
+// }
+
 
 // 页面加载完毕后执行函数，详见DOM-imagegallery.js
 function addLoadEvent(func) {
@@ -60,3 +97,4 @@ function addLoadEvent(func) {
 
 addLoadEvent(exampleStyle);
 addLoadEvent(styleHeaderSiblings);
+addLoadEvent(stripeTables);

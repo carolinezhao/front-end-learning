@@ -1,4 +1,9 @@
-/*对于同一元素的同一属性，DOM设置的样式会覆盖CSS中的样式*/
+/*对于同一元素的同一属性，DOM设置的样式会覆盖CSS中的样式（包括继承自body的样式和专属样式）*/
+body {
+    font-family: Helvetica, sans-serif;
+    background-color: #fff;
+    color: #000;
+}
 
 h1 {
     color: #333333;
@@ -11,4 +16,45 @@ h2 {
 
 #example {
     color: wheat;
+}
+
+/*＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
+         
+        Table样式
+
+＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊*/
+table {
+    margin: auto;
+    border: 1px solid #699;
+}
+
+caption {
+    margin: auto;
+    padding: .2em;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+th {
+    font-weight: normal;
+    font-style: italic;
+    text-align: left;
+    border: 1px dotted #699;
+    background-color: #9cc;
+    color: #000;
+}
+
+th,td {
+    width: 10em;
+    padding: .5em;
+}
+
+/*将表格里的行设为交替色*/
+/*当浏览器支持CSS3时可使用 nth-child，不支持时则使用DOM方法*/
+tr:nth-child(odd) {
+    background-color: #dd6e6e;
+}
+
+tr:nth-child(even) {
+    background-color: #fff;
 }
