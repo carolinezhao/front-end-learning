@@ -47,7 +47,7 @@ function getNextElement(node) {
 
 
 // ＊＊＊ 根据某种条件反复设置某种样式 ＊＊＊
-// 为表格隔行设置样式：当浏览器支持CSS3时使用nth-child，否则通过DOM进行设置。
+// 为表格隔行设置样式：当浏览器支持CSS3时使用nth-child（优先使用CSS设置样式），否则通过DOM进行设置。
 // js特别擅长处理重复性任务，使用for或while循环遍历。
 function stripeTables() {
     if (!document.getElementsByTagName) return false;
@@ -82,6 +82,23 @@ function stripeTables() {
 // }
 
 
+// ＊＊＊ 响应事件 ＊＊＊
+// 大多数浏览器都支持对a设置:hover，对其他元素不一定支持，可以使用DOM事件进行设置。
+// 当同时设置时，CSS中的 hover 会覆盖DOM中的 onmouseover 事件。
+function highlightRows() {
+    if (!document.getElementsByTagName) return false;
+    var rows = document.getElementsByTagName("tr");
+    for (var i = 0; i < rows.length; i++) {
+        rows[i].onmouseover = function() {
+            this.style.fontWeight = "bold";
+        }
+        rows[i].onmouseout = function() {
+            this.style.fontWeight = "normal";
+        }
+    }
+}
+
+
 // 页面加载完毕后执行函数，详见DOM-imagegallery.js
 function addLoadEvent(func) {
     var oldonload = window.onload;
@@ -98,3 +115,4 @@ function addLoadEvent(func) {
 addLoadEvent(exampleStyle);
 addLoadEvent(styleHeaderSiblings);
 addLoadEvent(stripeTables);
+addLoadEvent(highlightRows);

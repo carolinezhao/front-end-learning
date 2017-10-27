@@ -49,6 +49,7 @@ th,td {
     padding: .5em;
 }
 
+/*根据某种条件反复设置某种样式*/
 /*将表格里的行设为交替色*/
 /*当浏览器支持CSS3时可使用 nth-child，不支持时则使用DOM方法*/
 tr:nth-child(odd) {
@@ -57,4 +58,11 @@ tr:nth-child(odd) {
 
 tr:nth-child(even) {
     background-color: #fff;
+}
+
+/*响应事件*/
+/*大多数浏览器都支持对a设置:hover,对其他元素不一定支持，可以使用DOM事件进行设置*/
+/*当同时设置时，CSS中的 hover 会覆盖DOM中的 onmouseover 事件*/
+tr:hover {
+    color: red;
 }
