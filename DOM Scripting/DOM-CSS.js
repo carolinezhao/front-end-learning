@@ -82,6 +82,26 @@ function stripeTables() {
 // }
 
 
+// ＊＊＊ className属性 ＊＊＊
+// 用DOM设置样式时不需要直接与style属性打交道。
+// element.className = "class", .class{} 是在CSS中设置的样式。
+// 需要给一个元素追加新的clss时，步骤为：
+// 1. 检查className属性的值是否为null；
+// 2. 如果是，把新的class设置值直接赋值给className；
+// 3. 如果不是，把一个空格和新的class追加。
+// 以上步骤可以封装为函数 addClass
+function addClass(element, value) {
+    if (!element.className) {
+        element.className = value;
+    } else {
+        var newClassName = element.className;
+        newClassName += " ";
+        newClassName += value;
+        element.className = newClassName;
+    }
+}
+
+
 // ＊＊＊ 响应事件 ＊＊＊
 // 大多数浏览器都支持对a设置:hover，对其他元素不一定支持，可以使用DOM事件进行设置。
 // 当同时设置时，CSS中的 hover 会覆盖DOM中的 onmouseover 事件。
