@@ -32,6 +32,8 @@ function styleHeaderSiblings() {
         var elem = getNextElement(headers[i].nextSibling);
         elem.style.fontWeight = "bold";
         elem.style.color = "#20C8A3";
+        // 使用 addClass 函数（className 属性）追加样式，可以替代 style属性。
+        addClass(elem, "intro");
     }
 }
 // 目的：返回下一个元素节点。
@@ -59,7 +61,8 @@ function stripeTables() {
         rows = tables[i].getElementsByTagName("tr");
         for (var j = 0; j < rows.length; j++) {
             if (odd == true) {
-                rows[j].style.backgroundColor = "#ddd";
+                // rows[j].style.backgroundColor = "#ddd";
+                rows[j].className = "odd";
                 odd = false;
             } else {
                 odd = true;
@@ -83,9 +86,9 @@ function stripeTables() {
 
 
 // ＊＊＊ className属性 ＊＊＊
-// 用DOM设置样式时不需要直接与style属性打交道。
-// element.className = "class", .class{} 是在CSS中设置的样式。
-// 需要给一个元素追加新的clss时，步骤为：
+// 用DOM设置样式时不需要直接与style属性打交道，实现表现层和行为层的分离。
+// element.className = "class", .class{} 是在CSS中设置的样式。如果有原有样式，则会被替代而不是追加。
+// 需要给一个元素追加新的class时，步骤为：
 // 1. 检查className属性的值是否为null；
 // 2. 如果是，把新的class设置值直接赋值给className；
 // 3. 如果不是，把一个空格和新的class追加。
