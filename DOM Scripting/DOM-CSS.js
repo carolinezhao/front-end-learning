@@ -47,6 +47,19 @@ function getNextElement(node) {
     return null;
 }
 
+// ＊＊＊ 对函数进行抽象 ＊＊＊
+// 改写 styleHeaderSiblings 函数使其可以广泛应用于另一种tag或另一个class。
+function styleElementSiblings(tag, theclass) {
+    if (!document.getElementsByTagName) return false;
+    var elems = document.getElementsByTagName(tag);
+    var elem;
+    for (var i = 0; i < elems.length; i++) {
+        elem = getNextElement(elems[i].nextSibling);
+        addClass(elem, theclass);
+    }
+}
+// styleElementSiblings("h1", "intro");
+
 
 // ＊＊＊ 根据某种条件反复设置某种样式 ＊＊＊
 // 为表格隔行设置样式：当浏览器支持CSS3时使用nth-child（优先使用CSS设置样式），否则通过DOM进行设置。
