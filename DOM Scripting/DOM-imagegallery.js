@@ -77,6 +77,10 @@ function prepareGallery() {
 
 // 改进版本2.0
 function preparePlaceholder() {
+    if (!document.createElement) return false;
+    if (!document.createTextNode) return false;
+    if (!document.getElementById) return false;
+    if (!document.getElementById("imagegallery")) return false;
     var placeholder = document.createElement("img");
     placeholder.setAttribute("id", "placeholder");
     placeholder.setAttribute("src", "image/placeholder.png");
@@ -85,9 +89,25 @@ function preparePlaceholder() {
     description.setAttribute("id", "description");
     var destext = document.createTextNode("Choose an item from the list to view the image.");
     description.appendChild(destext);
-    document.getElementsByTagName("body")[0].appendChild(placeholder);
-    document.getElementsByTagName("body")[0].appendChild(description);
+    // document.getElementsByTagName("body")[0].appendChild(placeholder);
+    // document.getElementsByTagName("body")[0].appendChild(description);
+    // 用 insertAfter 函数实现在目标元素之后插入元素的效果
+    var gallery = document.getElementById("imagegallery");
+    insertAfter(placeholder, gallery);
+    insertAfter(description, placeholder);
 }
+
+// 改进版本3.0
+// 在 preparePlaceholder 函数中使用 insertAfter 函数（详见DOM-basic-usage-2.js）
+function insertAfter(newElement, targetElement) {
+    var parent2 = targetElement.parentNode;
+    if (parent2.lastChild == targetElement) {
+        parent2.appendChild(newElement);
+    } else {
+        parent2.insertBefore(newElement, targetElement.nextSibling);
+    } 
+}
+
 
 // ＊＊＊ 为函数绑定 window.onload ＊＊＊
 // prepareGallery函数中涉及对DOM元素的检查，因此需要函数在页面全部加载完毕后执行。

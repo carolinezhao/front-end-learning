@@ -53,12 +53,15 @@ second.parentNode.insertBefore(hding2, second);
 // 下一个兄弟元素 nextSibling
 function insertAfter(newElement, targetElement) {
     var parent2 = targetElement.parentNode;
+    // 检查目标元素是不是parent的最后一个子元素
     if (parent2.lastChild == targetElement) {
         parent2.appendChild(newElement);
     } else {
+        // 新元素插入到，目标元素的下一个兄弟元素之前，即目标元素之后
         parent2.insertBefore(newElement, targetElement.nextSibling);
     } 
 }
+
 // 目标：在id为first的p元素后插入一个h3元素。
 // 最初，first之后的元素是id为second的p元素，但是前面的函数在p之前又插入了一个元素h2。因此h3元素应该出现在h2之前。
 var hding3 = document.createElement("h3");
@@ -67,7 +70,3 @@ hding3.appendChild(txt4);
 var first = document.getElementById("first");
 // 注意这里应直接调用 insertAfter，因为其内部已经定义了 parentElement.insertBefore
 insertAfter(hding3, first);
-
-
-
-
