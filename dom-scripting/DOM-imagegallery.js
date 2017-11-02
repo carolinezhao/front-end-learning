@@ -76,6 +76,7 @@ function prepareGallery() {
 // 作者认为，如果一个函数有多个出口，只要它们集中出现在函数的开头部分，就是可以接受的。
 
 // 改进版本2.0
+// 动态创建标记：img元素和p元素，并插入到节点树里图片清单的后面。
 function preparePlaceholder() {
     if (!document.createElement) return false;
     if (!document.createTextNode) return false;
@@ -120,6 +121,7 @@ function insertAfter(newElement, targetElement) {
 //     secondFunction();
 // }
 
+// ＊＊＊ 通用型函数 ＊＊＊
 // window.onload 最佳解决方案
 // 唯一参数：打算在页面加载完毕时执行的函数
 function addLoadEvent(func) {

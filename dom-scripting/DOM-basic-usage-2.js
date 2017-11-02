@@ -48,7 +48,8 @@ hding2.appendChild(txt3);
 var second = document.getElementById("second");
 second.parentNode.insertBefore(hding2, second);
 
-// 在现有元素后插入一个新元素 insertAfter()
+// ＊＊＊ 通用型函数 ＊＊＊
+// 在现有元素后插入一个新元素 insertAfter() 
 // DOM没有提供现成的方法，但是可以通过其它方法实现。
 // 下一个兄弟元素 nextSibling
 function insertAfter(newElement, targetElement) {
