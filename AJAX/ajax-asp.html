@@ -20,9 +20,7 @@
                     document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
                 }
             }
-            // 调用 ASP 文件，名为 "gethint.asp"，向 URL 添加了一个参数 q （带有输入框的内容）
-            // ? 之后是参数组，以&分隔，每组参数都是由参数名和参数值组成，如 ?a=1&b=2&c=hello
-            // 有些字符会被转译，比如中文，标点，空格
+            // 调用 ASP 文件，名为 "ajax-asp.asp"，向 URL 添加了一个参数 q （带有输入框的内容）
             xmlhttp.open("GET", "/ajax/ajax-asp.asp?q=" + str, true);
             xmlhttp.send();
         }
