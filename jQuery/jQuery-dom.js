@@ -13,6 +13,7 @@
 //    "attribute2": "value2"
 // });
 
+
 $(document).ready(function () {
     $("#btn1").click(function () {
         alert("Text: " + $("#test").text());
@@ -34,5 +35,19 @@ $(document).ready(function () {
     });
     $("#btn7").click(function () {
         $("#content").attr("placeholder", "please input");
+    });
+
+    // 回调函数有两个参数：被选元素列表中当前元素的下标，以及原始（旧的）值。然后以函数新值返回您希望使用的字符串。
+    $("#btn8").click(function () {
+        $("#test1").text(function (i, origText) {
+            // text 只读取文本，不读取 html 元素
+            return "Old text: " + origText + " New text: Hello world! (index: " + i + ")";
+        });
+    });
+    
+    $("#btn9").click(function () {
+        $("#test2").html(function (i, origText) {
+            return "Old html: " + origText + " New html: Hello <b>world!</b> (index: " + i + ")";
+        });
     });
 });
