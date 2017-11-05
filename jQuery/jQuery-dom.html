@@ -11,17 +11,43 @@
     <button id="btn1">显示文本</button>
     <button id="btn2">显示 HTML</button>
     <button id="btn4">修改文本</button>
+    <hr>
 
     <p>姓名：<input type="text" id="content" placeholder="请输入"></p>
     <button id="btn3">显示表单字段</button>
     <button id="btn5">显示 type 属性值</button>
     <button id="btn7">设置 placeholder 属性值</button>
     <button id="btn6">设置表单字段</button>
+    <button id="btn10">显示旧/新 placeholder 属性值</button>
+    <hr>
 
     <p id="test1">这是<b>粗体</b>文本。</p>
     <p id="test2">这是另一段<b>粗体</b>文本。</p>
     <button id="btn8">显示旧/新文本</button>
     <button id="btn9">显示旧/新 HTML</button>
+    <hr>
+
+    <p class="p1">This is a paragraph.</p>
+    <p class="p1">This is another paragraph.</p>
+    <ol id="ol1">
+    <li>List item 1</li>
+    <li>List item 2</li>
+    <li>List item 3</li>
+    </ol>
+    <button id="add1">追加文本</button>
+    <button id="add2">追加列表项</button>
+    <button id="add3">在文本后添加文本</button>
+    <button id="add4">在列表项后添加文本</button>
+    <hr>
+
+    <p id="p2">This is a paragraph.</p>
+    <button onclick="appendText()">追加文本</button>
+    <hr>
+
+    
+    <a href="#">Use jQuery</a>
+    <br><br>
+    <button onclick="afterLink()">在链接里和链接后添加文本</button>
 
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <script src="./jQuery-dom.js"></script>
