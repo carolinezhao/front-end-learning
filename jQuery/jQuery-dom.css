@@ -1,0 +1,25 @@
+.content {
+    margin: auto;
+    width: 50%;
+}
+
+button {
+    color: white;
+    background-color: #00a6ab;
+    border: 1px solid #00a6ab;
+    border-radius: 3px;
+}
+
+.violet {
+    background-color: hotpink;
+}
+
+.important {
+    background-color: yellow;
+}
+
+.big {
+    font-size: 20px;
+    font-style: bold;
+    color: gray;
+}

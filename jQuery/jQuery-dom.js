@@ -83,6 +83,36 @@ function basicUse() {
         $("#ol1").before("<li>insert before</li>");
     });
 
+    // 删除元素和内容
+    // remove() - 删除被选元素（及其子元素）
+    // empty() - 从被选元素中删除子元素
+    $("#empty").click(function () {
+        $("#div1").empty();
+    });
+
+    $("#remove1").click(function () {
+        $("#div1").remove();
+    });
+
+    // 过滤被删除的元素
+    // jQuery remove() 方法也可接受一个参数，允许对被删元素进行过滤。
+    // 删除 class="italic" 的所有 <p> 元素：
+    $("#remove2").click(function () {
+        $("p").remove(".italic");
+    });
+
+    // jQuery 操作 CSS
+    // addClass() - 向被选元素添加一个或多个类
+    // removeClass() - 从被选元素删除一个或多个类
+    // toggleClass() - 对被选元素进行添加/删除类的切换操作
+    // css() - 设置或返回样式属性
+
+    $("#addclass").click(function () {
+        // 注意addClass里一定要填的是class，且不用带.
+        $("a").addClass("big violet");
+        $(".p1").addClass("important");
+    });
+
 }
 
 // 易混：DOM方法 vs jQuery方法
@@ -110,6 +140,8 @@ function afterLink() {
     $("a").append(txt2);
     // 为啥 after 里不出现 txt2 了？？
 }
+
+
 
 // 易混：需要立即执行的函数 vs 事件函数
 $(document).ready(function () {
