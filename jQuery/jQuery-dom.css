@@ -10,6 +10,13 @@ button {
     border-radius: 3px;
 }
 
+.div1 {
+    height: 100px;
+    width: 300px;
+    border: 1px solid black;
+    /* background-color: yellow; */
+}
+
 .violet {
     background-color: hotpink;
 }
@@ -21,5 +28,9 @@ button {
 .big {
     font-size: 20px;
     font-style: bold;
-    color: gray;
+    color: grey;
+}
+
+.change {
+    border: 2px dotted #00a6ab;
 }

@@ -109,10 +109,35 @@ function basicUse() {
 
     $("#addclass").click(function () {
         // 注意addClass里一定要填的是class，且不用带.
+        // 可选取多个元素，可添加多个class，用空格分隔
         $("a").addClass("big violet");
         $(".p1").addClass("important");
+        // 相同的属性，已写在CSS里的会被覆盖，写在style里不会被覆盖。
+        $(".div1").addClass("violet");
     });
 
+    $("#removeclass").click(function () {
+        // 相同的属性，已写在CSS里的会被移除，写在style里的不会被移除。
+        $(".div1").removeClass("div1");
+    });
+
+    $("#toggleclass").click(function () {
+        $("#p2").toggleClass("big change");
+    });
+
+    // 读取属性值 css("propertyname");
+    $("#readproperty").click(function () {
+        alert("Background color = " + $("button").css("background-color"));
+    });
+
+    // 设置属性值 css("propertyname","value");
+    // 设置多个 css({"propertyname":"value","propertyname":"value",...});
+    $("#setproperty").click(function () {
+        $("button").css({
+            "background-color": "purple",
+            "border-color": "grey"
+        });
+    });
 }
 
 // 易混：DOM方法 vs jQuery方法
