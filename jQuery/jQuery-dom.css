@@ -17,6 +17,21 @@ button {
     /* background-color: yellow; */
 }
 
+.div2 {
+    height: 200px;
+    width: 300px;
+    border: 2px dotted brown;
+    border-radius: 5px;
+    background-color: wheat;
+    padding: 20px 10px;
+    margin: 5px 2px 15px 2px;
+}
+
+.div3 {
+    border: 3px double royalblue;
+    margin-bottom: 20px;
+}
+
 .violet {
     background-color: hotpink;
 }

@@ -138,6 +138,39 @@ function basicUse() {
             "border-color": "grey"
         });
     });
+
+    // 处理尺寸的方法
+    // **只对 content 有效
+    // width() 设置或返回元素的宽度（不包括内边距、边框或外边距）。
+    // height() 设置或返回元素的高度（不包括内边距、边框或外边距）。
+    // **对 content+padding 有效
+    // innerWidth() 返回元素的宽度（包括内边距）。
+    // innerHeight() 返回元素的高度（包括内边距）。
+    // **对 conetent+padding+border 有效
+    // outerWidth() 返回元素的宽度（包括内边距和边框）。
+    // outerHeight() 返回元素的高度（包括内边距和边框）。
+    // **对 conetent+padding+border+margin（整体）有效
+    // outerWidth(true) 方法返回元素的宽度（包括内边距、边框和外边距）。
+    $("#measure").click(function () {
+        var txt="";
+        txt+="Width of div: " + $(".div2").width() + "</br>";
+        txt+="Height of div: " + $(".div2").height() + "</br>";
+        txt+="innerWidth of div: " + $(".div2").innerWidth() + "</br>";
+        txt+="innerHeight of div: " + $(".div2").innerHeight() + "</br>";
+        txt+="outerWidth of div: " + $(".div2").outerWidth() + "</br>";
+        txt+="outerHeight of div: " + $(".div2").outerHeight() + "</br>";
+        txt+="outerWidth(true) of div: " + $(".div2").outerWidth(true) + "</br>";
+        txt+="outerHeight(true) of div: " + $(".div2").outerHeight(true);             
+        $(".div2").html(txt);
+    });
+
+    $("#setsize").click(function () {
+        $(".div3").width(260).height(120);            
+    });
+
+
+
+
 }
 
 // 易混：DOM方法 vs jQuery方法
