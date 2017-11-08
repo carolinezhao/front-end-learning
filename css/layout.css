@@ -1,0 +1,109 @@
+/* display：table-cell
+对宽度高度敏感
+对margin值无反应
+响应padding属性
+内容溢出时会自动撑开父元素 
+
+会被float，position：absolute等属性破坏效果，应避免同时使用。*/
+
+
+/* 案例1: 大小不固定元素的垂直居中，配合内容的两个属性使用 */
+
+
+/* 容器 */
+
+.content-1 {
+    display: table-cell;
+    padding: 10px;
+    border: 2px solid #999;
+    /* margin不起作用 */
+    margin: 10px;
+    /* 设置了宽高，宽度小于内容，于是高度被撑开 */
+    /* width: 500px; */
+    /* height: 300px; */
+}
+
+
+/* 内容 */
+
+.content-1 div {
+    /* 此情况下content宽度由实际内容决定 */
+    display: inline-block;
+    vertical-align: middle;
+}
+
+
+/* 案例2: 两列自适应布局 */
+
+.content-2 {
+    display: table;
+    padding: 10px;
+    border: 2px solid #999;
+}
+
+.left-box {
+    /* 设置此属性后悬浮于原界面之上 */
+    float: left;
+    margin-right: 10px;
+}
+
+.right-box {
+    /* 实现与.left-box的自适应布局。
+    如果使用inline-block也能实现与左侧并列，但是其高度由内容而定。 */
+    display: table-cell;
+    padding: 10px;
+    /* width: 3000px; */
+    vertical-align: middle;
+    border: 1px solid #ccc;
+}
+
+
+/* 案例3: 等高布局 */
+
+.content-3 {
+    display: table;
+    padding: 10px;
+    border: 2px solid #999;
+}
+
+.box1 {
+    display: table-cell;
+    width: 100px;
+    border: 1px solid #ccc;
+}
+
+.box2 {
+    display: table-cell;
+    border: 1px solid #ccc;
+}
+
+
+/* 案例4: 和inline-block组合使用 */
+
+.content-4 {
+    display: table;
+    padding: 10px;
+    margin: 10px auto;
+    width: 1000px;
+    border: 2px solid #999;
+}
+
+.left {
+    display: table-cell;
+    text-align: left;
+    border: 1px solid #0cf;
+}
+
+.right {
+    display: table-cell;
+    text-align: right;
+    border: 1px solid #fc0;
+}
+
+.box {
+    /* inline-block是为了配合text-align使用 */
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    border: 1px solid #ccc;
+}
