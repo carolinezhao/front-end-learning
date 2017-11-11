@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>菱形图片</title>
+    <style>
+        .picture1,
+        .picture2,
+        .picture3 {
+            margin: 100px;
+            border: 2px dotted saddlebrown;
+            border-top: 3px dotted salmon;
+            width: 200px;
+            /* 容器及其内部元素都会旋转45度 */
+            transform: rotate(45deg);
+            overflow: hidden;
+            display: inline-block;
+        }
+
+        .picture1>img {
+            /* 100%指的是容器的边长，尽管旋转了角度，其边长仍是原来定义的200px。因此图片无法占满容器。 */
+            max-width: 100%;
+            transform: rotate(-45deg);
+        }
+
+        .picture2,
+        .picture3 {
+            height: 200px;
+        }
+
+        .picture2>img {
+            /* 基于例1，应让图片宽度与容器的对角线相等，使用勾股定理，对角线应为边长的根号二倍，即约为1.42。
+             但是通过width属性放大图片，是以左上角为原点进行缩放，若想占满容器需要调整边距。*/
+            max-width: 142%;
+            transform: rotate(-45deg);
+        }
+
+        .picture3>img {
+            /* 基于例2，希望图片以中心为原点进行缩放，使用scale */
+            max-width: 100%;
+            transform: rotate(-45deg) scale(1.42);
+        }
+
+        .picture4 {
+            margin: 100px;
+            border: 2px dotted saddlebrown;
+            border-top: 3px dotted salmon;
+            width: 200px;
+            height: 200px;
+            display: inline-block;
+        }
+
+        .picture4>img {
+            max-width: 200px;
+            /* 不依赖容器，用多边形函数指定菱形，用逗号分隔顶点坐标 */
+            clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);          
+            transition: 1s clip-path;
+        }
+
+        .picture4>img:hover {
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+        }
+    </style>
+</head>
+
+<body>
+    <h1>基于变形的方案</h1>
+    <div class="picture1">
+        <img src="../img/atlas-space.jpg" alt="">
+    </div>
+    <div class="picture2">
+        <img src="../img/atlas-space.jpg" alt="">
+    </div>
+    <div class="picture3">
+        <img src="../img/atlas-space.jpg" alt="">
+    </div>
+
+    <h1>裁切路径方案</h1>
+    <div class="picture4">
+        <img src="../img/atlas-space.jpg" alt="">
+    </div>
+
+</body>
+
+</html>
