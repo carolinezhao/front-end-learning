@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>隐藏文本</title>
+    <style>
+        .card {
+            width: 250px;
+            position: absolute;
+            border: 1px dotted salmon;
+        }
+
+        #content {
+            width: 150px;
+            height: 20px;
+            float: left;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            word-wrap: break-word;
+            word-break: break-all;       
+            border: 1px dotted saddlebrown;
+        }
+
+        a {
+            float: right;
+            margin-left: 30px;
+            /* 以下三句其实和float:right;的作用基本是重复的 */
+            /* position: absolute;
+            top: 0;
+            right: 0; */
+            border: 1px dotted seagreen;
+        }
+
+        #pack {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <div id="content">
+            first my gaze toward the moon, but the moon shines on the ditch. “我本一心向明月，奈何明月照沟渠”
+        </div>
+        <a Onclick='more()' id='expand'>
+            展开
+        </a>
+        <a Onclick='pack()' id="pack">
+            收起
+        </a>
+    </div>
+
+    <script src="content-text-overflow.js"></script>
+</body>
+
+</html>
