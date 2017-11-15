@@ -27,7 +27,7 @@ button {
     margin: 5px 2px 15px 2px;
 }
 
-.div3 {
+.div3, .div4{
     border: 3px double royalblue;
     margin-bottom: 20px;
 }

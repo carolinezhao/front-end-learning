@@ -17,6 +17,7 @@ JSON 语法是 JavaScript 对象表示法语法的子集。
 { "firstName":"Peter" , "lastName":"Jones" }
 ]
 }
+在纯文本中，既可以表示js对象，也可以表示json字符串，因为文本中不需要加引号。js文件中引号用于明确区分。
 
 * 创建一个对象数组，并进行赋值
 var employees = [
@@ -33,3 +34,13 @@ employees[0].lastName;
 employees[0].lastName = "Jobs";
 
 
+
+JSON 文件的文件类型是 ".json"
+JSON 文本的 MIME 类型是 "application/json"
+
+把 JSON 文本转换为 JavaScript 对象
+JSON 最常见的用法之一，是从 web 服务器上读取 JSON 数据（作为文件或作为 HttpRequest），将 JSON 数据转换为 JavaScript 对象，然后在网页中使用该数据。
+
+
+json 是字符串，js 对象
+用引号区分（非文本环境下）

@@ -168,7 +168,14 @@ function basicUse() {
         $(".div3").width(260).height(120);            
     });
 
-
+    $("#window").click(function(){
+        var txt="";
+        txt+="Document width/height: " + $(document).width();
+        txt+="x" + $(document).height() + "</br>";
+        txt+="Window width/height: " + $(window).width();
+        txt+="x" + $(window).height();
+        $(".div4").html(txt);
+      });
 
 
 }
