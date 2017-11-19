@@ -10,7 +10,30 @@
     <span>You have been here </span>
     <span id="visit-times">##NOT LOADED##</span>
     <span> time(s).</span>
-    
+
+    <form>
+        <div>
+            <label for="bgcolor">Choose background color:</label>
+            <input class="color" id="bgcolor" value="FF0000">
+        </div>
+        <div>
+            <label for="font">Choose font style:</label>
+            <select id="font">
+                <option value="'Open Sans Condensed', sans-serif" selected>Sans-serif</option>
+                <option value="'Bitter', serif">Serif</option>
+                <option value="'Ubuntu Mono'">Monospace</option>
+            </select>
+        </div>
+        <div>
+            <label for="image">Choose image:</label>
+            <select id="image">
+                <option value="images/firefoxos.png" selected>Firefox</option>
+                <option value="images/crocodile.png">Crocodile</option>
+                <option value="images/tortoise.png">Tortoise</option>
+            </select>
+        </div>
+    </form>
+
     <script src="local-storage.js"></script>
 </body>
 
