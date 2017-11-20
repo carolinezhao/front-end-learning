@@ -3,11 +3,21 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>Output</title>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Bitter|Ubuntu+Mono' rel='stylesheet' type='text/css'>
 </head>
 
 <body>
     <ul>
+        <li>Key:
+            <span class="my-key"></span>
+        </li>
+        <li>Old value:
+            <span class="my-old"></span>
+        </li>
+        <li>New value:
+            <span class="my-new"></span>
+        </li>
         <li>URL:
             <span class="my-url"></span>
         </li>
@@ -18,8 +28,12 @@
 
     <script>
         // 通过 StorageEvent 响应存储的变化
-        // 无论何时，Storage 对象发生变化时（即创建/更新/删除数据项时，重复设置相同的键值不会触发该事件，Storage.clear() 方法至多触发一次该事件），StorageEvent 事件会触发。在同一个页面内发生的改变不会起作用——在相同域名下的其他页面（如一个新标签或 iframe）发生的改变才会起作用。在其他域名下的页面不能访问相同的 Storage 对象。
+        // 无论何时，Storage 对象发生变化时（即创建/更新/删除数据项时，重复设置相同的键值不会触发该事件，Storage.clear() 方法至多触发一次该事件），StorageEvent 事件会触发。
+        // 在同一个页面内发生的改变不会起作用——在相同域名下的其他页面（如一个新标签或 iframe）发生的改变才会起作用。在其他域名下的页面不能访问相同的 Storage 对象。
         window.addEventListener('storage', function (e) {
+            document.querySelector('.my-key').textContent = e.key;
+            document.querySelector('.my-old').textContent = e.oldValue;
+            document.querySelector('.my-new').textContent = e.newValue;
             document.querySelector('.my-url').textContent = e.url;
             document.querySelector('.my-storage').textContent = e.storageArea;
         });
