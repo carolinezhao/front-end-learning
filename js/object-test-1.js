@@ -1,3 +1,4 @@
+// example 1
 var myCar = new Object();
 myCar.make = 'Ford';
 myCar.model = 'Mustang';
@@ -17,3 +18,27 @@ function showProps(obj, objName) {
     return result;
 }
 showProps(myCar, "myCar");
+
+// example 2
+var obj = {a: 1, b: 2, c: 3};
+
+for (const prop in obj) {
+console.log(`obj.${prop} = ${obj[prop]}`);
+}
+
+// example 3
+var triangle = {a: 1, b: 2, c: 3};
+function ColoredTriangle() {
+  this.color = 'red';
+}
+ColoredTriangle.prototype = triangle;
+console.log(ColoredTriangle);
+console.log(triangle);
+
+
+var obj = new ColoredTriangle();
+for (const prop in obj) {
+  if (obj.hasOwnProperty(prop)) {
+    console.log(`obj.${prop} = ${obj[prop]}`);
+  } 
+}
