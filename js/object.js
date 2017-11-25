@@ -30,29 +30,11 @@ myCar[propertyName] = 'Ford';
 propertyName = 'model';
 myCar[propertyName] = 'Mustang';
 
-// use the bracket notation with for...in to iterate over all the enumerable properties of an object
-function showProps(obj, objName) { //前者是变量，后者是变量名
-    var result = '';
-    // for (key in data), for(value of data)
-    for (var i in obj) {
-        // obj.hasOwnProperty() is used to filter out properties from the object's prototype chain ???
-        if (obj.hasOwnProperty(i)) {
-            console.log(objName)
-            result += objName + '.' + i + ' = ' + obj[i] + '\n';
-        }
-    }
-    return result;
-}
-
-// run in object-test-1.js
-showProps(myCar, "myCar")
-// return the following:
-myCar.make = Ford
-myCar.model = Mustang
-myCar.year = 1969
 
 // Enumerate the properties of an object
-for (variable in object) { ...
-}
+// traverses all enumerable properties of an object and its prototype chain
+for (variable in object) { }
+// returns an array with all the own (not in the prototype chain) enumerable properties' names ("keys")
 Object.keys(o)
+// returns an array containing all own properties' names (enumerable or not) of an object o
 Object.getOwnPropertyNames(o)
