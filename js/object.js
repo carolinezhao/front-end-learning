@@ -33,8 +33,44 @@ myCar[propertyName] = 'Mustang';
 
 // Enumerate the properties of an object
 // traverses all enumerable properties of an object and its prototype chain
-for (variable in object) { }
+for (variable in object) {}
 // returns an array with all the own (not in the prototype chain) enumerable properties' names ("keys")
 Object.keys(o)
 // returns an array containing all own properties' names (enumerable or not) of an object o
 Object.getOwnPropertyNames(o)
+
+
+// Creating new objects
+// Using object initializers
+var obj = {
+    property_1: value_1, // property_# may be an identifier...
+    2: value_2, // or a number...
+    // ...,
+    'property n': value_n
+}; // or a string
+
+// 条件为true时，object被创建
+if (cond) var x = {
+    greeting: 'hi there'
+};
+
+// engine property 本身也是个 object
+var myHonda = {
+    color: 'red',
+    wheels: 4,
+    engine: {
+        cylinders: 4,
+        size: 2.2
+    }
+};
+
+// Using a constructor function
+// To define an object type, create a function for the object type that specifies its name, properties, and methods.
+// Notice the use of this to assign values to the object's properties based on the values passed to the function.
+function Car(make, model, year) {
+    this.make = make;
+    this.model = model;
+    this.year = year;
+}
+
+var mycar = new Car('Eagle', 'Talon TSi', 1993);

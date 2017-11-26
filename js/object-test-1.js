@@ -70,4 +70,33 @@ console.log('\n');
 console.log(Object.getOwnPropertyNames(obj)); // 不打印 prototype 中的
 console.log('\n');
 
+// ====================== example 4 ======================
+function Person(name, age, sex) {
+  this.name = name;
+  this.age = age;
+  this.sex = sex;
+}
+
+var rand = new Person('Rand McKinnon', 33, 'M');
+var ken = new Person('Ken Jones', 39, 'M');
+console.log(rand.age);
+console.log('\n');
+
+
+function Car(make, model, year, owner) {
+  this.make = make;
+  this.model = model;
+  this.year = year;
+  this.owner = owner;
+}
+
+var car1 = new Car('Eagle', 'Talon TSi', 1993, rand);
+var car2 = new Car('Nissan', '300ZX', 1992, ken);
+console.log(car2.owner.name);
+console.log('\n');
+
+car1.color = 'black';
+console.log(car1);
+
+
 
