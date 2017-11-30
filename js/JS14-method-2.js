@@ -24,9 +24,10 @@ console.log(rabbit.age); //返回新的值
 console.log(rabbit.getYearOfBirth()); //调用并获得返回值
 console.log('\n');
 
-// ================= this =================
+// ================= this 1: works for everyone =================
 // The keyword "this" acts as a placeholder, and will refer to whichever object called that method when the method is actually used.
 // 用this定义的method，可以被多个object调用。
+// 不能直接调用setAge，因为其中的this指代不明。
 var setAge = function (newAge) {
 	console.log('this refer to', this);
 	this.age = newAge; //如果调用这个method的object中有这个property，则覆盖其值；如果没有，则创建
@@ -61,3 +62,22 @@ console.log(bob.age, bear.age);
 console.log(" ");
 console.log(bear.setAgeNoRV(35));
 console.log(bob.age, bear.age);
+console.log('\n');
+
+// ================= this 2 =================
+// this is still a placeholder, but in this scenario, this can only ever refer to rectangle.
+var rectangle = new Object();
+rectangle.height = 3;
+rectangle.width = 4;
+// method
+rectangle.setHeight = function (newHeight) {
+	console.log('this refer to', this);	
+	this.height = newHeight;
+};
+rectangle.setWidth = function (newWidth) {
+	this.width = newWidth;
+};
+// 调用method
+rectangle.setHeight(8);
+rectangle.setWidth(10);
+console.log(rectangle.height,rectangle.width);
