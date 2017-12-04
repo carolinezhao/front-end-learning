@@ -36,6 +36,11 @@ An advantage of this is that we can also use variables  whose values are propert
 		var Obj = {propertyName: value};
 		var myProperty = 'propertyName';
 		Obj[myProperty];
+can be used in for/in loop to get all properties or values.
+
+		for (key in object) {
+		     console.log(object[key]);
+		}
 
 ### Methods
 
