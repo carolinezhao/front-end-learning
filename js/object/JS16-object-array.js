@@ -1,26 +1,29 @@
-// ============= Arrays of Objects =============
 // constructor
 function Person(name, age) {
     this.name = name;
     this.age = age;
 }
 
-// make arrays of objects
+// ============= Arrays of Objects =============
 // 定义数组
 var family = new Array();
-// 定义数组中的元素为 object
+// 数组中的元素定义为 object
 family[0] = new Person('Bear', 27);
 family[1] = new Person('Rabbit', 25);
 family[2] = new Person('Mother', 51);
 family[3] = new Person('Father', 55);
 
 // loop through an array of objects and access properties or methods
+// 读取数组中的元素——object，获得各个属性的值
 for (var i = 0; i < family.length; i++) {
     console.log(family[i].name);
 }
 
 // ============= Passing Objects into Functions =============
+// use objects as parameters for functions
+// these functions can take advantage of the methods and properties that a certain object type provides
 var ageDiff = function (person1, person2) {
+    // 函数中使用的是object的age属性，所以传入函数的必须是object
     var diff = person1.age - person2.age;
     console.log(diff);
     return diff;
@@ -29,4 +32,17 @@ var ageDiff = function (person1, person2) {
 var caroline = new Person('Caroline', 25);
 var madell = new Person('Madell', 31);
 
+// must be careful not to pass anything but Person objects into ageDifference
 ageDiff(caroline, madell);
+
+
+var olderAge = function (person1, person2) {
+    if (person1.age > person2.age) {
+        return person1.age;
+    } else {
+        return person2.age;
+    }
+}
+
+var older_age = olderAge(caroline, madell);
+console.log(older_age);
