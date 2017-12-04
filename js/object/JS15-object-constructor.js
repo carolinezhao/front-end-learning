@@ -1,4 +1,13 @@
-// A constructor is a way to create an object.
+// Constructors are a way to make objects with the keyword new. 
+// The most basic constructor is the Object constructor, which will make an object with no methods or properties.
+// For more complicated objects we can make our own constructors and put in whatever properties and methods we want.
+// these kind of custom constructors are important because they allow us to easily make many similar objects.
+
+// To create an object using constructor:
+// var objectName = new constructorName(value for each property);
+// And to call the method:
+// objectName.methodName( );
+
 // When we write bob = new Object( ); we are using a built-in constructor called Object.
 
 // ================= Custom Constructors =================
