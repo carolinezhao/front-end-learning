@@ -1,25 +1,46 @@
-JS 16 Review
+JS 16, JS18
 
 ### What Are Objects For?
 
 Objects provide us with a way to represent real-world or virtual things. We can do this by storing information inside the object's properties.
 
-### Properties
+### Create objects
 
-Properties are like **variables** that belong to an object, and are used to hold pieces of information. 
-Properties can be accessed in two ways:
+**Literal notation**
 
-* Dot notation, with `ObjectName.PropertyName`
-* Bracket notation, with `ObjectName["PropertyName"] ` (don't forget the quotes!)
+* creates a single object;
+* uses curly brackets { };
+* default properties are defined within the brackets using property:value notation.
+
+**Constructor notation**
+
+* involves defining an object constructor;
+* like defining a function, we use the function keyword;
+* think of this constructor as a "template" from which you can create multiple objects;
+* to create a new object from a constructor, we use the new keyword.
 
 ### Customizing Constructors
 
 - We can assign our objects properties through parameters we pass in when the object is created.
 - We can give our objects methods automatically.
 
+### Properties
+
+Properties are like **variables** that belong to an object, and are used to hold pieces of information. 
+Properties can be accessed (get the value of an object's property) in two ways:
+
+* Dot notation, with `ObjectName.PropertyName`
+* Bracket notation, with `ObjectName["PropertyName"] ` (don't forget the quotes!)
+An advantage of this is that we can also use variables  whose values are property names.
+
+		var Obj = {propertyName: value};
+		var myProperty = 'propertyName';
+		Obj[myProperty];
+
 ### Methods
 
 Methods are like **functions** that are associated with a particular object.
 They are especially helpful when you want to either:
-- Update the object properties
-- Calculate something based on an object's properties.
+
+* Update the object properties
+* Calculate something based on an object's properties.
