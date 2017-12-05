@@ -1,10 +1,9 @@
-JS 16, JS18
 
 ### What Are Objects For?
 
 Objects provide us with a way to represent real-world or virtual things. We can do this by storing information inside the object's properties.
 
-### Create objects
+### Create Objects
 
 **Literal notation**
 
@@ -49,3 +48,16 @@ They are especially helpful when you want to either:
 
 * Update the object properties
 * Calculate something based on an object's properties.
+
+### Classes
+object-oriented programming, abbreviated OOP.
+Classes are very important in object-oriented programming. This is because a class tells us helpful information about objects, and you can think of an object as a particular instance of a class.
+
+When you make a constructor, you are in fact defining a new class. 
+A class can be thought of as a type, or a category of objects—kind of like how Number and String are types in JavaScript.
+what keeps track of what a given class can or can't do? What a class has or doesn't have? That is the job of the prototype.
+
+
+
+
+
