@@ -49,9 +49,11 @@ They are especially helpful when you want to either:
 * Update the object properties
 * Calculate something based on an object's properties.
 
-### Classes
+### Classes, Prototype, Inheritance
 object-oriented programming, abbreviated OOP.
-Classes are very important in object-oriented programming. This is because a class tells us helpful information about objects, and you can think of an object as a particular instance of a class.
+Classes are very important in OOP.
+a class tells us helpful information about objects
+you can think of an object as a particular instance of a class.
 
 When you make a constructor, you are in fact defining a new class. 
 A class can be thought of as a type, or a category of objects—kind of like how Number and String are types in JavaScript.

@@ -11,8 +11,11 @@
 // className.prototype.newMethod =  function() {};
 // 为什么不在constructor里添加？？？也可以，只是提供了更多可能。“动态语言”by Bear
 
+// Don't Repeat Yourself.
 // inheritance
-
+// In object-oriented programming, inheritance allows one class to see and use the methods and properties of another class. 
+// prototype chain
+// If JavaScript encounters something it can't find in the current class's methods or properties, it looks up the prototype chain to see if it's defined in a class that it inherits from. 
 
 // =======================================
 function Dog(breed) {
@@ -58,7 +61,12 @@ var bear = new Person('bear', 27, 'engineer');
 bear.intro();
 
 console.log('\n');
+
 // =======================================
+
+// A Penguin is an Animal, so they should have all the same properties and methods as Animal. 
+// Whenever this X is-a Y relationship exists, there's a good chance that we should be using inheritance.
+
 // original Animal class and sayName method
 function Animal(name, legs) {
     this.name = name;
@@ -71,7 +79,7 @@ Animal.prototype.sayName = function () {
 // Penguin class
 function Penguin(name) {
     this.name = name;
-    this.legs = 2;
+    this.legs = 2; // 已定义的不会被覆盖，未定义的会使用继承来的。
 }
 
 // inheritance lets us see and use properties and methods from another class.
@@ -86,11 +94,12 @@ var penguin = new Penguin('Dunedain');
 penguin.sayName();
 console.log('\n');
 
+// Emperor class
 function Emperor(name) {
     this.name = name;
 }
 
-// inherit from Penguin
+// Emperor inherits from Penguin which inherits from Animal. 
 Emperor.prototype = new Penguin();
 
 var emperor = new Emperor('Aragorn');
