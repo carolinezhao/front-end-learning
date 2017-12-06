@@ -81,6 +81,21 @@ Penguin.prototype = new Animal();
 // This means that Penguin inherits properties and methods from Animal.
 
 // var variable = new Object('property's value); 注意variable和Object的名称不能完全一样
-var penguin = new Penguin('alice');
+var penguin = new Penguin('Dunedain');
 
 penguin.sayName();
+console.log('\n');
+
+function Emperor(name) {
+    this.name = name;
+}
+
+// inherit from Penguin
+Emperor.prototype = new Penguin();
+
+var emperor = new Emperor('Aragorn');
+console.log(emperor); // 输出的结果是 Animal {name: 'Aragorn'}
+for (key in emperor) {
+    console.log(key);
+}
+console.log(emperor.legs);
