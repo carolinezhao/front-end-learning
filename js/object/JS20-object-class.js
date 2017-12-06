@@ -1,4 +1,6 @@
 // class
+// A class is a template used to create objects
+
 // prototype
 // JavaScript automatically defines the prototype for class with a constructor. 
 // For example, Dog constructor ensures that the Dog prototype has a breed property. 
@@ -9,6 +11,10 @@
 // className.prototype.newMethod =  function() {};
 // 为什么不在constructor里添加？？？也可以，只是提供了更多可能。“动态语言”by Bear
 
+// inheritance
+
+
+// =======================================
 function Dog(breed) {
     this.breed = breed;
 };
@@ -32,6 +38,9 @@ function Person(name, age, job) {
     this.job = job;
 };
 
+// describe the method to access a private variable from outside the class:
+// Define a public method that returns the value of a private variable. 意义是？
+
 // the function will work on any Person, because name is a valid property for that class.
 var printName = function (p) {
     console.log(p.name);
@@ -47,3 +56,31 @@ rabbit.intro();
 
 var bear = new Person('bear', 27, 'engineer');
 bear.intro();
+
+console.log('\n');
+// =======================================
+// original Animal class and sayName method
+function Animal(name, legs) {
+    this.name = name;
+    this.legs = legs;
+}
+Animal.prototype.sayName = function () {
+    console.log('Hi my name is ' + this.name);
+}
+
+// Penguin class
+function Penguin(name) {
+    this.name = name;
+    this.legs = 2;
+}
+
+// inheritance lets us see and use properties and methods from another class.
+// To say that Penguin inherits from Animal, we need to set Penguin's prototype to be Animal.
+// Set the Penguin class's prototype to a new instance of Animal by adding this line after you make the constructor:
+Penguin.prototype = new Animal();
+// This means that Penguin inherits properties and methods from Animal.
+
+// var variable = new Object('property's value); 注意variable和Object的名称不能完全一样
+var penguin = new Penguin('alice');
+
+penguin.sayName();

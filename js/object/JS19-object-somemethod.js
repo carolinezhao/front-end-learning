@@ -13,7 +13,8 @@ var info = {
 };
 
 console.log(typeof info);
-console.log(typeof info.name);
+console.log(typeof info.name); // 注意 info.property 得到的是 value
+console.log(typeof 'caroline');
 console.log(typeof info.age);
 console.log(typeof info.skill);
 console.log(typeof info.skill());
