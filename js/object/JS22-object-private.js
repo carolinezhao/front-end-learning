@@ -12,6 +12,7 @@
 // is similar to accessing a private variable. You must create a public method for the class that returns the private method.
 // 在一个class中，定义内部变量，从外部无法直接获取；但是可以在class中定义一个全局method，去拿到内部变量的值，然后在外部通过调用这个method去获得内部变量的值。
 
+// using constructor notation
 function Person(first, last, age) {
     this.firstName = first;
     this.lastName = last;
@@ -48,3 +49,35 @@ var getAddressMethod = rabbit.askAddress();
 console.log(getAddressMethod); //function
 var myAddress = getAddressMethod();
 console.log(myAddress);
+console.log('\n');
+
+
+// =================================
+
+function studentReport(math, english, chemistry) {
+    this.math = math;
+    var mathLevel = 4.0;
+    this.english = english;
+    var englishLevel = 4.0;
+    this.chemistry = chemistry;
+    var chemistryLevel = 3.5;
+    this.totalGrade = function () {
+        return (this.math + this.english + this.chemistry);
+    }
+    this.GPA = function () {
+        return (mathLevel + englishLevel + chemistryLevel) / 3;
+    }
+}
+
+var myStudentReport = new studentReport(100, 95, 88);
+for (var key in myStudentReport) {
+    if (typeof myStudentReport[key] !== 'function') {
+        console.log('My ' + key + ' grade is: ' + myStudentReport[key]);
+    }
+}
+
+var myTotalGrade = myStudentReport.totalGrade();
+var myGPA = myStudentReport.GPA();
+
+console.log('My total grade is: ' + myTotalGrade);
+console.log('My GPA is: ' + myGPA);
