@@ -1,23 +1,28 @@
-// class
-// A class is a template used to create objects
+/*==========================================================
+object-oriented programming, abbreviated OOP.
+classes are very important in OOP.
 
-// prototype
-// JavaScript automatically defines the prototype for class with a constructor. 
-// For example, Dog constructor ensures that the Dog prototype has a breed property. 
-// Remember, the Dog prototype keeps track of what Dog has, doesn't have, can, or can't do.
+class
+A class is a template used to create objects.
+you can think of an object as a particular instance of a class.
 
-// add a method to a class such that all members of the class can use it
-// extend the prototype
-// className.prototype.newMethod =  function() {};
-// 为什么不在constructor里添加？？？也可以，只是提供了更多可能。“动态语言”by Bear
+prototype
+JavaScript automatically defines the prototype for class with a constructor. 
+For example, Dog constructor ensures that the Dog prototype has a breed property. 
+Remember, the Dog prototype keeps track of what Dog has, doesn't have, can, or can't do.
 
-// Don't Repeat Yourself.
-// inheritance
-// In object-oriented programming, inheritance allows one class to see and use the methods and properties of another class. 
-// prototype chain
-// If JavaScript encounters something it can't find in the current class's methods or properties, it looks up the prototype chain to see if it's defined in a class that it inherits from. 
+extend the prototype
+define a method for a class, and any instance of the class (i.e., object created using that class's constructor) can use that method.
+className.prototype.newMethod =  function() {};
+为什么不在constructor里添加？？？也可以，只是提供了更多可能。“动态语言”by Bear
 
-// =======================================
+Don't Repeat Yourself.
+inheritance
+In object-oriented programming, inheritance allows one class to see and use the methods and properties of another class. 
+prototype chain
+If JavaScript encounters something it can't find in the current class's methods or properties, it looks up the prototype chain to see if it's defined in a class that it inherits from. 
+==========================================================*/
+
 function Dog(breed) {
     this.breed = breed;
 };
