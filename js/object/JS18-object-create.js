@@ -56,7 +56,25 @@ function Person(job, married) {
 var person1 = new Person('developer', false);
 person1.speak();
 
-// ====================================================
+/*=====================================================
+Properties
+Properties are like variables that belong to an object, and are used to hold pieces of information. 
+
+Properties can be accessed (get the value of an object's property) in two ways:
+* Dot notation: ObjectName.PropertyName
+* Bracket notation: ObjectName["PropertyName"] (don't forget the quotes!)
+
+An advantage of this is that we can also use variables whose values are property names.
+		var Obj = {propertyName: value};
+		var myProperty = 'propertyName';
+        Obj[myProperty];
+        
+can be used in for/in loop to get all properties or values.
+		for (key in object) {
+		     console.log(object[key]);
+		}
+=====================================================*/
+
 // Dot notation
 console.log(person1.job);
 
@@ -64,4 +82,3 @@ console.log(person1.job);
 console.log(person1['job']);
 var propName = 'job';
 console.log(person1[propName]);
-

@@ -1,23 +1,22 @@
 // Constructors are a way to make objects with the keyword new. 
 // The most basic constructor is the Object constructor, which will make an object with no methods or properties.
+var obj = new Object( );
+
+// ================= Custom Constructors =================
 // For more complicated objects we can make our own constructors and put in whatever properties and methods we want.
 // these kind of custom constructors are important because they allow us to easily make many similar objects.
 
-// To create an object using constructor:
+// To create an object using constructor and to call the method:
 // var objectName = new constructorName(value for each property);
-// And to call the method:
 // objectName.methodName( );
 
-// When we write bob = new Object( ); we are using a built-in constructor called Object.
-
-// ================= Custom Constructors =================
 // - We can assign our objects properties through parameters we pass in when the object is created.
 // - We can give our objects methods automatically.
 
-// So instead of using the Object constructor which is empty and has no properties, we can make our own constructors which have properties.
 // 自定义constructor与一般function的区别是，不用var 名称。
 // 用this表示属性，即意味着它不专属，可以给任何一组类似的object赋值。
 // In a constructor, we don't have to define all the properties using parameters.
+
 function Person(name, age) {
     this.name = name;
     this.age = age;
