@@ -90,7 +90,7 @@ function Penguin(name) {
 // inheritance lets us see and use properties and methods from another class.
 // To say that Penguin inherits from Animal, we need to set Penguin's prototype to be Animal.
 // Set the Penguin class's prototype to a new instance of Animal by adding this line after you make the constructor:
-Penguin.prototype = new Animal();
+Penguin.prototype = new Animal(); //重要！！！
 // This means that Penguin inherits properties and methods from Animal.
 
 // var variable = new Object('property's value); 注意variable和Object的名称不能完全一样

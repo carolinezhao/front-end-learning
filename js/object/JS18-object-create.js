@@ -1,20 +1,19 @@
 /*=====================================================
+Object
+Using objects, we can put our information and the functions that use that information (method) in the same place.
+You can also think of objects as combinations of key-value pairs (like arrays), only their keys don't have to be numbers like 0, 1, or 2: they can be strings and variables.
+
 Creating an object
+- Literal notation
+- Constructor notation
+=====================================================*/
+
+/*=====================================================
 Literal notation
 * creates a single object;
 * uses curly brackets { };
 * default properties are defined within the brackets using property:value notation.
 
-Constructor notation
-* involves defining an object constructor;
-* like defining a function, we use the function keyword;
-* think of this constructor as a "template" from which you can create multiple objects;
-* to create a new object from a constructor, we use the new keyword.
-=====================================================*/
-
-
-/*=====================================================
-Literal notation
 var objectName = {
     property1: 'value1',
     property2: 'value2',
@@ -23,7 +22,6 @@ var objectName = {
 objectName.property1;
 objectName.methodName();
 =====================================================*/
-
 var user = {
     job: 'scientist',
     married: 'false',
@@ -37,15 +35,19 @@ user.say();
 
 /*=====================================================
 Constructor notation
+* involves defining an object constructor;
+* like defining a function, we use the function keyword;
+* think of this constructor as a "template" from which you can create multiple objects;
+* to create a new object from a constructor, we use the new keyword.
+
 function constructorName(parameter) {
     this.property = parameter;
     this.method=function() {
     };
 };
 var objectName = new constructorName(parameter);
-objectName.method(); // 调用method
+objectName.method(); // 调用 method 使用的是新创建的 object 而不是 constructor
 =====================================================*/
-
 function Person(job, married) {
     this.job = job;
     this.married = married;
@@ -55,6 +57,13 @@ function Person(job, married) {
 }
 var person1 = new Person('developer', false);
 person1.speak();
+
+// 初学时两种的写法
+var user = new Object();
+user.age = 25;
+
+var user = {};
+user.city = 'Beijing';
 
 /*=====================================================
 Properties

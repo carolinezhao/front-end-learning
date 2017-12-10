@@ -1,11 +1,28 @@
-// constructor
+// 以下案例中共同使用的 constructor
 function Person(name, age) {
     this.name = name;
     this.age = age;
 }
 
+// array 中的元素可以是 object
+var bear = new Person('Bear', 27);
+var newArray = [
+    [1, 2, bear],
+    [true, false],
+    ['Bear']
+];
+for (var i = 0; i < newArray.length; i++) {
+    console.log(newArray[i]);
+}
+// object 中的 value 可以是 array
+var stuff = ['Bear', 'Rabbit'];
+var test = new Object();
+test.array = stuff;
+console.log(test.array);
+
+
 // ============= Arrays of Objects =============
-// 定义数组
+// 定义数组 方式是固定的 = new Array();
 var family = new Array();
 // 数组中的元素定义为 object
 family[0] = new Person('Bear', 27);
