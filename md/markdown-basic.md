@@ -49,6 +49,10 @@ Bear is a `bad` guy.
 
 #### Table is not available here
 
+#### 在 VS Code 中预览 .md
+1. 终端中输入 `code filename` 打开文件
+2. cmd + k, v 进行预览
+
 #### 分割线
 ***
 ---

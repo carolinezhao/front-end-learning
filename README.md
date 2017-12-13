@@ -14,9 +14,13 @@
 
 * Codecademy JavaScript
 * [DOM Scripting](https://www.amazon.cn/JavaScript-DOM%E7%BC%96%E7%A8%8B%E8%89%BA%E6%9C%AF-%E5%9F%BA%E6%80%9D/dp/B004VJM5KE/ref=sr_1_1?ie=UTF8&qid=1507623927&sr=8-1&keywords=javascript+dom%E7%BC%96%E7%A8%8B%E8%89%BA%E6%9C%AF)
+* [Understanding ES6](https://www.amazon.cn/dp/B071GW3JDP/ref=sr_1_1?s=digital-text&ie=UTF8&qid=1513157048&sr=8-1&keywords=%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3ES6)
 
 ## jQuery
 
 ## AJAX
 
 ## JSON
+
+## Node.js
+* [Node.js 开发指南](https://www.amazon.cn/dp/B00ALPRM3W/ref=sr_1_1?ie=UTF8&qid=1513157148&sr=8-1&keywords=node.js%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97)

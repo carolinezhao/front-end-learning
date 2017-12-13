@@ -62,7 +62,8 @@ require 不会重复加载模块，无论调用多少次，获得的模块都是
 【参考 loadmodule.js】
 
 ### 覆盖 exports
-如果只想把一个对象封装到模块中
+当只想把一个对象封装到模块中时，可以用自定义的对象替代 exports。
+【参考 singleobject.js 和 getsingleobject.js】
 
 
 
