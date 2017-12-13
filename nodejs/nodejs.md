@@ -32,3 +32,37 @@ Node.js 与 PHP 架构的区别
 希望在开发过程中立刻看到效果，可以使用 supervisor。
 `npm install -g supervisor`
 此命令需要先提权 `sudo`
+
+## 事件
+
+## 模块和包
+* 模块 Module
+* 包 Package
+
+两者没有本质区别。
+一个 Node.js 文件(.js/.json/编译过的C/C++扩展)就是一个模块。
+比如，http就是一个模块【参考app.js中的使用】
+
+模块和包是 Node.js 最重要的支柱，用于功能拆分、封装、组合。
+浏览器js中，脚本模块的拆分和组合是用HTML中的`<script>`来实现。
+
+### 创建模块
+创建一个文件，就是一个模块。
+如何在其它文件中获取这个模块？
+Node.js 提供两个对象：
+
+* exports 模块公开的接口；
+* require 从外部获取一个模块的接口，即获取到模块的 exports 对象。
+
+【参考 module.js 和 getmodule.js】
+
+### 单次加载
+require 不会重复加载模块，无论调用多少次，获得的模块都是同一个。
+如果多次调用，后边的结果会覆盖前边的。
+【参考 loadmodule.js】
+
+### 覆盖 exports
+如果只想把一个对象封装到模块中
+
+
+
