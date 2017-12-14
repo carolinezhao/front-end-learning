@@ -1,0 +1,38 @@
+{
+    "main": "./lib/interface.js",
+    "name": "mypackage",
+    "description": "Sample package for CommonJS. This package demonstrates the required elements of a CommonJS package.",
+    "version": "0.8.0",
+    "keywords": [
+        "package",
+        "example"
+    ],
+    "maintainers": [{
+            "name": "caroline",
+            "email": "caroline@gmail.com"
+        },
+        {
+            "name": "rabbit",
+            "email": "rabbit@gmail.com"
+        }
+    ],
+    "contributors": [{
+        "name": "caroline",
+        "url": "https://github.com/carolinezhao"
+    }],
+    "bugs": {
+        "email": "dev@gmail.com"
+    },
+    "licenses": [{
+        "type": "GPLv2",
+        "url": "http://www.example.org/licenses/gpl.html"
+    }],
+    "repositories": {
+        "type": "git",
+        "url": "https://github.com/carolinezhao/package.git"
+    },
+    "dependencies": {
+        "webkit": "1.2",
+        "ssl": "1.0.0"
+    }
+}
