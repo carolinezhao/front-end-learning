@@ -87,18 +87,55 @@ require 不会重复加载模块，无论调用多少次，获得的模块都是
 ### package.json
 .json 中的字段必须使用双引号。
 
-/package
-|
-|---package.json
-|
-|---index.js
-|
-|---/lib
-|     |
-|     |---interface.js
+	/package
+	|
+	|--- package.json
+	|
+	|--- index.js
+	|
+	|--- /lib
+	|     |
+	|     |---interface.js
 
 Node.js 在调用某个包时，会首先检查包中 package.json 的 main 字段，将其作为包的接口模块。如果该文件或字段不存在，则会寻找 index.js 或 index.node 作为包的接口。
 
 package.json 是规范规定的用来描述包的文件。
 【参考 package.json 实例】
 
+***
+
+### 3.3.4 包管理器
+npm = node package manager
+npm 是 Node.js 包的标准发布平台，用于包的发布、传播、依赖控制，提供了命令行工具。
+
+### 获取一个包：本地模式和全局模式
+A. 把包安装到当前目录(本地)
+
+* 避免不同程序依赖不同版本包的冲突问题；减轻包作者的 API 兼容性压力；
+* 同一个包被安装许多次。
+
+`npm install [package_name]`
+默认安装到当前目录下的 `node_modules` 子目录下。
+require 在加载模块时会搜索 `node_modules` 子目录，因此使用本地模式安装的包可以直接被引用。
+
+B. 把包安装到全局
+
+* 提高程序的复用程度；避免多份副本；
+* 难以处理不同的版本依赖。
+
+`npm install -g [package_name]`
+比如在安装 supervisor 时就用了全局安装。
+全局安装的包不能通过 require 直接获得。
+
+多数时候使用全局模式另有原因：本地模式不会注册 PATH 环境变量。
+在命令行中运行 supervisor script.js，需要在PATH环境变量中注册 supervisor。
+本地模式下，包中的bin目录没有包含在PATH环境变量中，不能在命令行中调用。
+全局模式下，包安装到系统目录，`/usr/local/lib/node_modules/`，同时 package.json 文件中 bin 字段包含的文件会被链接到 `/usr/local/bin`。
+`/usr/local/bin`是在PATH环境变量中默认定义的，因此就可以在cl中运行。
+
+总结：
+
+* 要把某个包作为工程运行的一部分时，使用本地模式安装；
+* 要在命令行下使用，使用全局模式安装。
+
+### 创建全局链接
