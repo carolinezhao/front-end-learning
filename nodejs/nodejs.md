@@ -139,3 +139,14 @@ B. 把包安装到全局
 * 要在命令行下使用，使用全局模式安装。
 
 ### 创建全局链接
+`npm link` 在本地包和全局包之间创建符号链接。
+通过这个命令，全局模式安装的包也可以通过 require 使用。
+比如已经全局安装了 express，在工程的目录下运行命令：
+`npm link express`
+`./node_modules/express -> /usr/local/lib/node_modules/express`
+可以在 node_modules 子目录中发现一个指向安装到全局的包的符号链接。从而可以把全局包当本地包来使用。
+【参考 package 文件夹下的 node_modules 子目录】
+
+此命令也可以将本地的包链接到全局。方法是在包目录(package.json所在的目录)中运行 `npm link` 命令。
+如果要开发一个包，通过这种方法便于在不同工程之间进行测试。
+【参考 暂无】
