@@ -33,7 +33,32 @@ Node.js 与 PHP 架构的区别
 `npm install -g supervisor`
 此命令需要先提权 `sudo`
 
-## 事件
+`supervisor filename.js`
+
+## 3.2 异步式 I/O 与事件式编程
+### 3.2.1 阻塞与线程
+**同步式I/O（Synchronous I/O）或阻塞式I/O（Blocking I/O）**
+线程在执行中如果遇到磁盘读写或网络通信（统称为I/O操作），通常要耗费较长的时间，这时操作系统会剥夺这个线程的 CPU 控制权，使其暂停执行，同时将资源让给其他的工作线程，这种线程调度方式称为**阻塞**。
+当I/O操作完毕时，操作系统将这个线程的阻塞状态解除，恢复其对 CPU 的控制权，令其继续执行。
+阻塞模式下，一个线程只能处理一项任务，想提高吞吐量必须通过多线程。
+
+**异步式I/O（Asynchronous I/O）或非阻塞式I/O（Non-blocking I/O）**
+当线程遇到I/O操作时，不会以阻塞的方式等待其操作完成或数据返回，而只是将I/O请求发送给操作系统，继续执行下一条语句。
+当操作系统完成I/O操作时，以事件的形式通知执行I/O操作的线程，线程会在特定时候处理这个事件。
+为了处理异步I/O，线程必须有事件循环，不断地检查有没有未处理的事件，依次予以处理。
+非阻塞模式下，一个线程永远在执行计算操作，这个线程所使用的 CPU 核心利用率永远是 100%，I/O以事件的方式通知。
+
+优势：少了多线程的开销。对操作系统来说，创建一个线程的代价十分昂贵：分配内存、列入调度，线程切换时执行内存换页，CPU 的缓存被清空，切换回来时还要重新从内存中读取信息，破坏了数据的局部性。
+缺点：异步式编程不符合一般的程序设计思维，编码和调试都比较困难。好在已经有了很多专门解决异步式编程问题的库（async），见6.2.2节。
+
+### 3.2.2 回调函数
+用异步方式读取文件，通过**回调函数**实现。
+用同步方式读取文件，仅用于对比。
+【参考 readfile.js 和 readfilesync.js】
+
+### 3.2.3 事件
+【参考 event.js】
+Node.js 的事件循环机制
 
 ## 3.3 模块和包
 * 模块 Module
@@ -144,9 +169,77 @@ B. 把包安装到全局
 比如已经全局安装了 express，在工程的目录下运行命令：
 `npm link express`
 `./node_modules/express -> /usr/local/lib/node_modules/express`
-可以在 node_modules 子目录中发现一个指向安装到全局的包的符号链接。从而可以把全局包当本地包来使用。
-【参考 package 文件夹下的 node_modules 子目录】
+可以在 `node_modules` 子目录中发现一个指向安装到全局的包的符号链接。从而可以把全局包当本地包来使用。
+【参考 package 文件夹下的 `node_modules` 子目录】
 
 此命令也可以将本地的包链接到全局。方法是在包目录(package.json所在的目录)中运行 `npm link` 命令。
 如果要开发一个包，通过这种方法便于在不同工程之间进行测试。
 【参考 暂无】
+
+### 包的发布
+暂略
+
+## 3.4 调试
+暂略
+
+***
+# 4 Node.js 核心模块
+核心模块由一些精简而高效的库组成，为 Node.js 提供了基本的 API。
+
+## 4.1 全局对象
+
+### 全局对象与全局变量
+
+### process
+
+### console
+
+## 4.2 常用工具 util
+
+### util.inherits
+### util.inspect
+
+## 4.3 事件驱动 events
+
+### 事件发射器
+### error 事件
+### 继承 EventEmitter
+
+## 4.4 文件系统 fs
+
+### fs.readFile
+### fs.readFileSync
+### fs.open
+### fs.read
+
+## 4.5 HTTP 服务器与客户端
+Node.js 标准库提供了 http 模块，封装了一个高效的 HTTP 服务器和一个简易的 HTTP 客户端。
+http.Server 是一个基于事件的 HTTP 服务器。
+http.request 是一个 HTTP 客户端工具，用于向 HTTP 服务器发起请求。
+
+### HTTP 服务器
+http.Server 是 http 模块中的 HTTP 服务器对象。用 Node.js 做的所有基于 HTTP 协议的系统，都是基于它实现的。
+【参考 app.js】
+
+#### http.Server 的事件
+http.Server 是一个基于事件的 HTTP 服务器，所有的请求都被封装为独立的事件，只需要对它的事件编写响应函数即可实现 HTTP 服务器的所有功能。它继承自 EventEmitter，提供以下事件：
+
+* request: 在客户端请求到来时被触发。提供两个参数req和res，分别是 http.ServerRequest 和 http.ServerResponse 的实例。【参考 app.js】
+* connection
+* close
+
+#### http.ServerRequest
+HTTP 请求的信息，一般由 http.Server 的 request 事件发送，作为第一个参数传递，简称 req。提供很多属性。
+请求分为两部分：请求头 Request Header；请求体 Request Body。
+请求体可能较长，需要一定时间传输，有3个事件用于控制其传输。
+
+* data
+* end
+* close
+
+#### 获取 GET 请求内容
+由于 GET 请求直接被嵌入在路径中，URL是完整的请求路径，包括了？后面的部分。
+Node.js 的 url 模块中的 parse 函数用于解析后面的内容。
+【参考 requestget.js】
+
+#### 获取 POST 请求内容
