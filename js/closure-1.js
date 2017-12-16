@@ -1,3 +1,4 @@
+// 《Node.js 开发指南》附录A.2闭包
 // 闭包：由函数（环境）及其封闭的自由变量组成的集合体。
 
 var generateClosure = function () {
