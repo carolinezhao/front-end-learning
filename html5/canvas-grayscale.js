@@ -1,8 +1,9 @@
 /*================================
 知识点
-getImageData()
-返回 ImageData 对象，该对象拷贝了画布指定矩形的像素数据。
+*** getImageData() ***
 var imgData = context.getImageData(x,y,width,height);
+x,y 起始坐标；w,h 长宽。
+得到的是一个包含各像素rgba值的数组 CanvasPixeArray
 
 对于 ImageData 对象中的每个像素，都存在着四方面的信息，即 RGBA 值：
 R - 红色 (0-255)
@@ -15,8 +16,10 @@ red = imgData.data[0];
 green = imgData.data[1];
 blue = imgData.data[2];
 alpha = imgData.data[3];
+因为每个像素包含rgba这4个值，所以每个像素占据数组中的4个位置，也就是[r1,g1,b1,a1,r2,g2,b2,a2,r3,g3,b3,a3...]这样一直排列下去，数组的长度length = w * h * 4
 
-putImageData()
+
+*** putImageData() ***
 将图像数据放回画布
 context.putImageData(imgData,x,y,dirtyX,dirtyY,dirtyWidth,dirtyHeight);
 imgData	规定要放回画布的 ImageData 对象。
@@ -61,17 +64,21 @@ function createGSCanvas(img) {
     // 取得原始的图像数据，遍历每一个像素，将每个彩色像素的rgb成分求平均值，得到对应彩色的灰度值。？？？
     // getImageData 只能操作与脚本位于同一个域中的图片。访问本地文件是跨域，需要通过服务器访问。
     var c = ctx.getImageData(0, 0, img.width, img.height);
-    for (i = 0; i < c.height; i++) {
-        for (j = 0; j < c.width; j++) {
-            // ？？？不懂
-            var x = (i * 4) * c.height + (j * 4);
+    // 方法 1
+    for (var x = 0; x < c.width * c.height * 4; x += 4) {
+    // 方法 2 不懂？？？
+    // for (i = 0; i < c.height; i++) {
+    //     for (j = 0; j < c.width; j++) {
+    //         var x = (i * 4) * c.height + (j * 4);
             var r = c.data[x];
             var g = c.data[x + 1];
             var b = c.data[x + 2];
+            // 在rgba表示中，rgb值相同就一定是灰色
             c.data[x] = c.data[x + 1] = c.data[x + 2] = (r + g + b) / 3;
-        }
+        // }
     }
     // 把灰度数据放回到画布的绘图环境中，并返回原始图像数据作为新灰度图片的源。？？？
+    // 重绘区域与原图片重叠，会将原图片覆盖
     ctx.putImageData(c, 0, 0, 0, 0, c.width, c.height);
     // 
     return canvas.toDataURL();
@@ -79,3 +86,14 @@ function createGSCanvas(img) {
 
 var pic = document.getElementById('cover');
 Window.onload = convertToGS(pic);
+
+
+//引用图片
+// context.beginPath()
+// var image = new Image();
+// image.src = "123.jpg";
+// image.onload = function () {
+//     context.drawImage(image,0,0);
+// }
+//获取图片信息
+// var imageData = context.getImageData(0,0,200,200);
