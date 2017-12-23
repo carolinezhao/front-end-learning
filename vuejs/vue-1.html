@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Vue入门</title>
+    <script src="https://unpkg.com/vue"></script>
+</head>
+
+<body>
+    <div id="app">
+        {{message}}
+    </div>
+    <div id="app-2">
+        <!-- v-bind 指令: 将这个节点的 title 特性和 Vue 实例的 message 属性保持一致。
+        Directives are prefixed with v- to indicate that they are special attributes provided by Vue. -->
+        <span v-bind:title="message">Hover your mouse over me for a few seconds to see my dynamically bound title!！</span>
+        <p v-bind:title="msg">Hover to see title</p>        
+    </div>
+
+    <script src="vue-1.js"></script>
+</body>
+
+</html>
