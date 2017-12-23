@@ -5,17 +5,54 @@
     <meta charset="UTF-8">
     <title>Vue入门</title>
     <script src="https://unpkg.com/vue"></script>
+    <style>
+        body {
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            font-size: 18px;
+        }
+    </style>
 </head>
 
 <body>
     <div id="app">
         {{message}}
     </div>
+
+    <!-- Directives are prefixed with v- to indicate that they are special attributes provided by Vue. -->
     <div id="app-2">
-        <!-- v-bind 指令: 将这个节点的 title 特性和 Vue 实例的 message 属性保持一致。
-        Directives are prefixed with v- to indicate that they are special attributes provided by Vue. -->
+        <!-- keep this element’s title attribute up-to-date with the message property on the Vue instance -->
         <span v-bind:title="message">Hover your mouse over me for a few seconds to see my dynamically bound title!！</span>
-        <p v-bind:title="msg">Hover to see title</p>        
+        <p v-bind:title="msg">Hover to see title.</p>
+    </div>
+
+    <div id="app-3">
+        <!-- we can bind data to not only text and attributes, but also the structure of the DOM -->
+        <span v-if="seen">Now you see me.</span>
+    </div>
+
+    <div id="app-4">
+        <ol>
+            <!-- v-for directive can be used for displaying a list of items using the data from an Array -->
+            <li v-for="todo in todos">
+                {{todo.text}}
+            </li>
+        </ol>
+    </div>
+
+    <div id="app-5">
+        <p>
+            {{message}}
+        </p>
+        <!-- use the v-on directive to attach event listeners that invoke methods on our Vue instances -->
+        <button v-on:click="reverseMessage">Reverse Message</button>
+    </div>
+
+    <div id="app-6">
+        <p>
+            {{message}}
+        </p>
+        <!-- v-model directive that makes two-way binding between form input and app state a breeze -->
+        <input v-model="message">
     </div>
 
     <script src="vue-1.js"></script>
