@@ -1,8 +1,10 @@
 // 数据对象
 var data = {
     a: 1,
+    url: 'https://vuejs.org/',
     type: 'application',
     msg: 'Hello front-end!',
+    seen: false,
     visitCount: 0,
     todos: [],
     error: null,
@@ -21,6 +23,11 @@ var vm = new Vue({
         // 钩子的 this 指向调用它的 Vue 实例
         console.log('original a is: ' + this.a)
     },
+    methods: {
+        greeting: function () {
+            console.log('You click the button!')
+        }
+    }
 })
 
 // 引用相同的对象
