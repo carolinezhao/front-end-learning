@@ -15,15 +15,29 @@
 
 <body>
     <div id="app">
-        <!-- 插值 -->
+        <!-- 插值：text; raw HTML; attributes; using JavaScript expressions -->
+
         <!-- 文本：双大括号会将数据解释为普通文本，绑定的数据对象中 a 属性的值变化时，内容会随之更新。 -->
         <p>{{a}}</p>
         <!-- v-once 指令：用于一次性插值，数据不更新。 -->
         <p v-once>{{a}}</p>
+
         <!-- 原始 HTML：使用 v-html 指令。其中 rawHTML 是绑定数据对象中的一个属性，属性值为字符串。 -->
+        <!-- 注意 rawHTML 的属性值直接添加到<p>标签中间。 -->
         <p v-html="rawHTML"></p>
         <!-- 没有使用指令，则直接吧字符串解释为文本。 -->
-        <p>{{rawHTML}}</p>                     
+        <p>{{rawHTML}}</p>
+
+        <!-- 为标签添加属性，使用 v-bind 指令。可见 app-2 的例子。 -->
+        <p v-bind:id="dynamicID">Framework</p>
+        <!-- 对于布尔特性，存在即为 true。v-bind 用法略有不同。 -->
+        <button v-bind:disabled="isButtonDisabled">Button</button>
+
+        <!-- 对于所有数据绑定，都可以使用 JavaScript 表达式，只能包含单个表达式。 -->
+        <div v-bind:id="type + '-form'">Application</div>
+        <p>{{a + 1}}</p>
+        <p>{{error? 'yes':'no'}}</p>
+        <div>{{msg.split('').reverse()}}</div>
     </div>
     <script src="vue-2-instance.js"></script>
 </body>

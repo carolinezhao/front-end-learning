@@ -1,10 +1,14 @@
 // 数据对象
 var data = {
     a: 1,
+    type: 'application',
+    msg: 'Hello front-end!',
     visitCount: 0,
     todos: [],
     error: null,
-    rawHTML: '<span style="color:red">This should be red.</span>'
+    rawHTML: '<span style="color:red">This should be red.</span>',
+    dynamicID: 'skill',
+    isButtonDisabled: true // 如果值为 null, undefined, or false 则该属性不显示。
 }
 
 // 创建实例
