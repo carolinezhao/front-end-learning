@@ -1,3 +1,5 @@
+// 按照官方文档示例练习，实际项目中应只有一个Root。
+
 // 声明式渲染 Declarative Rendering
 
 // 文本插值
@@ -62,5 +64,32 @@ var app6 = new Vue({
     el: '#app-6',
     data: {
         message: 'Hello JavaScript!'
+    }
+})
+
+
+// 组件化应用构建 Composing with Components
+// Vue 组件重要功能：跨组件数据流，自定义事件通信，构建工具集成
+
+// 定义名为 todo-item 的新组件，在 html 中就是标签
+Vue.component('todo-item', {
+    // "prop"，类似于一个自定义特性，名为 todo。子单元通过 prop 接口与父单元进行了良好的解耦。
+    props: ['todo'],
+    template: '<li>{{todo.text}}</li>'
+})
+
+var app7 = new Vue({
+    el: '#app-7',
+    data: {
+        groceryList: [{
+            id: 0,
+            text: 'Vegetables'
+        }, {
+            id: 1,
+            text: 'Meat'
+        }, {
+            id: 2,
+            text: 'Coffee'
+        }]
     }
 })
