@@ -46,7 +46,3 @@ vm.$watch('a', function (newValue, oldValue) {})
 
 // 生命周期钩子: 在实例生命周期的不同场景下调用
 // 比如上边实例中的 created
-
-
-// 模板语法
-// 插值

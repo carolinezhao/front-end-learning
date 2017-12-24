@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Vue入门</title>
+    <title>Vue实例和模板</title>
     <script src="https://cdn.bootcss.com/vue/2.5.9/vue.js"></script>
     <style>
         body {
@@ -35,6 +35,7 @@
         <button v-bind:disabled="isButtonDisabled">Button</button>
 
         <!-- 对于所有数据绑定，都可以使用 JavaScript 表达式，只能包含单个表达式。 -->
+        <!-- 应尽量使用简单的声明式逻辑。对于复杂逻辑，应使用计算属性。 -->
         <div v-bind:id="type + '-form'">Application</div>
         <p>{{a + 1}}</p>
         <p>{{error? 'yes':'no'}}</p>
