@@ -24,9 +24,14 @@
         <!-- 计算属性是基于它们的依赖进行缓存的，如果依赖不改变，则函数不重新执行。 -->
         <p>Computed time: "{{ now }}"</p>        
         <!-- 调用方法虽然得到的结果一样，但是每次都重新执行函数。 -->
-        <p>Method reversed message: "{{ reversedMessage() }}"</p>        
+        <p>Method reversed message: "{{ reversedMessage() }}"</p>
+        <p>Method time: "{{ current() }}"</p>
+        
+        <p>{{ fullName }}</p>
+        <p>{{ firstName }}</p>
+        
     </div>
-    <script src="vue-3-compute.js"></script>
+    <script src="vue-3-computed.js"></script>
 </body>
 
 </html>
