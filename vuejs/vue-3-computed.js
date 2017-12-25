@@ -7,6 +7,7 @@ var vm = new Vue({
         firstName: 'caroline',
         lastName: 'zhao'
     },
+    // data，computed 和 methods 这些名称没有实际影响，绑定的
     computed: {
         // 声明一个计算属性 reversedMessage。提供的函数用作 vm.reversedMessage 的 getter 函数。
         // 当 vm.message 发生改变时，所有依赖 vm.reversedMessage 的绑定也会更新。
@@ -62,3 +63,4 @@ var vm = new Vue({
 // *** 计算属性 vs 侦听属性 Computed vs Watched Property ***
 // 当有一些数据需要随着其它数据变动而变动时，通常更好的做法是使用计算属性而不是命令式的 watch 回调。
 // 如计算属性 fullName
+// 什么时候使用 watch? 见 vue-4-watcher
