@@ -56,8 +56,12 @@
             {{index}}. {{key}}: {{value}}
         </div>
 
-        <!-- 一段取值范围的 v-for -->
         
+        <!-- 一段取值范围的 v-for -->
+        <p>
+            <!-- v-for 可以取整数。在这种情况下，它将多次重复模板。 -->
+            <span v-for="n in 10">{{n + ' '}}</span>
+        </p>
 
         <!-- v-for on a <template> -->
         <ul>
@@ -85,6 +89,8 @@
             </li>
         </ul>
         <p v-else>No language to learn!</p>
+
+        <!-- 一个组件的 v-for (以后再看) -->
 
 
     </div>
