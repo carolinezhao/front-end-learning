@@ -6,10 +6,15 @@ var vm = new Vue({
         // v-for="item in items"
         // {{item.todo}}
         items: [{
-                todo: 'learn Vue.js'
+                todo: 'learn JavaScript',
+                isComplete: true
+            }, {
+                todo: 'learn Vue.js',
+                isComplete: false
             },
             {
-                todo: 'learn React.js'
+                todo: 'learn React.js',
+                isComplete: false
             }
         ],
         // 对象中的属性值
