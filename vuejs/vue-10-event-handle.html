@@ -24,8 +24,13 @@
         <p>The button above has been clicked {{counter}} times.</p>
 
         <!-- 事件处理方法：v-on 可以接收一个需要调用的方法名称 -->
-        <!-- 如果是"greet"，则两个alert都显示；如果是"greet()"，则只显示第一个alert ？？？不懂-->
-        <button v-on:click="greet">Greet</button>
+        <!-- 问题：如果是"greet"，则两个alert都显示；如果是"greet()"，则只显示第一个alert-->
+        <!-- 原因：没有括号，默认传了event；有了括号，里面没有参数，则认为event没有定义 -->
+        <!-- 问题：没有括号的方法和计算属性的区别？ -->
+        <!-- 答：v-on 绑定的只能是方法，计算属性不能写在这里 -->
+        <!-- 对于greet方法，以下两种的效果一样 -->
+        <button v-on:click="greet">Greet</button>        
+        <button v-on:click="greet($event)">Greet</button>
 
         <!-- 内联处理器中的方法 -->
         <!-- 在内联 JavaScript 语句中调用方法，即标签中调用 -->
@@ -33,12 +38,8 @@
         <button v-on:click="say('What')">Say What</button>
         <!-- 有时也需要在内联语句处理器中访问原始的 DOM 事件。可以用特殊变量 $event 把它传入方法： -->
         <button v-on:click="warn('Form cannot be submitted yet.', $event)">Submit</button>
-        
-        
-        
-        
 
-
+        
     </div>
     <script src="vue-10-event-handle.js"></script>
 </body>
