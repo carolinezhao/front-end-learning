@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Vue事件处理</title>
+    <script src="https://cdn.bootcss.com/vue/2.5.9/vue.js"></script>
+    <style>
+        body {
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            font-size: 18px;
+        }
+
+        button {
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 监听事件：用 v-on 指令监听 DOM 事件，并在触发时运行 js 代码 -->
+        <button v-on:click="counter += 1">Click</button>
+        <p>The button above has been clicked {{counter}} times.</p>
+
+        <!-- 事件处理方法：v-on 可以接收一个需要调用的方法名称 -->
+        <!-- 如果是"greet"，则两个alert都显示；如果是"greet()"，则只显示第一个alert ？？？不懂-->
+        <button v-on:click="greet">Greet</button>
+
+        <!-- 内联处理器中的方法 -->
+        <!-- 在内联 JavaScript 语句中调用方法，即标签中调用 -->
+        <button v-on:click="say('Hi')">Say Hi</button>
+        <button v-on:click="say('What')">Say What</button>
+        <!-- 有时也需要在内联语句处理器中访问原始的 DOM 事件。可以用特殊变量 $event 把它传入方法： -->
+        <button v-on:click="warn('Form cannot be submitted yet.', $event)">Submit</button>
+        
+        
+        
+        
+
+
+    </div>
+    <script src="vue-10-event-handle.js"></script>
+</body>
+
+</html>
