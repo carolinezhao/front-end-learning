@@ -18,6 +18,9 @@ var vm = new Vue({
         }, {
             text: 'Pizza Hut',
             value: 'C'
-        }]
+        }],
+        toggle: 'no',
+        pick: '',
+        a: 'hi'
     }
 })
