@@ -12,7 +12,6 @@ var vm = new Vue({
         // 声明一个计算属性 reversedMessage。提供的函数用作 vm.reversedMessage 的 getter 函数。
         // 当 vm.message 发生改变时，所有依赖 vm.reversedMessage 的绑定也会更新。
         reversedMessage: function () {
-
             return this.message.split('').reverse().join('')
         },
         now: function () {

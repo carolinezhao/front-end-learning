@@ -29,7 +29,7 @@
         <!-- 问题：没有括号的方法和计算属性的区别？ -->
         <!-- 答：v-on 绑定的只能是方法，计算属性不能写在这里 -->
         <!-- 对于greet方法，以下两种的效果一样 -->
-        <button v-on:click="greet">Greet</button>        
+        <button v-on:click="greet">Greet</button>
         <button v-on:click="greet($event)">Greet</button>
 
         <!-- 内联处理器中的方法 -->
@@ -39,7 +39,19 @@
         <!-- 有时也需要在内联语句处理器中访问原始的 DOM 事件。可以用特殊变量 $event 把它传入方法： -->
         <button v-on:click="warn('Form cannot be submitted yet.', $event)">Submit</button>
 
+        <!-- 以下非核心内容，用时查看 -->
+
+        <!-- 事件修饰符 -->
+        <!-- 希望方法只有纯粹的数据逻辑，而不是去处理 DOM 事件细节。Vue.js 为 v-on 提供了事件修饰符。 -->
+        <!-- 提交事件不再重载页面 -->
+        <form v-on:submit.prevent="onSubmit"></form>
+        <!-- 注意：使用修饰符时，顺序很重要；相应的代码会以同样的顺序产生。
+             用 @click.prevent.self 会阻止所有的点击，而 @click.self.prevent 只会阻止对元素自身的点击。 -->
         
+        <!-- 按键修饰符 -->
+        
+        <!-- 系统修饰键 -->
+
     </div>
     <script src="vue-10-event-handle.js"></script>
 </body>
