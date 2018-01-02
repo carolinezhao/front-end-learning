@@ -1,10 +1,15 @@
-// 文档最前面文字部分需要看
+// 组件可以扩展 HTML 元素，封装可重用的代码。在较高层面上，组件是自定义元素，Vue.js 的编译器为它添加特殊功能。
+// 所有的 Vue 组件同时也都是 Vue 的实例，所以可接受相同的选项对象 (除了一些根级特有的选项) 并提供相同的生命周期钩子。
 
 // DOM 模板解析注意事项 (暂时没用上)
+// 当使用 DOM 作为模板时 (例如，使用 el 选项来把 Vue 实例挂载到一个已有内容的元素上)，会受到 HTML 本身的一些限制。
+// 如果使用字符串模板 (不太了解？？)，则没有这些限制。
+
+
+// ！！注意确保在初始化根实例之前注册组件！！
 
 // 全局注册
 // Vue.component(tagName, options)
-// 注意确保在初始化根实例之前注册组件
 Vue.component('my-component', {
     template: '<div>A global custom component!</div>'
 })
@@ -12,11 +17,10 @@ Vue.component('my-component', {
 // 局部注册
 // 可以通过某个 Vue 实例/组件的实例选项 components 注册仅在其作用域中可用的组件
 // parent 实例 == root 实例 局部注册就和全局注册一样了？
+// 本例注册在vue实例中
 var Child = {
     template: '<div>A local custom component!</div>'
 }
-
-
 
 // 组件中 data 必须是函数
 Vue.component('simple-counter', {
@@ -28,7 +32,7 @@ Vue.component('simple-counter', {
         }
     }
 })
-// 反例：如果不是函数会怎样
+// 反例
 // var data = {
 //     counter: 0
 // }
@@ -52,7 +56,8 @@ Vue.component('simple-counter', {
 // HTML 特性是不区分大小写的。所以，当使用的不是字符串模板时，camelCase (驼峰式命名) 的 prop 需要转换为相对应的 kebab-case (短横线分隔式命名)。
 // 在 JavaScript 中使用 camelCase, 在 HTML 中使用 kebab-case
 Vue.component('child',{
-    // 用 props 选项声明它预期的数据
+    // 用 props 选项声明它预期的数据。
+    // 数据来自哪里？1.直接在html标签中赋值；2.父组件传递下来的？
     props:['myMessage'],
     // 就像 data 一样，prop 也可以在模板中使用，同样也可以在 vm 实例中通过 this.message 来使用
     template:'<span>{{myMessage}}</span>'
@@ -62,7 +67,7 @@ Vue.component('child',{
 
 
 
-
+// 初始化根实例
 var vm = new Vue({
     el: '#app',
     data: {
