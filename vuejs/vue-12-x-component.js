@@ -3,10 +3,6 @@
 
 // 组件结构关系：最外层是 root 实例，其次是 my-select，最内层是 my-list
 // 在 root 中定义 data，数据从 root 向下传递
-
-// 事件接口 (Events interface) (还没看到这里)
-// 使用 $on(eventName) 监听事件
-// 使用 $emit(eventName) 触发事件
 // 点击每个列表项，把值传到输入框。在子组件中使用 $emit(eventName,value) 触发事件，在父组件中使用 v-on 监听事件。
 
 // 全局注册组件
@@ -23,8 +19,10 @@ Vue.component('my-select', {
     props: ['list'],
     methods: {
         changeValue: function (value) {
+            console.log(value)
+            // 如何把值传入input的value？？
             this.value = value
-            this.show = false
+            console.log(this.value)
         }
     },
     template: `<section class="wrap">
@@ -34,7 +32,7 @@ Vue.component('my-select', {
             <my-button></my-button>
             <br>
         </div>
-        <my-list v-bind:list='list' v-on:receive='changeValue' v-show='show'></my-list>
+        <my-list v-bind:list='list' v-on:receive='changeValue'></my-list>
     </div>
 </section>`
 })
@@ -43,8 +41,15 @@ Vue.component('my-select', {
 // 从父组件中获得的list传入v-for中的list使用。
 Vue.component('my-list', {
     props: ['list'],
+    methods: {
+        getValue: function (item) {
+            // 怎么拿到 li 中的文本？
+            console.log(item)
+            this.$emit('receive', item)
+        }
+    },
     template: `<ul class="list">
-    <li v-for='item in list'>{{item}}</li>
+    <li v-for='item in list' v-on:click='getValue'>{{item}}</li>
 </ul>`
 })
 
