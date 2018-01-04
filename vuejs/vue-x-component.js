@@ -22,7 +22,6 @@ Vue.component('my-select', {
             console.log(value)
             // 如何把值传入input的value？？
             this.value = value
-            console.log(this.value)
         }
     },
     template: `<section class="wrap">
