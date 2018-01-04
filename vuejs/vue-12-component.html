@@ -24,6 +24,17 @@
         </div>
         <br>
         <child my-message='Hello New Year!'></child>
+        <br>
+
+        <!-- 动态 Prop -->
+        <!-- 用 v-bind 来动态地将 prop 绑定到父组件的数据。每当父组件的数据变化时，该变化也会传导给子组件。 -->
+        <!-- v-bind:prop-name -->
+        <input type="text" v-model="parentMsg">
+        <dynamic-child v-bind:message="parentMsg"></dynamic-child>
+        <!-- 如果想把一个对象的所有属性作为 prop 进行传递，可以使用不带任何参数的 v-bind -->
+        <!-- 没有实现，理解错了？ -->
+        <dynamic-child-2 v-bind="todo"></dynamic-child-2>
+        
     </div>
 
     <script src="vue-12-component.js"></script>
