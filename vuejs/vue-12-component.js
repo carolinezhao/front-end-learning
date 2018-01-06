@@ -82,6 +82,31 @@ Vue.component('dynamic-child-2', {
 })
 
 
+
+// Prop 是单向绑定的：当父组件的属性变化时，将传导给子组件，但是反过来不会。
+// 这是为了防止子组件无意间修改了父组件的状态，来避免应用的数据流变得难以理解。
+// 不应该在子组件内部改变 prop。在两种情况下，会希望去修改 prop 中数据：
+
+// 1）Prop 作为初始值传入后，子组件想把它当作局部数据来用。
+// 解决：定义一个局部变量，并用 prop 的值初始化它。
+// props: ['initialCounter'],
+// data: function () {
+//   return { counter: this.initialCounter }
+// }
+
+// 2）Prop 作为原始数据传入，由子组件处理成其它数据输出。
+// 解决：定义一个计算属性，处理 prop 的值并返回。
+// props: ['size'],
+// computed: {
+//   normalizedSize: function () {
+//     return this.size.trim().toLowerCase()
+//   }
+// }
+
+// 注意在 JavaScript 中对象和数组是引用类型，指向同一个内存空间，如果 prop 是一个对象或数组，在子组件内部改变它会影响父组件的状态。
+
+
+
 // *** 注意确保在初始化根实例之前注册组件！！***
 
 // 初始化根实例
