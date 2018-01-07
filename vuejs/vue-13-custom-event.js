@@ -20,6 +20,38 @@ Vue.component('button-counter', {
     }
 })
 
+
+// 给组件绑定原生事件
+// .sync 修饰符
+
+// 使用自定义事件的表单输入组件
+// 要让组件的 v-model 生效，它应该：
+// 1）接受一个 value prop
+// 2）在有新的值时触发 input 事件并将新值作为参数
+Vue.component('currency-input', {
+    props: ['value'],
+    methods: {
+        // 不是直接更新值，而是使用此方法来对输入值进行格式化和位数限制
+        updateValue: function (value) {
+            var formattedValue = value
+                // 删除两侧的空格符
+                .trim()
+                // 保留 2 位小数
+                .slice()
+            // 如果值尚不合规，则手动覆盖为合规的值
+            if (formattedValue !== value) {
+
+            }
+            // 通过 input 事件带出数值
+            this.$emit('input', Number(formattedValue))
+
+        }
+    },
+    template: ``
+})
+
+
+
 var vm = new Vue({
     el: '#app',
     data: {
