@@ -24,6 +24,7 @@ Vue.component('button-counter', {
 // 给组件绑定原生事件
 // .sync 修饰符
 
+
 // 使用自定义事件的表单输入组件
 // 要让组件的 v-model 生效，它应该：
 // 1）接受一个 value prop
@@ -34,20 +35,29 @@ Vue.component('currency-input', {
         // 不是直接更新值，而是使用此方法来对输入值进行格式化和位数限制
         updateValue: function (value) {
             var formattedValue = value
-                // 删除两侧的空格符
+                // 删除两侧的空格
                 .trim()
-                // 保留 2 位小数
-                .slice()
+                // 保留2位小数
+                // slice(start,length) 返回被提取的部分
+                .slice(
+                    0,
+                    value.indexOf('.') === -1 // 返回值为1时，小数点不存在
+                    ?
+                    value.length :
+                    value.indexOf('.') + 3 // 若有小数点，则取小数点后两位的长度，注意是数组元素位置下标+1，即length
+                )
+            console.log(value.length, value.indexOf('.'), value.indexOf('.') + 3)
             // 如果值尚不合规，则手动覆盖为合规的值
             if (formattedValue !== value) {
-
+                this.$refs.input.value = formattedValue
             }
             // 通过 input 事件带出数值
             this.$emit('input', Number(formattedValue))
-
         }
     },
-    template: ``
+    template: `<span>
+               $<input ref="input" v-bind:value="value" v-on:input="updateValue($event.target.value)">
+               </span>`
 })
 
 
@@ -55,7 +65,8 @@ Vue.component('currency-input', {
 var vm = new Vue({
     el: '#app',
     data: {
-        total: 0
+        total: 0,
+        price:''
     },
     methods: {
         incrementTotal: function () {
