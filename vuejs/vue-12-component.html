@@ -22,14 +22,14 @@
         <!-- data 必须是函数 -->
         <simple-counter></simple-counter>
         <simple-counter></simple-counter>
-        <simple-counter></simple-counter>            
+        <simple-counter></simple-counter>
         <br>
 
         <!-- Prop -->
         <!-- myMessage 来自 props，直接对其赋值，跟父组件有啥关系？ -->
         <child my-message='Hello New Year!'></child>
         <!-- myMessage undefined -->
-        <child></child>      
+        <child></child>
         <br>
 
         <!-- 动态 Prop -->
@@ -52,7 +52,14 @@
         <!-- 单向数据流 -->
         <used-as-local initial-counter='666'></used-as-local>
         <used-as-computed size=' Hey There '></used-as-computed>
-              
+
+        <!-- 非 prop 特性 -->
+        <!-- 假设使用第三方组件 bs-date-input，它包含一个插件，该插件需要在 input 上添加 data-3d-date-picker 特性，可以直接添加到组件上。 -->
+        <!-- 替换/合并现有的特性 -->
+        <!-- 给日期选择器插件增加一个特殊的主题(class)，这个例子当中定义了两个不同的 class 值：
+             form-control，来自组件自身的模板
+             date-picker-theme-dark，来自父组件 -->
+        <bs-date-input data-3d-date-picker='true' class="date-picker-theme-dark"></bs-date-input>
     </div>
 
     <script src="vue-12-component.js"></script>

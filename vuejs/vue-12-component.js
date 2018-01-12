@@ -123,7 +123,18 @@ Vue.component('used-as-computed', {
 
 // Prop 验证（用时查看）
 
+
+
+// 非 prop 特性
+// 可以直接传入组件，不需要定义相应的 prop。
+// 组件可以接收任意传入的特性，这些特性都会被添加到组件的根元素上。
+Vue.component('bs-date-input',{
+    template:'<input type="date" class="form-control">'
+})
+
 // 替换/合并现有的特性
+// 对于多数特性来说，传递给组件的值会覆盖组件本身设定的值。即例如传递 type="large" 将会覆盖 type="date" 且有可能破坏该组件！
+// 所幸我们对待 class 和 style 特性会更聪明一些，这两个特性的值都会做合并 (merge) 操作，让最终生成的值为：form-control date-picker-theme-dark。
 
 
 
