@@ -7,7 +7,7 @@
 // 不能用 $on 侦听子组件释放的事件，而必须在模板里直接用 v-on 绑定。
 // ？？？在本例中，子组件已经和它外部完全解耦了。它所做的只是报告自己的内部事件，因为父组件可能会关心这些事件。请注意这一点很重要。
 
-// My Note
+// Note
 // js中 组件模板 v-on:click='组件中定义的function名称(其中定义了emit)'
 // html中 组件标签 v-on:组件中emit触发的事件名称='父组件中定义的function名称'
 // 绑定的动作-触发组件中的事件-绑定的emit-触发父组件中的事件
@@ -30,6 +30,10 @@ Vue.component('button-counter', {
 // 给组件绑定原生事件
 // 在某个组件的根元素上监听一个原生事件（native event？父组件的事件？），使用 v-on 的修饰符 .native
 
+// .sync 修饰符
+// 从 2.3.0 起重新引入 .sync 修饰符，这次它只是作为一个编译时的语法糖存在。它会被扩展为一个自动更新父组件属性的 v-on 监听器。
+// ** 没有明白怎么用
+
 
 
 // 使用自定义事件的表单输入组件
@@ -49,11 +53,11 @@ Vue.component('button-counter', {
 // 2）在有新的值时触发 input 事件并将新值作为参数
 
 // 子组件引用
-// 有时需要在 JavaScript 中直接访问子组件，可使用 ref 给元素或子组件注册引用信息。
-// 引用信息将会注册在父组件的 $refs 对象上。如果在普通的 DOM 元素上使用，引用指向的就是 DOM 元素；如果用在子组件上，引用就指向组件实例：
-// <!-- vm.$refs.p will be the DOM node -->
+// 有时需要在 JavaScript 中直接访问子组件，可使用 ref 给元素或子组件注册引用信息。引用信息将会注册在父组件的 $refs 对象上。
+// 如果在普通的 DOM 元素上使用，引用指向的就是 DOM 元素；如果用在子组件上，引用就指向组件实例：
+// vm.$refs.p will be the DOM node
 // <p ref="p">hello</p>
-// <!-- vm.$refs.child will be the child comp instance -->
+// vm.$refs.child will be the child comp instance
 // <child-comp ref="child"></child-comp>
 // $refs 只在组件渲染完成后才填充，并且它是非响应式的。它仅仅是一个直接操作子组件的应急方案——应当避免在模板或计算属性中使用 $refs。
 
@@ -78,8 +82,9 @@ Vue.component('currency-input', {
                     value.indexOf('.') + 3 // 若有小数点，则取小数点后两位的长度，注意是数组元素位置下标+1
                 )
             console.log(value.length, value.indexOf('.'), value.indexOf('.') + 3)
-            // 如果值尚不合规，则手动覆盖为合规的值
+            // 如果不是期待的格式，则手动覆盖为合规的值
             if (formattedValue !== value) {
+                // 访问子组件？？？
                 this.$refs.input.value = formattedValue
             }
             // 通过 input 事件带出数值
@@ -89,6 +94,7 @@ Vue.component('currency-input', {
     }
 })
 
+// todo 更完善的案例：货币过滤器
 
 
 var vm = new Vue({
@@ -110,6 +116,5 @@ var vm = new Vue({
 
 
 
-// .sync 修饰符
 // 非父子组件的通信
 // 自定义组件的 v-model
