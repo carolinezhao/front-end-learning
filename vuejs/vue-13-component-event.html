@@ -16,9 +16,12 @@
 <body>
     <div id="app">
         <p>{{total}}</p>
-        <!-- 用 v-on 绑定自定义事件，该事件由子组件触发，传给父组件 -->
+        <!-- 用 v-on 绑定自定义事件，该事件由子组件触发 $emit('increment')，传给父组件的事件 incrementTotal -->
         <button-counter v-on:increment="incrementTotal"></button-counter>
         <button-counter v-on:increment="incrementTotal"></button-counter>
+        <!-- 绑定原生事件？ -->
+        <button-counter v-on:click.native="noincrement"></button-counter>
+        
         <br>
         <br>
         <currency-input v-model="price"></currency-input>

@@ -1,10 +1,16 @@
+// 使用 v-on 绑定自定义事件
 // 每个 Vue 实例都实现了事件接口 (events interface)：
 // 使用 $on(eventName) 监听事件
 // 使用 $emit(eventName) 触发事件
-// 父组件可以在使用子组件的地方直接用 v-on 来监听子组件触发的事件。
+
+// 父组件可以在使用子组件的地方直接用 v-on 来监听子组件触发的事件。（即在html中的组件标签中绑定）
 // 不能用 $on 侦听子组件释放的事件，而必须在模板里直接用 v-on 绑定。
 // ？？？在本例中，子组件已经和它外部完全解耦了。它所做的只是报告自己的内部事件，因为父组件可能会关心这些事件。请注意这一点很重要。
 
+// My Note
+// js中 组件模板 v-on:click='组件中定义的function名称(其中定义了emit)'
+// html中 组件标签 v-on:组件中emit触发的事件名称='父组件中定义的function名称'
+// 绑定的动作-触发组件中的事件-绑定的emit-触发父组件中的事件
 Vue.component('button-counter', {
     template: '<button v-on:click="incrementCounter">{{counter}}</button>',
     data: function () {
@@ -15,10 +21,15 @@ Vue.component('button-counter', {
     methods: {
         incrementCounter: function () {
             this.counter += 1
-            this.$emit('increment')
+            console.log('this counter is ' + this.counter)            
+            this.$emit('increment') // 用v-on将increment与父组件的事件绑定
         }
     }
 })
+
+// 给组件绑定原生事件
+// 在某个组件的根元素上监听一个原生事件（native event？父组件的事件？），使用 v-on 的修饰符 .native
+
 
 
 // 使用自定义事件的表单输入组件
@@ -84,18 +95,21 @@ var vm = new Vue({
     el: '#app',
     data: {
         total: 0,
-        price:''
+        price: ''
     },
     methods: {
         incrementTotal: function () {
             this.total += 1
+            console.log('the total is ' + this.total)
+        },
+        noincrement:function() {
+            console.log('the total did not change')
         }
     }
 })
 
 
-// 还没看的内容：
-// 给组件绑定原生事件
+
 // .sync 修饰符
 // 非父子组件的通信
 // 自定义组件的 v-model
