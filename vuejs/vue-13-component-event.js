@@ -36,12 +36,15 @@ Vue.component('button-counter', {
 
 
 
-// 使用自定义事件的表单输入组件
+// 使用自定义事件的表单输入组件 (表单绑定的基础用法见 vue-11-form-bind)
 // 自定义事件可以用来创建自定义的表单输入组件，使用 v-model 来进行数据双向绑定。
 // <input v-model="something"> 是以下示例的语法糖：
 // <input
 //   v-bind:value="something"
 //   v-on:input="something = $event.target.value">
+// 其中 event.target 是发起事件的 object。注意 event.target.value 是一个string，如果作为数字使用，需要 Number(event.target.value)
+// $的意思是？
+
 // 在组件中使用时，它相当于简写：
 // <custom-input
 //   v-bind:value="something"
@@ -62,6 +65,10 @@ Vue.component('button-counter', {
 // $refs 只在组件渲染完成后才填充，并且它是非响应式的。它仅仅是一个直接操作子组件的应急方案——应当避免在模板或计算属性中使用 $refs。
 
 Vue.component('currency-input', {
+    // v-bind:value 绑定的 prop 名为 value，传入的是父组件中的 price
+    // 普通表单用 v-model 绑定，直接获取的就是输入的值；此例中，要对获取的值进行操作，即自定义事件，因此需要对 v-model 进行配置。
+    // input 触发的函数是 updateValue，其中 $event.target.value 是获取到的表单输入值，作为参数传入 updateValue。
+    // 通过自定义事件对 input 的内容进行修改后，还需要传回 input 中去，访问模板就相当于访问子组件，使用$ref。子组件需要先用 ref 注册。
     template: `<span>
                $<input ref="input" v-bind:value="value" v-on:input="updateValue($event.target.value)">
                </span>`,
@@ -84,11 +91,13 @@ Vue.component('currency-input', {
             console.log(value.length, value.indexOf('.'), value.indexOf('.') + 3)
             // 如果不是期待的格式，则手动覆盖为合规的值
             if (formattedValue !== value) {
-                // 访问子组件？？？
+                // 访问子组件，即输入框中的值
                 this.$refs.input.value = formattedValue
             }
             // 通过 input 事件带出数值
             // Number() 函数把对象转换为数字
+            console.log(typeof formattedValue, formattedValue)
+            console.log(typeof Number(formattedValue))
             this.$emit('input', Number(formattedValue))
         }
     }
