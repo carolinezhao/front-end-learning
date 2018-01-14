@@ -91,7 +91,7 @@ Vue.component('currency-input', {
             console.log(value.length, value.indexOf('.'), value.indexOf('.') + 3)
             // 如果不是期待的格式，则手动覆盖为合规的值
             if (formattedValue !== value) {
-                // 访问子组件，即输入框中的值
+                // 访问子组件（模板=子组件？），即输入框中的值
                 this.$refs.input.value = formattedValue
             }
             // 通过 input 事件带出数值
@@ -103,7 +103,13 @@ Vue.component('currency-input', {
     }
 })
 
-// todo 更完善的案例：货币过滤器
+// todo 更完善的案例：货币过滤器（以后看）
+
+
+
+// 自定义组件的 v-model（以后看）
+// 非父子组件的通信（以后看）
+
 
 
 var vm = new Vue({
@@ -122,8 +128,3 @@ var vm = new Vue({
         }
     }
 })
-
-
-
-// 非父子组件的通信
-// 自定义组件的 v-model
