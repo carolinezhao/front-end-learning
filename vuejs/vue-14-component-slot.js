@@ -94,7 +94,7 @@ Vue.component('child-component-3', {
 // 作用域插槽也可以是具名的
 // 父组件
 Vue.component('list-with-slot', {
-    props:['items'],
+    props: ['items'],
     template: `<awesome-list :items="items">
     <li
       slot="item"
@@ -107,7 +107,7 @@ Vue.component('list-with-slot', {
 
 // 子组件
 Vue.component('awesome-list', {
-    props:['items'],    
+    props: ['items'],
     template: `<ul>
     <slot name="item"
       v-for="item in items"
@@ -127,15 +127,16 @@ Vue.component('awesome-list', {
 </child>*/
 
 
+
 var vm = new Vue({
     el: '#app',
     data: {
         items: [{
             index: 1,
             text: 'learning Vue.js'
-        },{
-            index:2,
-            text:'drinking tea'
+        }, {
+            index: 2,
+            text: 'drinking tea'
         }]
     },
     methods: {}
