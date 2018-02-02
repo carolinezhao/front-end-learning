@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <p id="language"></p>
+    <a id="website"></a>
+    <script>
+        var data = {
+            "name": "caroline",
+            "age": 25,
+            "gender": "female",
+            "skill": {
+                "language": "JavaScript",
+                "framework": "Vue.js",
+                "website": "Github",
+                "url": "https://github.com/carolinezhao"
+            }
+        }
+        for (var i in data) {
+            if (i === "skill") {
+                // 注意 in 后边必须是 object，而不能是字符串
+                for (var j in data[i]) {
+                    var element = document.getElementById(j)
+                    if (element) {
+                        if (j === "website") {
+                            element.setAttribute('href', data[i]["url"])
+                            element.innerHTML = data[i][j]
+                        } else {
+                            element.innerHTML = data[i][j]
+                        }
+                    }
+                }
+            } else {
+                var el = document.getElementById(i)
+                if (el) {
+                    el.innerHTML = data[i]
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
