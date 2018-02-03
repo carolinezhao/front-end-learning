@@ -29,3 +29,25 @@
 8.等待代码被合并，本地切到 master 分支，pull 代码到 master。
 
 	git checkout master
+	
+***
+
+第4步之后，如果直接 git push 了，则可以通过与本地 master 对比解决冲突。
+   
+    git checkout master 
+    git pull
+    git checkout branch-name
+    git rebase master
+    
+    此时已经自动新建了一个分支用于解决冲突
+    git rebase --continue
+    在代码中解决冲突
+    git add
+    git rebase --continue
+    
+    回到了要提交代码的分枝
+    git add
+    git commit -m ""
+    git push
+   
+   
