@@ -32,6 +32,7 @@ var user = {
 user.say();
 user.job = 'dentist';
 user.say();
+console.log('\n')
 
 /*=====================================================
 Constructor notation
@@ -56,9 +57,18 @@ function Person(job, married) {
     }
 }
 var person1 = new Person('developer', false);
+var person2 = new Person('Dentist', true)
 person1.speak();
+person2.speak();
+// person1 和 person2 分别保存着 Person 的一个不同的实例。这两个对象都有一个 constructor(构造函数) 属性。
+console.log(person1.constructor === Person)
+// 创建的所有对象既是 Object 的实例，同时也是 Person 的实例。
+console.log(person2 instanceof Object)
+console.log(person2 instanceof Person)
+console.log('\n')
 
-// 初学时两种的写法
+
+// 初学时的两种写法
 var user = new Object();
 user.age = 25;
 
