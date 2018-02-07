@@ -37,6 +37,7 @@ buddy.bark();
 
 var snoopy = new Dog('Beagle');
 snoopy.bark();
+console.log('\n')
 
 // =======================================
 
@@ -54,6 +55,8 @@ var printName = function (p) {
     console.log(p.name);
 }
 
+console.log(Person.prototype)
+console.log(Person.prototype.constructor === Person)
 Person.prototype.intro = function () {
     console.log(this.name + ' works as a ' + this.job);
 }
@@ -64,6 +67,10 @@ rabbit.intro();
 
 var bear = new Person('bear', 27, 'engineer');
 bear.intro();
+console.log(Person.prototype.isPrototypeOf(bear))
+// 原型中添加的属性，通过构造函数可以获取；构造函数中的属性，原型中没有？
+console.log(Object.getPrototypeOf(bear))
+console.log(Object.getPrototypeOf(bear).age) //undefined
 
 console.log('\n');
 
