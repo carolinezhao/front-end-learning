@@ -16,7 +16,8 @@
 // 引用类型值：可以添加、改变和删除其属性和方法。
 // 基本类型值：不能添加属性。
 
-// 4.1.2 复制变量值 Copying Values
+
+// =========== 4.1.2 复制变量值 Copying Values ===========
 // 基本类型值：
 // 1）把值复制到为新变量分配的位置上。
 // 2）复制到新变量上的值与原来的值完全独立，互不影响。
@@ -36,7 +37,7 @@ console.log(obj1, obj2)
 console.log('')
 
 
-// 4.1.3 传递参数 Argument Passing
+// =========== 4.1.3 传递参数 Argument Passing ===========
 // 可以认为函数的参数是局部变量。
 // 函数的参数都是按值传递的。
 // 函数外的值复制给函数内的参数 = 复制变量值
@@ -62,7 +63,7 @@ console.log(count, result)
 
 // 引用类型值：按值传递，按引用访问
 function setName(obj) {
-    obj.name='Caroline'
+    obj.name = 'Caroline'
 }
 
 var person = new Object()
@@ -87,3 +88,40 @@ function setLocation(obj) {
 var position = new Object()
 setLocation(position)
 console.log(position.location) // Beijing
+
+
+// =========== 4.1.4 检测类型 ===========
+// typeof 是问句。用于检测基本类型。
+// instanceof 是判断句。用于检测引用类型。
+
+var s = 'hello'
+var b = true
+var i = 10
+var u
+var n = null
+var o = new Object()
+
+function Person(name) {
+    this.name = name
+}
+var f = (num1, num2) => num1 + num2
+var a = [1, 2, 3]
+var r = /\W+/g
+
+console.log(typeof s, typeof b, typeof i, typeof u)
+// typeof 无法区分 null 和 object
+console.log(typeof n, typeof o) // object, object
+// typeof 检测函数时，返回"function"
+console.log(typeof Person, typeof f, typeof a)
+// 对正则表达式，Chrome 返回"function"，Firefox 返回"object"
+console.log(typeof r)
+
+// variable instanceof constructor
+// 在检测一个引用类型值和 Object 构造 函数时，instanceof 操作符始终会返回 true
+console.log(Person instanceof Object)
+console.log(f instanceof Object)
+console.log(f instanceof Function)
+console.log(a instanceof Object)
+console.log(a instanceof Array)
+// instanceof 检测基本类型，始终会返回 false
+console.log(n instanceof Object)
