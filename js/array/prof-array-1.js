@@ -31,7 +31,7 @@ console.log(food.length) // 根据最后一项重新计算长度，中间的项�
 console.log('')
 
 
-// 5.2.1 检测数组
+// 5.2.1 检测数组 Detecting Arrays
 // 对于一个网页或者一个全局作用域，使用 instanceof
 if (devices instanceof Array) {
     console.log(devices)
@@ -45,7 +45,7 @@ if (Array.isArray(people)) {
 console.log('')
 
 
-// 5.2.2 转换方法
+// 5.2.2 转换方法 Conversion Methods
 // toLocaleString()
 // 返回字符串，调用每一项的 toLocaleString()
 // toString()
