@@ -1,21 +1,4 @@
-// array.sort([compareFunction])
-
-// 字母、数字默认升序排列
-var months = ['Dec', 'April', 'June', 'May']
-var months = months.sort()
-console.log(months)
-console.log('')
-
-var array = [670, 230, 450, 23]
-var result1 = array.sort()
-// 这个和默认的有啥区别？
-var result2 = array.sort(function (a, b) {
-    console.log(a, b, a - b)
-    return a - b
-})
-console.log(result1, result2)
-console.log('')
-
+// 根据对象中的不同属性进行排列
 var items = [{
     name: 'Caroline',
     value: 25
