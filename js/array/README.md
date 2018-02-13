@@ -6,7 +6,7 @@
 
 创建数组，检测数组，转换为字符串
 
-### prof-array-2.js
+## prof-array-2.js
 
 栈方法，队列方法，重排序方法
 
@@ -24,6 +24,10 @@
 
     length = array.unshift('item') 前边进
     item = array.pop() 后边出
+    
+## prof-array-3.js
+
+操作方法
 
 ## reference
 
