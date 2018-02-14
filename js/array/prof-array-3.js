@@ -46,7 +46,8 @@ console.log(removed3, fruits)
 console.log('')
 
 
-// 5.2.7 位置方法
+
+// 5.2.7 位置方法 Location Methods
 // indexOf() 从数组的开头(位置0)开始向后查找。
 // lastIndexOf() 从数组的末尾开始向前查找。
 // 都接收两个参数：要查找的项 (必选) 和表示查找起点位置的索引 (可选)。
@@ -54,8 +55,66 @@ console.log('')
 // 比较参数与数组中的每一项时，使用全等操作符===，即要求严格相等。
 var numbers = [12, 5, 66, 82, 73, 29, 66, 1]
 var index1 = numbers.indexOf(66)
-var index2 = numbers.lastIndexOf(66)
-var index3 = numbers.indexOf(66,4)
-var index4 = numbers.lastIndexOf(66,5)
+var index2 = numbers.lastIndexOf(66) // 从末尾向前查找，遇到的第一个目标值在位置6
+var index3 = numbers.indexOf(66, 4) // 从位置4向后查找，遇到的一个目标值在位置6
+var index4 = numbers.lastIndexOf(66, 5) // 从位置5向前查找，遇到的第一个目标值在位置2
 var index5 = numbers.indexOf(8)
 console.log(index1, index2, index3, index4, index5)
+
+var person = {
+    name: 'Caroline'
+}
+var people1 = [{
+    name: 'Bernie'
+}, {
+    name: 'Caroline'
+}]
+var people2 = [person]
+var indexPerson1 = people1.indexOf(person)
+console.log(indexPerson1) // -1
+var indexPerson2 = people2.indexOf(person)
+console.log(indexPerson2) // 0
+// 查找的是 literal person（对象名称），而不是把它翻译为对象
+console.log('')
+
+
+
+// 5.2.8 迭代方法 Iterative Methods
+// 都接收两个参数：要在每一项上运行的函数和运行该函数的作用域对象 (可选) ——影响 this 的值。
+// 函数会接收三个参数：数组项的值，该项在数组中的位置和数组对象本身。
+
+// 对数组中的每一项运行给定函数
+// every() 如果该函数对每一项都返回 true，则返回 true。
+// some() 如果该函数对任一项返回 true，则返回 true。
+// --这两个方法都用于查询数组中的项是否满足某个条件
+
+// filter() 返回该函数会返回 true 的项组成的数组。
+// forEach() 没有返回值。
+// map() 返回每次函数调用的结果组成的数组。
+// ---以上方法都不会修改数组中的包含的值。
+
+
+
+// 5.2.9 归并方法 Reduction Methods
+// reduce() 从数组的第一项开始，逐个遍历到最后。
+// reduceRight() 从数组的最后一项开始，向前遍历到第一项。
+// 都接收两个参数：一个在每一项上调用的函数和作为归并基础的初始值 (可选)。
+// 函数接收 4 个参数：前一个值、当前值、项的索引和数组对象。
+// 这个函数返回的任何值都会作为第一个参数自动传给下一项。第一次迭代发生在数组的第二项上，因此第一个参数是数组的第一项，第二个参数就是数组的第二项。
+
+// 使用 reduce() 求数组中所有值之和。
+var values1 = [1, 3, 2, 6]
+var sum1 = values1.reduce(function (prev, cur, index, array) {
+    console.log(prev, cur)
+    console.log(index, array)
+    return prev + cur
+})
+console.log(sum1)
+console.log('')
+// reduceRight() 的作用类似，只不过方向相反。
+var values2 = [1, 3, 2, 6]
+var sum2 = values2.reduceRight(function (prev, cur, index, array) {
+    console.log(prev, cur)
+    return prev + cur
+})
+console.log(sum2)
