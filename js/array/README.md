@@ -27,7 +27,7 @@
     
 ## prof-array-3.js
 
-操作方法
+操作方法，位置方法
 
 ## reference
 

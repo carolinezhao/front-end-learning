@@ -43,3 +43,19 @@ console.log(removed2, fruits)
 var removed3 = fruits.splice(0, 3, 'banana', 'orange')
 console.log(removed3, fruits)
 // 以上三次操作的作用结果是累积的
+console.log('')
+
+
+// 5.2.7 位置方法
+// indexOf() 从数组的开头(位置0)开始向后查找。
+// lastIndexOf() 从数组的末尾开始向前查找。
+// 都接收两个参数：要查找的项 (必选) 和表示查找起点位置的索引 (可选)。
+// 都返回要查找的项在数组中的位置，如果没找到则返回-1。
+// 比较参数与数组中的每一项时，使用全等操作符===，即要求严格相等。
+var numbers = [12, 5, 66, 82, 73, 29, 66, 1]
+var index1 = numbers.indexOf(66)
+var index2 = numbers.lastIndexOf(66)
+var index3 = numbers.indexOf(66,4)
+var index4 = numbers.lastIndexOf(66,5)
+var index5 = numbers.indexOf(8)
+console.log(index1, index2, index3, index4, index5)
