@@ -84,14 +84,67 @@ console.log('')
 // 函数会接收三个参数：数组项的值，该项在数组中的位置和数组对象本身。
 
 // 对数组中的每一项运行给定函数
-// every() 如果该函数对每一项都返回 true，则返回 true。
-// some() 如果该函数对任一项返回 true，则返回 true。
-// --这两个方法都用于查询数组中的项是否满足某个条件
+// every() 如果该函数对【每一项】都返回 true，则返回 true。
+// some() 如果该函数对【任一项】返回 true，则返回 true。
+// --这两个方法都用于查询数组中的项是否满足某个条件。
 
-// filter() 返回该函数会返回 true 的项组成的数组。
+// filter() 返回该函数【会返回 true 的项】组成的数组。
+// --这个方法用于查询符合某些条件的所有数组项。
+
+// map() 返回【每次函数调用的结果】组成的数组。
+// --数组的每一项都是在原始数组中的对应项上运行传入函数的结果。
+// --适合创建包含的项与另一个数组一一对应的数组。
+
 // forEach() 没有返回值。
-// map() 返回每次函数调用的结果组成的数组。
+// --只是对数组中的每一项运行传入的函数。本质上与使用 for 循环迭代数组一样。
+
 // ---以上方法都不会修改数组中的包含的值。
+
+// 遇到不符合的项就返回 false
+var figure = [1, 20, 16, 5, 9]
+var everyResult = figure.every(function (item, index, array) {
+    console.log(item) // 第1项不符合，就返回 false
+    return (item > 10)
+})
+console.log(everyResult)
+console.log('')
+// 遇到符合的项就返回 true
+var someResult = figure.some(function (item, index, array) {
+    console.log(item, index) // 第2项符合，就返回 true
+    return (item > 10)
+})
+console.log(someResult)
+console.log('')
+// 遍历所有项，符合的项组成数组返回
+var filterResult = figure.filter(function (item, index, array) {
+    console.log(item, index)
+    return (item > 10)
+})
+console.log(filterResult)
+console.log('')
+// 遍历所有项，返回所有运行结果
+var mapResult1 = figure.map(function (item, index, array) {
+    console.log(item, index)
+    return (item > 10)
+})
+console.log(mapResult1)
+console.log('')
+var mapResult2 = figure.map(function (item, index, array) {
+    console.log(item, index)
+    return (item * 2)
+})
+console.log(mapResult2)
+console.log('')
+// 运行函数，但是没有返回值
+var arrayResult = []
+var forEachResult = figure.forEach(function (item, index, array) {
+    console.log(item, index)
+    arrayResult[index] = item * 2
+    return (item * 2)
+})
+console.log(arrayResult) // 证明函数运行
+console.log(forEachResult) // 没有返回值
+console.log('')
 
 
 
