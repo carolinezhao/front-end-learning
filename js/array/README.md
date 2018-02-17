@@ -29,8 +29,14 @@
 
 操作方法，位置方法，迭代方法，归并方法
 
+## es6-array.js
+
+find, findIndex, fill, copyWithin
+
 ## reference
 
 《JavaScript 高级程序设计》Chapter 5.2 Array 类型
+
+《深入理解 ES6》Chapter 10 改进的数组功能
 
 《算法图解》Chapter 3.3 栈
