@@ -35,7 +35,7 @@ console.log('')
 // 因为函数名本身就是变量，所以函数也可以作为值来使用。
 // 可以像传递参数一样把一个函数传递给另一个函数，也可以将一个函数作为另一个函数的结果返回。
 function callSomeFunction(someFunction, someArgument) {
-    return someFunction(someArgument)
+    return someFunction(someArgument) // 返回传入的函数执行的结果
 }
 
 function add10(num) {
@@ -44,3 +44,48 @@ function add10(num) {
 
 var result1 = callSomeFunction(add10, 8) // 访问函数指针，函数名后不加括号！！
 console.log(result1)
+
+function sayName(name) {
+    return 'Hello! I am ' + name
+}
+
+var result2 = callSomeFunction(sayName, 'Rabbit')
+console.log(result2)
+
+// 使用场景：根据某个对象属性对数组进行排序
+// 解决：定义一个函数，接收一个属性名，根据属性名创建一个比较函数
+function createComparisonFunction(propertyName) {
+    return function(object1, object2) {
+        var value1 = object1[propertyName]
+        var value2 = object2[propertyName]
+        if (value1 > value2) {
+            return 1
+        } else if (value1 < value2) {
+            return -1
+        } else {
+            return 0
+        }
+    }
+}
+
+var items = [{
+    name: 'Caroline',
+    value: 25
+}, {
+    name: 'Bear',
+    value: 20
+}, {
+    name: 'Rabbit',
+    value: 16
+}, {
+    name: 'Bernie',
+    value: 27
+}]
+
+items.sort(createComparisonFunction('name'))
+console.log(items)
+items.sort(createComparisonFunction('value'))
+console.log(items)
+
+
+// 5.5.4 函数内部属性
