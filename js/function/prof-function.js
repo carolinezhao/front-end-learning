@@ -1,19 +1,78 @@
-// 第5章 引用类型
+// 3.7 函数
+// 3.7.1 理解参数
+// 不介意传递进来多少个参数，也不在乎传进来参数是什么数据类型。
+// 原因是参数在内部是用一个数组来表示的。函数接收到的始终都是这个数组，而不关心数组中包含哪些参数。
+// 在函数体内可以通过 arguments 对象来访问这个参数数组，从而获取传递给函数的每一个参数。
+// arguments 对象只是与数组类似，它并不是 Array 的实例。
+function sayHi(name, message) {
+    console.log('Hi ' + name + ', ' + message)
+}
+sayHi('Bear', 'how are you today?')
+// 可以改写为不显式地使用命名参数
+function sayHello() {
+    console.log('Hi ' + arguments[0] + ', ' + arguments[1] + arguments[2])
+}
+sayHello('Rabbit', 'how is going? ', 'Do you want a cup of coffee?')
+// ES函数的重要特点：命名的参数只提供便利，不是必需的。
+// 通过访问 arguments 对象的 length 属性可以获知有多少个参数传递给了函数。
+function howManyArgs() {
+    console.log(arguments.length)
+}
+howManyArgs('spring', 20)
+howManyArgs()
+howManyArgs(true)
+console.log('')
+// 函数可以接收任意个参数并分别实现适当的功能。
+function doAdd() {
+    if (arguments.length === 1) {
+        console.log(arguments[0] + 10)
+    } else if (arguments.length === 2) {
+        console.log(arguments[0] + arguments[1])
+    }
+}
+doAdd(5)
+doAdd(24, 58)
+// arguments 对象可以与命名参数一起使用。
+function add(num1, num2) {
+    if (arguments.length === 1) {
+        console.log(num1 + 10)
+    } else if (arguments.length === 2) {
+        console.log(arguments[0] + num2)
+    }
+}
+add(25, 35)
+// arguments 的值永远与对应命名参数的值保持同步。
+// 不过这并不是说读取这两个值会访问相同的内存空间;它们的内存空间是独立的，但它们的值会同步。
+function doPlus(num1, num2) {
+    arguments[1] = 10 // num2 也会同步变为 10
+    console.log(num1, num2)
+}
+doPlus(2, 6)
+// 如果只传入了一个参数，那么为 arguments[1] 设置的值不会反应到命名参数中。
+// arguments 对象的长度是由传入的参数个数决定的，不是由定义函数时的命名参数的个数决定的。
+// 没有传递值的命名参数将自动被赋予 undefined 值。
+doPlus(6)
+console.log('')
+
+// 3.7.2 没有重载
+
+
+
 // 5.5 Function 类型
 // 函数实际上是对象。每个函数都是 Function 类型的实例，而且都与其他引用类型一样具有属性和方法。
 
 // 定义函数：函数声明语法；函数表达式；Function 构造函数（不推荐）
 
 // 函数名实际上是一个指向函数对象的指针，不会与某个函数绑定。
-function sum(num1, num2){
+function sum(num1, num2) {
     return num1 + num2;
 }
-console.log(sum(6,10));
+console.log(sum(6, 10));
 // 使用不带圆括号的函数名是访问函数指针，而非调用函数。
 var anotherSum = sum; // 将 sum 的值赋给 anotherSum，两个函数名都指向了同一个函数
-console.log(anotherSum(6,10));
+console.log(anotherSum(6, 10));
 sum = null;
-console.log(anotherSum(6,10));
+console.log(anotherSum(6, 10));
 console.log('')
 
 
@@ -55,7 +114,7 @@ console.log(result2)
 // 使用场景：根据某个对象属性对数组进行排序
 // 解决：定义一个函数，接收一个属性名，根据属性名创建一个比较函数
 function createComparisonFunction(propertyName) {
-    return function(object1, object2) {
+    return function (object1, object2) {
         var value1 = object1[propertyName]
         var value2 = object2[propertyName]
         if (value1 > value2) {
