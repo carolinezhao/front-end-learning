@@ -1,7 +1,7 @@
 // 3.7 函数
 // 3.7.1 理解参数
-// 不介意传递进来多少个参数，也不在乎传进来参数是什么数据类型。
-// 原因是参数在内部是用一个数组来表示的。函数接收到的始终都是这个数组，而不关心数组中包含哪些参数。
+// 函数不介意传递进来多少个参数，也不在乎传进来参数是什么数据类型。
+// 原因：参数是用一个数组表示的。函数接收的是这个数组，不关心数组中包含哪些参数。
 // 在函数体内可以通过 arguments 对象来访问这个参数数组，从而获取传递给函数的每一个参数。
 // arguments 对象只是与数组类似，它并不是 Array 的实例。
 function sayHi(name, message) {
@@ -9,11 +9,12 @@ function sayHi(name, message) {
 }
 sayHi('Bear', 'how are you today?')
 // 可以改写为不显式地使用命名参数
+// ES函数的重要特点：命名的参数只提供便利，不是必需的。
 function sayHello() {
     console.log('Hi ' + arguments[0] + ', ' + arguments[1] + arguments[2])
 }
 sayHello('Rabbit', 'how is going? ', 'Do you want a cup of coffee?')
-// ES函数的重要特点：命名的参数只提供便利，不是必需的。
+
 // 通过访问 arguments 对象的 length 属性可以获知有多少个参数传递给了函数。
 function howManyArgs() {
     console.log(arguments.length)
@@ -22,6 +23,7 @@ howManyArgs('spring', 20)
 howManyArgs()
 howManyArgs(true)
 console.log('')
+
 // 函数可以接收任意个参数并分别实现适当的功能。
 function doAdd() {
     if (arguments.length === 1) {
@@ -32,6 +34,7 @@ function doAdd() {
 }
 doAdd(5)
 doAdd(24, 58)
+
 // arguments 对象可以与命名参数一起使用。
 function add(num1, num2) {
     if (arguments.length === 1) {
@@ -41,6 +44,7 @@ function add(num1, num2) {
     }
 }
 add(25, 35)
+
 // arguments 的值永远与对应命名参数的值保持同步。
 // 不过这并不是说读取这两个值会访问相同的内存空间;它们的内存空间是独立的，但它们的值会同步。
 function doPlus(num1, num2) {
@@ -49,19 +53,23 @@ function doPlus(num1, num2) {
 }
 doPlus(2, 6)
 // 如果只传入了一个参数，那么为 arguments[1] 设置的值不会反应到命名参数中。
-// arguments 对象的长度是由传入的参数个数决定的，不是由定义函数时的命名参数的个数决定的。
+// ！！arguments 对象的长度是由【实际传入的参数个数】决定的，不是由定义函数时的命名参数的个数决定的。
 // 没有传递值的命名参数将自动被赋予 undefined 值。
 doPlus(6)
 console.log('')
 
-// 3.7.2 没有重载
+
+// 3.7.2 没有重载 No Overloading
+// 重载：其他语言中 (如 Java)，可以为一个函数编写两个定义，只要这两个定义的签名 (接受的参数的类型和数量) 不同即可。
+// ES 没有函数签名，因此不能实现重载。
+// 如果在 ES 中定义了两个名字相同的函数，则该名字只属于后定义的函数。
+
 
 
 
 // 5.5 Function 类型
 // 函数实际上是对象。每个函数都是 Function 类型的实例，而且都与其他引用类型一样具有属性和方法。
-
-// 定义函数：函数声明语法；函数表达式；Function 构造函数（不推荐）
+// 定义函数的3种途径：函数声明语法；函数表达式；Function 构造函数（不推荐）
 
 // 函数名实际上是一个指向函数对象的指针，不会与某个函数绑定。
 function sum(num1, num2) {
@@ -77,6 +85,7 @@ console.log('')
 
 
 // 5.5.1 没有重载
+// 将函数名想象为指针，也有助于理解为什么 ES 中没有函数重载的概念。
 // 声明两个同名函数，后面的函数会覆盖前面的函数。
 
 
