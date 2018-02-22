@@ -154,6 +154,74 @@ items.sort(createComparisonFunction('name'))
 console.log(items)
 items.sort(createComparisonFunction('value'))
 console.log(items)
+console.log('')
 
 
-// 5.5.4 函数内部属性
+// 5.5.4 函数内部属性 Function Internals
+// 函数内部两个特殊对象：arguments 和 this
+
+// arguments 用法见 3.7.1
+// arguments 是一个类数组对象，包含着传入函数中的所有参数。
+// 这个对象还有一个名叫 callee 的属性，该属性是一个指针，指向拥有这个 arguments 对象的函数。
+
+// 阶乘函数 (使用递归算法)
+// function factorial (num) {
+//     if (num <= 1) {
+//         return 1
+//     } else {
+//         return num * factorial(num - 1)
+//     }
+// }
+// 问题是这个函数的执行与函数名 factorial 耦合在一起。(如果函数名变了，会影响执行)
+// 【重要】为了解除函数体内的代码与函数名的耦合状态，可以使用 arguments.callee。
+function factorial(num) {
+    if (num <= 1) {
+        return 1
+    } else {
+        return num * arguments.callee(num - 1)
+    }
+}
+console.log(factorial(3))
+// 无论引用函数时使用的是什么名字，都可以保证正常完成递归调用。
+// 变量 trueFactorial 获得了 factorial 的值，实际上是在另一个位置上保存了一个函数的指针。
+var trueFactorial = factorial
+factorial = function () {
+    return 0
+}
+console.log(trueFactorial(3))
+console.log(factorial(3))
+
+// this
+// 引用的是函数据以执行的环境对象——或者也可以说是 this 值 (当在网页的全局作用域中调用函数时，this 对象引用的就是 window)。
+
+// 以下注释掉的代码在 chrome 的 console 中执行
+// window.color = 'red'
+var o = {color:'blue'}
+function sayColor() {
+    console.log(this.color)
+}
+// sayColor() // red
+o.sayColor = sayColor
+o.sayColor() // blue
+// 由于在调用函数之前，this 的值并不确定，因此 this 可能会在代码执行过程中引用不同的对象。
+// 当在全局作用域中调用 sayColor() 时，this 引用的是全局对象 window。
+// 当把这个函数赋给对象 o 并调用 o.sayColor() 时，this 引用的是对象 o。
+
+// ！！一定要牢记，函数的名字仅仅是一个包含指针的变量而已。
+// 即使是在不同的环境中执行，全局的 sayColor() 函数与 o.sayColor() 指向的仍然是同一个函数。
+
+// caller
+// 这个属性中保存着调用当前函数的函数的引用， 如果是在全局作用域中调用当前函数，它的值为 null。
+function outer() {
+    inner()
+}
+// function inner() {
+//     console.log(inner.caller)
+// }
+function inner() {
+    console.log(arguments.callee.caller)
+}
+outer() // [function: outer]
+// 因为 outer() 调用了 inter()，所以 inner.caller 就指向 outer()。
+// 为了实现更松散的耦合，也可以通过 arguments.callee.caller 来访问相同的信息。
+// 严格模式下会导致错误。
