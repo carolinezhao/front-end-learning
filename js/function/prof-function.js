@@ -99,7 +99,7 @@ console.log('')
 // （另见 prof-function-expressions.md）
 
 
-// 5.5.3 作为值的函数
+// 5.5.3 作为值的函数 Functions as Values
 // 因为函数名本身就是变量，所以函数也可以作为值来使用。
 // 可以像传递参数一样把一个函数传递给另一个函数，也可以将一个函数作为另一个函数的结果返回。
 function callSomeFunction(someFunction, someArgument) {
@@ -196,7 +196,10 @@ console.log(factorial(3))
 
 // 以下注释掉的代码在 chrome 的 console 中执行
 // window.color = 'red'
-var o = {color:'blue'}
+var o = {
+    color: 'blue'
+}
+
 function sayColor() {
     console.log(this.color)
 }
@@ -225,3 +228,35 @@ outer() // [function: outer]
 // 因为 outer() 调用了 inter()，所以 inner.caller 就指向 outer()。
 // 为了实现更松散的耦合，也可以通过 arguments.callee.caller 来访问相同的信息。
 // 严格模式下会导致错误。
+console.log('')
+
+
+// 5.5.5 函数属性和方法 Function Properties and Methods
+// 每个函数都包含两个属性：length 和 prototype。
+// length 属性表示函数希望接收的命名参数的个数。
+function sayCity(city) {
+    console.log(city)
+}
+
+function sayYes() {
+    console.log('Yes')
+}
+
+function doMinus(num1, num2) {
+    return num1 - num2
+}
+
+console.log(sayCity.length)
+console.log(sayYes.length)
+console.log(doMinus.length)
+
+// prototype
+// 对于 ES 中的引用类型而言，prototype 是保存它们所有实例方法的真正所在。
+// 换句话说，诸如 toString() 和 valueOf() 等方法实际上都保存在 prototype 名下，只不过是通过各自对象的实例访问罢了。
+// 在创建自定义引用类型以及实现继承时，prototype 属性的作用是极为重要的 (第6章详细介绍)。
+// 在 ECMAScript 5 中，prototype 属性是不可枚举的，因此使用 for-in 无法发现。
+
+// 每个函数都包含两个非继承而来的方法：apply()和 call()。
+// 它们用途都是在特定的作用域中调用函数，实际上等于设置函数体内 this 对象的值。
+// apply() 接收两个参数：一个是在其中运行函数的作用域，另一个是参数数组。
+// 第二个参数可以是 Array 的实例，也可以是 arguments 对象。
