@@ -249,6 +249,7 @@ function doMinus(num1, num2) {
 console.log(sayCity.length)
 console.log(sayYes.length)
 console.log(doMinus.length)
+console.log('')
 
 // prototype
 // 对于 ES 中的引用类型而言，prototype 是保存它们所有实例方法的真正所在。
@@ -260,3 +261,51 @@ console.log(doMinus.length)
 // 它们用途都是在特定的作用域中调用函数，实际上等于设置函数体内 this 对象的值。
 // apply() 接收两个参数：一个是在其中运行函数的作用域，另一个是参数数组。
 // 第二个参数可以是 Array 的实例，也可以是 arguments 对象。
+function doSum(num1, num2) {
+    return num1 + num2
+}
+
+function callSum1(num1, num2) {
+    return doSum.apply(this, arguments) // 传入 arguments 对象
+}
+// 这句话不懂？
+// 执行 doSum() 函数时传入了 this 作为 this 值 (因为是在全局作用域中调用的，所以传入的就是 window 对象) 和 arguments 对象。
+function callSum2(num1, num2) {
+    return doSum.apply(this, [num1, num2]) // 传入数组
+}
+
+console.log(callSum1(10, 20))
+console.log(callSum2(10, 20))
+
+// call()
+// 与 apply() 的作用相同，区别仅在于接收参数的方式不同。
+// 第一个参数是 this 值没有变化，变化的是传递给函数的参数必须逐个列举出来 (而不是数组)。
+function callSum3(num1, num2) {
+    return doSum.call(this, num1, num2) // 逐个传入参数
+}
+console.log(callSum3(10, 20))
+console.log('')
+
+// 传参并非 apply() 和 call() 的用武之地，它们真正强大的地方是能够扩充函数赖以运行的作用域。
+// Chrome 中运行
+// window.city = "BJ";
+var obj = { city: "SH" };
+function sayLocation(){
+    console.log(this.city);
+}
+// 在全局作用域中调用，对 this.color 的求值会转换成对 window.color 的求值。
+sayLocation(); // BJ
+// 两种显式地在全局作用域中调用函数的方式
+sayLocation.call(this); // BJ
+// sayLocation.call(window); // BJ
+// 函数体内的 this 对象指向了 obj
+sayLocation.call(obj); // SH
+// 使用 call() 或 apply() 来扩充作用域的最大好处，就是对象不需要与方法有任何耦合关系。
+// 对比 line 198-208
+
+// bind()
+// 会创建一个函数的实例，其 this 值会被绑定到传给 bind() 函数的值。
+var objectSayLocation = sayLocation.bind(obj);
+objectSayLocation(); // SH
+// 使用这种技巧的优点见 22 章。
+// 最后有一段话没看懂。
