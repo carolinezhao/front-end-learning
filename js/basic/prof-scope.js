@@ -60,6 +60,7 @@ var location = {
     href: 'https://github.com/carolinezhao',
     name: 'mainpage'
 }
+
 function buildUrl() {
     var qs = "?debug=true"
     with(location) {
@@ -77,3 +78,33 @@ console.log(buildUrl())
 
 
 // 4.2.2 没有块级作用域 No Block-Level Scopes
+// 在 JS 中，if 语句中的变量声明会将变量添加到当前的执行环境 (在这里是全局环境) 中。
+// 在其他类C的语言中，该变量会在 if 语句执行完毕后被销毁。
+if (true) {
+    var system = 'iOS'
+}
+console.log(system)
+
+// 由 for 语句创建的变量 i 即使在 for 循环执行结束后，也依旧会存在于循环外部的执行环境中。
+for (var i = 0; i < 10; i++) {
+    var j = i * 10
+}
+console.log(i, j)
+console.log('')
+
+// 1.声明变量
+// 使用 var 声明的变量会自动被添加到最接近的环境中。
+// 在函数内部，最接近的环境就是函数的局部环境；在 with 语句中，最接近的环境是函数环境。
+// 如果初始化变量时没有使用 var 声明，该变量会自动被添加到全局环境。
+function add(num1, num2) {
+    var sum = num1 + num2
+    plus = num1 + num2 // 不推荐
+    return sum
+}
+var result = add(10, 20)
+console.log(result) // 30
+// console.log(sum) // sum 不是有效变量，会导致错误。
+console.log(plus) // 30
+
+
+// 2.查询标识符
