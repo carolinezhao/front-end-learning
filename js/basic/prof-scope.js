@@ -45,7 +45,35 @@ changeCity()
 // 这些环境之间的联系是线性、有次序的。内部环境可以通过作用域链访问所有的外部环境，但外部环境不能访问内部环境中的任何变量和函数。
 // 对于 swapCites() 而言，其作用域链中包含 3 个对象：swapColors() 的变量对象、changeColor() 的变量对象和全局变量对象。
 // swapCites() 的局部环境开始时会先在自己的变量对象中搜索变量和函数名，如果搜索不到则再搜索上一级作用域链。
+// 函数参数也被当作变量来对待，因此其访问规则与执行环境中的其他变量相同。
+console.log('')
 
 
-// 4.2.1 延长作用域链
-// 4.2.2 没有块级作用域
+// 4.2.1 延长作用域链 Scope Chain Augmentation
+// 有些语句可以在作用域链的前端临时增加一个变量对象，该变量对象会在代码执行后被移除。
+
+// try-catch 语句的 catch 块（没有例子）
+// 会创建一个新的变量对象，其中包含的是被抛出的错误对象的声明。
+
+// with 语句：将指定的对象添加到作用域链中（不理解，应用场景是？）
+var location = {
+    href: 'https://github.com/carolinezhao',
+    name: 'mainpage'
+}
+function buildUrl() {
+    var qs = "?debug=true"
+    with(location) {
+        var url = href + qs
+    }
+    // 和这句的区别是？
+    // var url = location.href + qs
+    return url
+}
+console.log(buildUrl())
+// with 语句接收的是 location 对象，因此其变量对象中就包含了 location 对象的所有属性和方法，而这个变量对象被添加到了作用域链的前端。
+// buildUrl() 函数中定义了一个变量 qs。当在 with 语句中引用变量 href 时 (实际引用的是 location.href)，可以在当前执行环境的变量对象中找到。
+// 当引用变量 qs 时，引用的则是在 buildUrl() 中定义的那个变量，而该变量位于函数环境的变量对象中。
+// ？？with 语句内部定义了一个名为 url 的变量，因而 url 就成了函数执行环境的一部分，所以可以作为函数的值被返回。
+
+
+// 4.2.2 没有块级作用域 No Block-Level Scopes
