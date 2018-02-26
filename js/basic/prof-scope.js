@@ -105,6 +105,24 @@ var result = add(10, 20)
 console.log(result) // 30
 // console.log(sum) // sum 不是有效变量，会导致错误。
 console.log(plus) // 30
+console.log('')
 
 
-// 2.查询标识符
+// 2.查询标识符 Identifier Lookup
+// 搜索过程从作用域链的前端开始，向上逐级查询与给定名字匹配的标识符。
+// 如果在局部环境中找到了该标识符，搜索过程停止，变量就绪。
+// 这意味着如果局部环境中存在着同名标识符，就不会使用位于父环境中的标识符。
+// 如果在局部环境中没有找到该变量名，则继续沿作用域链向上搜索，一直追溯到全局环境的变量对象。
+var sport = 'football'
+
+function getSport1() {
+    return sport
+}
+console.log(getSport1()) // 搜索 getColor() 的变量对象，全局环境的变量对象
+
+function getSport2() {
+    var sport = 'basketball'
+    return sport
+}
+console.log(getSport2()) // 搜索 getColor() 的变量对象时发现了 sport 变量，就停止了搜索
+// 任何位于局部变量 sport 的声明之后的代码，如果不使用 window.sport 都无法访问全局 sport 变量。
