@@ -1,16 +1,21 @@
 # HTML5
 
-JavaScript DOM 编程艺术
+HTML4 -> HTML5 从文档到应用的转变
 
-* canvas-vetor
-* canvas-grayscale
+JavaScript 是 HTML5 真正的主角。
 
 ---
 
 HTML5 实战
 
-* newtag
+* newtag 使用新的语义元素
+* form 表单
 
-HTML4 -> HTML5 从文档到应用的转变
+---
 
-JavaScript 是 HTML5 真正的主角。
+JavaScript DOM 编程艺术
+
+* canvas-vector 绘制矢量路径
+* canvas-grayscale 对图片进行灰度处理
+
+
