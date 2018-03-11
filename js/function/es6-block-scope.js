@@ -30,23 +30,55 @@ console.log('')
 
 // ====== 循环中的块作用域绑定 ======
 var items = []
-for (let i = 0; i<10; i++) {
+for (let i = 0; i < 10; i++) {
     items[i] = i
 }
 console.log(items)
-// console.log(i) // ReferenceError
+// console.log(i) // ReferenceError，用 let 声明的 i 只存在于 for 循环中。
 
 // 循环中的函数
+// 用 var 声明
 var funcs = []
-for (var i = 0; i<10; i++) {
-    funcs.push(function() {
+for (var i = 0; i < 10; i++) {
+    funcs.push(function () {
+        console.log(i)
+    })
+}
+console.log(funcs)
+
+funcs.forEach(function (func) {
+    func()
+})
+console.log('')
+// 循环里的每次迭代同时共享着变量 i，循环内部的函数全都保留了对相同变量的引用。
+
+// 通过 IIFE 解决
+var funcs1 = []
+for (var i = 0; i < 10; i++) {
+    funcs1.push((function (value) {
+        return function () {
+            console.log(value)
+        }
+    })(i))
+}
+
+funcs1.forEach(function (func) {
+    func()
+})
+console.log('')
+
+// 用 let 声明解决
+var funcs2 = []
+for (let i = 0; i < 10; i++) {
+    funcs2.push(function () {
         console.log(i)
     })
 }
 
-funcs.forEach(function(func) {
+funcs2.forEach(function (func) {
     func()
 })
+console.log('')
 
 
 // ====== 全局块作用域绑定 ======
