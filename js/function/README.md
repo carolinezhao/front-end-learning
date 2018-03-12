@@ -7,11 +7,19 @@
 * 高程 3.7 函数
 * 高程 5.5 Function 类型
 
+### es6-arrow-function
+
+* 深入理解ES6 第3章 函数 - 箭头函数
+
 ### prof-scope
 
 * 高程 4.2 执行环境及作用域
 
 ### prof-function-expressions
+
+* 高程 4.3 垃圾收集
+
+### prof-garbage-collection
 
 * 高程 第7章 函数表达式
 
@@ -23,9 +31,13 @@
 
 * 你不知道的JS 第2章 词法作用域
 
-### know-2-scope
+### know-3-scope
 
 * 你不知道的JS 第3章 函数作用域和块作用域
+
+### es6-block-scope
+
+* 深入理解ES6 第1章 块级作用域绑定
 
 ### know-closure
 
@@ -34,10 +46,6 @@
 ### closure-1/-2
 
 * Node.js开发指南 附录A
-
-### es6-arrow-function
-
-* 深入理解ES6 第3章 函数 - 箭头函数
 
 ---
 ---
@@ -56,8 +64,8 @@ reference
 
 《你不知道的 JavaScript》(上卷) 
 
-* 第3章 函数作用域和块作用域
-* 第5章 作用域闭包
+* 第3章 函数作用域和块作用域 (未整合到以下内容)
+* 第5章 作用域闭包 (未整合到以下内容)
 
 <br>
 Q: 什么是执行环境、变量对象、作用域链？它们之间的关系是？
@@ -133,15 +141,21 @@ B会将外部函数A的活动对象添加到它的作用域链中，因此可以
 ---
 ---
 
-### keywork：立即执行函数表达式
-
-* 你不知道的JS 3.3.2 IIFE
-* 你不知道的JS 5.3 IIFE和闭包
-
 ### keyword：块级作用域
 
-* 高程 4.2.2 没有块级作用域
-* 高程 7.3 模仿块级作用域
+* 高程 4.2.2 没有块级作用域 prof-scope (不太相关)
+* 高程 7.3 模仿块级作用域 --> IIFE
+* 你不知道的JS 3.3.2 IIFE
+
+* 深入理解 ES6 第1章 块级作用域绑定 es6-block-scope --> let
+* 你不知道的JS 3.4 块作用域 know-3-scope --> let
+* 你不知道的JS 第4章 提升
+
+* 你不知道的JS 5.3 IIFE和闭包
+
+* 高程 4.3 垃圾收集
+
+* 你不知道的JS 5.4 循环和闭包 know-closure
 
 ### keywords：递归，argument
 
