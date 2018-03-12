@@ -52,6 +52,8 @@ type = "text / email / url / tel"<br>
 
 type = "password"
 
+type = "month" 显示日期选择器
+
 type = "hidden"
 
 type = "submit"<br>
@@ -63,6 +65,12 @@ autofocus
 required
 
 placeholder = "提示文字"
+
+pattern = "正则表达式"
+
+title = "提示文字" 当用户试图提交无效信息时，title 属性会产生提示信息。
+
+name 属性有什么实际意义？
 
 使用以下属性构建具备计算功能的表单
 

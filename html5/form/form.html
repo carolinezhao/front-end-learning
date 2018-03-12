@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Form</title>
-    <!-- <link rel="stylesheet" href="style.css"> -->
+    <link rel="stylesheet" href="style.css">
     <!-- modernizr -->
     <script src="https://cdn.bootcss.com/modernizr/2.8.3/modernizr.min.js"></script>
     <!-- <script src="app.js"></script> -->
@@ -130,10 +130,38 @@
         </fieldset>
         <fieldset>
             <legend>Payment Details</legend>
+            <ul>
+                <li>
+                    <label class="required">
+                        <div>Name on Card</div>
+                        <input name="card_name" required>
+                    </label>
+                </li>
+                <li>
+                    <label class="required">
+                        <div>Credit Card No.</div>
+                        <input name="card_number" maxlength="16" required pattern="[0-9]{13,16}" title="13-16 digits, no spaces">
+                    </label>
+                </li>
+                <li>
+                    <label class="required">
+                        <div>Expiry Date</div>
+                        <!-- 日期选择器的按钮会遮盖数值 -->
+                        <input type="month" name="card_expiry" maxlength="7" placeholder="YYYY-MM" value="2018-03" required >
+                    </label>
+                </li>
+                <li>
+                    <label class="required">
+                        <div>CVV2 No.</div>
+                        <input name="card_cvv2" class="cvv" maxlength="3" required pattern="[0-9]{3}" title="exactly 3 digits">
+                        <span>(Three digit code at back of card)</span>
+                    </label>
+                </li>
+            </ul>
         </fieldset>
-        <div>
+        <div class="buttons">
             <input type="submit" value="Submit Order">
-            <input type="submit" value="Save Order">
+            <input type="submit" value="Save Order" id="saveOrder">
         </div>
     </form>
 
