@@ -48,9 +48,85 @@
         </fieldset>
         <fieldset>
             <legend>Login Details</legend>
+            <ul>
+                <li>
+                    <label class="required">
+                        <div>Password</div>
+                        <input type="password" name="password" required>
+                    </label>
+                </li>
+                <li>
+                    <label class="required">
+                        <div>Confirm Password</div>
+                        <input type="password" name="confirm_password" required>
+                    </label>
+                </li>
+            </ul>
         </fieldset>
         <fieldset>
             <legend>Order Details</legend>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product Code</th>
+                        <th>Description</th>
+                        <th>Qty</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Product001
+                            <!-- 为什么要设置 hidden？ -->
+                            <input type="hidden" name="product_code" value="Product001">
+                        </td>
+                        <td>iPhone</td>
+                        <td>
+                            <input type="number" data-price="399.99" name="quantity" value="0" min="0" max="99" maxlength="2">
+                        </td>
+                        <td>$399.99</td>
+                        <td>
+                            <!-- 通过 js 添加计算功能 -->
+                            <output name="item_total" class="item_total">$0.00</output>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Product002
+                            <input type="hidden" name="product_code" value="Product002">
+                        </td>
+                        <td>Mac</td>
+                        <td>
+                            <input type="number" data-price="499.99" name="quantity" value="0" min="0" max="99" maxlength="2">
+                        </td>
+                        <td>$499.99</td>
+                        <td>
+                            <output name="item_total" class="item_total">$0.00</output>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Product003
+                            <input type="hidden" name="product_code" value="Product003">
+                        </td>
+                        <td>Kindle</td>
+                        <td>
+                            <input type="number" data-price="299.99" name="quantity" value="0" min="0" max="99" maxlength="2">
+                        </td>
+                        <td>$299.99</td>
+                        <td>
+                            <output name="item_total" class="item_total">$0.00</output>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="4">Order Total</td>
+                        <td>
+                            <output name="order_total" id="order_total">$0.00</output>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
         </fieldset>
         <fieldset>
             <legend>Payment Details</legend>
