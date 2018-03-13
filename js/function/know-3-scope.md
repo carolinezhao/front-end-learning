@@ -133,3 +133,46 @@ IIFE = Immediately Invoked Function Expression
 ---
 
 ### 3.4 块作用域
+
+函数作用域是最常见的作用域单元，也存在其他类型的作用域单元。
+
+3.4.1 with
+
+3.4.2 try/catch
+
+---
+
+3.4.3 let
+
+let 将变量绑定到所在的任意作用域中 (通常是 {...} 内部)。隐式地劫持了所在的块作用域。
+
+如果显式地创建块，可以使变量的附属关系更清晰。<br>
+只要声明是有效的，在声明中的任意位置都可以使用 {...} 来为 let 创建一个用于绑定的块。
+
+    var foo = true
+    if (foo) {
+        { // 显式的块
+            let bar = foo * 2
+            bar = something(bar)
+            console.log(bar)
+        }
+    }
+    console.log(bar) // ReferenceError
+
+1)垃圾收集
+
+...
+
+2)let循环
+
+_本节3个例子见 [know-3-scope.js](https://github.com/carolinezhao/front-end-learning/blob/master/js/function/know-3-scope.js)_
+
+* let 可以发挥优势的典型例子就是 for 循环。for 循环头部的 let 不仅将 i 绑定到了 for 循环的块中，**且将其重新绑定到了循环的每一个迭代中，确保使用上一个循环迭代结束时的值重新进行赋值**。(第5章讨论闭包时说明)
+
+* 由于 let 声明附属于一个**新的作用域**而不是当前的函数作用域（也不属于全局作用域），当代码中存在对于函数作用域中 var 声明的隐式依赖时，就会有很多隐藏的陷阱。如果用 let 替代 var 则需要在代码重构中额外注意。
+
+---
+
+3.4.4 const
+
+_内容较少，参考 [es6-block-scope.js](https://github.com/carolinezhao/front-end-learning/blob/master/js/function/es6-block-scope.js)_
