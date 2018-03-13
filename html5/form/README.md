@@ -6,6 +6,16 @@
 
 ---
 
+项目中用到的 HTML5 特性
+
+* 使用 input 元素类型及其他属性提供小部件及数据验证
+* 使用 data-* 属性保存产品价格，从 data-* 属性中获取数据
+* 使用 output 元素呈现单个产品金额小计和订单金额总计，更新 output 元素
+* 使用 formnovalidate 和 formaction 绕过验证，保存未完成的表单
+* 使用 valueAsNumber 属性，以数字形式读取输入值
+
+---
+
 structure
 
 * 用 fieldset 将表单分为四个主要部分（自带边框）
@@ -47,45 +57,72 @@ structure
 
 ### input 元素的属性 
 
-type = "text / email / url / tel"<br>
-在手机上激活不同类型的input，会弹出不同的键盘
+type 属性
 
-type = "password"
+* type = "text / email / url / tel" 在手机上激活不同类型的input，会弹出不同的虚拟键盘。
 
-type = "month" 显示日期选择器
+* type = "password"
 
-type = "hidden"
+* type = "number" 显示数值微调框 spinbox
 
-type = "submit"<br>
-见表单最下方的两个提交按钮
+* type = "month" 显示日期选择器。其他日期类型：date, datetime, datetime-local, month, week, time
 
-autofocus
-见表单第一项 name
+* type = "hidden" 没有理解怎么用？
 
-required
-
-placeholder = "提示文字"
-
-pattern = "正则表达式"
-
-title = "提示文字" 当用户试图提交无效信息时，title 属性会产生提示信息。
+* type = "submit" 见表单最下方的两个提交按钮 用 button 和 input 的区别是？
 
 name 属性有什么实际意义？
 
-使用以下属性构建具备计算功能的表单
+提升用户体验
 
-type = "number" 显示数值微调框 spinbox
+* autofocus 自动聚焦
 
-data-* = ""
+* placeholder = "提示输入的内容或格式"
 
-value = "显示的默认值"
+验证表单内容
 
-min = "限制输入的最小值" 
+* required 用户必须输入
 
-max = "限制输入的最大值"
+* pattern = "正则表达式" 和 title 搭配使用
 
-maxlength = "限制输入的字符长度"
+* title = "提示文字" 当用户试图提交无效信息时，title 属性会产生提示信息。
+
+和 number 类型搭配使用，使用以下属性构建具备计算功能的表单
+
+* data-* = "" data-key="value" 一般用于表示单价，比如 data-price="39.99"
+
+* value = "显示的默认值" 几乎所有类型都可以用
+
+* min = "限制输入的最小值" 
+
+* max = "限制输入的最大值"
+
+* maxlength = "限制输入的字符长度"
+
+input 作为保存按钮，保存表单时，绕开验证操作
+
+* formnovalidate 绕开验证操作。为什么input按钮能负责整个表单？
+
+* formaction = "url" 跳转到保存的url，而不是提交
+
+* 如果使用不支持这些属性的旧浏览器，则需要通过 js 修改表单行为
+
+---
 
 ### output 元素
 
+根据 input 输入的数值显示计算结果
+
 见 order details 最后一列 total
+
+---
+
+### form 元素
+
+method 属性：规定如何发送表单数据
+
+* method = "get"
+
+* method = "post"
+
+action 属性：指定表单处理服务器
