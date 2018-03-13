@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <form>
+    <form name="order" method="post" action="/submit">
         <h1>Order Form</h1>
         <fieldset>
             <legend>Contact Details</legend>
@@ -28,7 +28,24 @@
                         <input type="email" name="email" required>
                     </Label>
                 </li>
-                <li></li>
+                <li>
+                    <label>
+                            <div>Postal Address</div>
+                            <input name="address1" placeholder="Address Line 1">
+                    </label>
+                    <div></div>
+                    <input name="address2" placeholder="Address Line 2">
+                    <div></div>
+                    <input name="city" class="city" placeholder="Town/City">
+                    <input name="state" class="state" placeholder="State">
+                    <input name="zip" class="zip" placeholder="Zip Code">
+                    <div></div>
+                    <select name="country">
+                        <option value="0">Country</option>
+                        <option value="US">United States</option>
+                        <option value="CA">Canada</option>
+                    </select>
+                </li>
                 <li>
                     <Label>
                         <div>Home Phone No.</div>
@@ -41,9 +58,19 @@
                         <input type="tel" name="cellphone">
                     </Label>
                 </li>
-                <li></li>
-                <li></li>
-                <li></li>
+                <li>
+                    <Label>
+                        <div>Skype Name</div>
+                        <input name="skype">
+                    </Label>
+                </li>
+                <li>
+                    <Label>
+                        <div>Twitter</div>
+                        <span class="twitter_prefix">@</span>
+                        <input name="twitter" class="twitter">
+                    </Label>
+                </li>
             </ul>
         </fieldset>
         <fieldset>
@@ -147,7 +174,7 @@
                     <label class="required">
                         <div>Expiry Date</div>
                         <!-- 日期选择器的按钮会遮盖数值 -->
-                        <input type="month" name="card_expiry" maxlength="7" placeholder="YYYY-MM" value="2018-03" required >
+                        <input type="month" name="card_expiry" maxlength="7" placeholder="YYYY-MM" value="2018-03" required>
                     </label>
                 </li>
                 <li>
@@ -161,7 +188,7 @@
         </fieldset>
         <div class="buttons">
             <input type="submit" value="Submit Order">
-            <input type="submit" value="Save Order" id="saveOrder">
+            <input type="submit" value="Save Order" id="saveOrder" formnovalidate formaction="/save">
         </div>
     </form>
 
