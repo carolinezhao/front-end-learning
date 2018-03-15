@@ -1,4 +1,6 @@
 // 第5章 作用域闭包
+
+// 5.2
 // 闭包是基于词法作用域书写代码时所产生的自然结果，它的创建和使用随处可见。
 // 定义：当函数可以记住并访问所在的词法作用域时，就产生了闭包，即使函数是在当前词法作用域之外执行。
 
@@ -35,9 +37,9 @@ function bar1(fn) {
     fn() // 闭包。调用 foo1() 中的内部函数，涵盖 foo1() 内部作用域的闭包，可以访问 a。
 }
 
-foo1()
+foo1() // 2
 
-
+// 传递函数也可以是间接的。
 // ======== example 3 ========
 var fn
 
@@ -47,7 +49,7 @@ function foo2() {
     function baz() {
         console.log(a)
     }
-    fn = baz
+    fn = baz // 将 baz 分配给全局变量
 }
 
 function bar2() {
@@ -55,9 +57,14 @@ function bar2() {
 }
 
 foo2()
-bar2()
+bar2() // 2
 
-// 
+// 总结：无论通过何种手段将内部函数传递到所在的词法作用域以外，它都会持有对原始定义作用域的引用，无论在何处执行这个函数都会使用闭包。
+
+
+// 5.3 实际应用中的闭包 (本节不太理解)
+// wait() 执行 1s 后，内部函数 timer 依然保有 wait() 作用域的闭包。
+// ？？？深入到引擎内部原理，内置的工具函数 setTimeout() 持有对一个参数的引用，引擎会调用这个函数 (此例中是 timer)，词法作用域在这个过程中保持完整。这就是闭包。
 function wait(msg) {
     setTimeout(function timer() {
         console.log(msg)
@@ -65,6 +72,29 @@ function wait(msg) {
 }
 wait('Hello, closure!')
 console.log('')
+
+// 使用 jQuery
+// function setupBot(name, selector) {
+//     $(selector).click(function activator() {
+//         console.log("Activating: " + name)
+//     })
+// }
+// setupBot('Closure Bot 1','#bot_1')
+// setupBot('Closure Bot 2','#bot_2')
+
+// ？？？总结：无论何时何地，如果将函数(访问它们各自的词法作用域)当作第一级的值类型并到处传递，就会看到闭包在这些函数中的应用。
+// ？？？在定时器，事件监听器，Ajax请求，跨窗口通信，Web Workders或者任何其他的异步（或同步）任务中，只要使用了回调函数，实际上就是在使用闭包。
+
+// IIFE 与闭包
+// 通常认为 IIFE 是典型的闭包例子，但是根据对闭包的定义，IIFE 并不是观察闭包的恰当例子（见下面的例子）。
+// ？？？尽管如此，但它的确创建了闭包，并且也是最常用来创建可以被封闭起来的闭包的工具。
+
+// 下面的 IIFE 并不是在它本身的词法作用域以外执行的。它在定义时所在的作用域执行。
+// 外部作用域 (也就是全局作用域) 也持有 c，因此 c 是通过普通的词法作用域查找而非闭包被发现的。
+var c = 6;
+(function IIFE() {
+    console.log(c)
+})();
 
 
 // 5.4 循环和闭包
