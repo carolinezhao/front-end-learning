@@ -100,21 +100,21 @@ var c = 6;
 // 5.4 循环和闭包
 // 延迟函数的回调会在循环结束时才执行，即使时间设为0，依然如此。
 // 因此输出显示的是循环结束时 i 的最终值，每秒一次输出五个6。
-// （以下根据作用域的工作原理 --> 还没看）
-// 尽管循环中的五个函数是在各个迭代中分别定义的，但它们都被封闭在一个共享的全局作用域中(?)，因此实际上只有一个 i。
+// （以下根据作用域的工作原理 --> 提升）
+// 尽管循环中的五个函数是在各个迭代中分别定义的，但它们都被封闭在一个共享的全局作用域中，因此实际上只有一个 i。
 for (var i = 1; i <= 5; i++) {
     setTimeout(function timer() {
-        console.log(i)
+        console.log('1st ' + i)
     }, i * 1000)
 }
 // 改进需求：循环的过程中每个迭代都需要一个闭包作用域。
-// IIFE 会通过声明并立即执行一个函数来创建作用域。
 
-// 如果作用域是空的，那么仅仅将它们封闭是不够的。
+// IIFE 会通过声明并立即执行一个函数来创建作用域。
+// 仍不起作用，因为作用域是空的，仅仅将它们封闭是不够的。
 for (var i = 1; i <= 5; i++) {
     (function () {
         setTimeout(function timer() {
-            console.log(i)
+            console.log('2nd ' +i)
         }, i * 1000)
     })();
 }
@@ -124,16 +124,16 @@ for (var i = 1; i <= 5; i++) {
     (function () {
         var j = i
         setTimeout(function timer() {
-            console.log(j)
+            console.log('3rd ' +j)
         }, j * 1000)
     })();
 }
 
-// 改进
+// 改进，传入 i
 for (var i = 1; i <= 5; i++) {
     (function (j) {
         setTimeout(function timer() {
-            console.log(j)
+            console.log('4th ' +j)
         }, j * 1000)
     })(i);
 }
@@ -141,3 +141,24 @@ for (var i = 1; i <= 5; i++) {
 // 在迭代内使用 IIFE 会为每个迭代都生成一个新的作用域，
 // 使得延迟函数的回调可以将新的作用域封闭在每个迭代内部，
 // 每个迭代中都会含有一个具有正确值的变量供访问。
+
+// 每次迭代都需要一个块作用域 --> let
+// ？？？本质上这是将一个块转换成一个可以被关闭的作用域。
+for (var i = 1; i <= 5; i++) {
+    let j = i // 闭包的块作用域
+    setTimeout(function timer() {
+        console.log('5th ' +j)
+    }, j * 1000)
+}
+
+// for 循环头部的 let 声明，每次迭代都会使用上一个迭代结束时的值来初始化变量。
+// --> 参考 3.4.3 let 循环
+for (let i = 1; i <= 5; i++) {
+    setTimeout(function timer() {
+        console.log('6th ' +i)
+    }, i * 1000)
+}
+// 块作用域和闭包联手。
+
+
+// 5.5 模块
