@@ -1,4 +1,4 @@
-// 3.1.3 HTTP 服务器简介re
+// 3.1.3 HTTP 服务器简介
 var http = require('http');
 // http 是 Node.js 的一个核心模块，其内部用 C++ 实现，外部用 js 封装。
 // 通过 require 函数获取这个模块，才能使用其中的对象。
@@ -7,7 +7,7 @@ http.createServer(function (req, res) {
     res.writeHead(200, {
         'Content-type': 'text/html'
     });
-    res.write('<h1>Node.js</h1>');
+    res.write('<h1>Node.js</h1><p>Create a HTTP server</p>');
     res.end('<p>Hello Rabbit</p>');
 }).listen(3000);
 console.log('HTTP server is listening at port 3000.');

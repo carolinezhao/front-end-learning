@@ -1,41 +1,43 @@
-## Node.js 命令行工具
+# 第3章 Node.js 快速入门
 
-`node filename.js` 在文件所在目录下，运行脚本文件
+## 3.1 开始
 
-`node --help` 帮助信息
+### Node.js 命令行工具
+
+`node filename.js` 在文件所在目录下，运行脚本文件 (.txt 也可以) --> _01-hello.js_
+
+`node --help` 显示帮助信息，常用命令
 
 `node -e "console.log('Hello Node.js');"` 语句作为 node -e 的参数直接执行
 
-REPL (Read-eval-print loop) 输入-求值-输出 循环<br>
-`node` 进入 Node.js 交互模式 (使用JS)<br>
+REPL 模式 (Read-eval-print loop，输入-求值-输出 循环)<br>
+`node` 进入 js 的交互式 shell<br>
 `ctrl + d` 退出
 
-
-## HTTP 服务器
+### 创建 HTTP 服务器
 
 Node.js 与 PHP 架构的区别
 
-* 浏览器 - HTTP服务器(Apache，IIS，etc.) - PHP解释器
+* 浏览器 - HTTP服务器 (Apache/IIS/Nginx) - PHP解释器
 * 浏览器 - Node
 
 用 Node.js 创建 HTTP 服务器:
 
-1. 建立 app.js 文件；
+1. 建立 app.js 文件 --> _02-app.js_
 2. 运行 `node app.js`;
-3. 在浏览器中访问 http://127.0.0.1:3000
+3. 在浏览器中访问 http://127.0.0.1:3000 查看输出。
 
-127.0.0.1是回送地址，指本地机，一般用来测试使用。<br>
-其它注释见app.js
+127.0.0.1 是回送地址，指本地机，一般用来测试使用。<br>
+具体内容见 app.js
 
+### 开发调试
 
-## 开发调试
+开发 Node.js 实现的 HTTP 应用时，修改代码后，必须先终止再重新运行才有效。这是因为 Node.js 只有在第一次引用到某部分时才会解析脚本文件，以后都会直接访问内存，避免重复载入。这种设计有利于提高性能，却不利于开发调试。<br>
+希望在开发过程中立刻看到效果，可以使用 **supervisor**。它会监视代码的改动，自动重启 Node.js。<br>
 
-开发 Node.js 实现的HTTP应用时，修改代码后，必须先终止再重新运行才有效。这是因为 Node.js 只有在第一次引用到某部分时才会解析脚本文件，以后都会直接访问内存，避免重复载入。这种设计有利于提高性能，却不利于开发调试。
+`npm install -g supervisor` Mac 安装到系统目录，需要先提权 `sudo`
 
-希望在开发过程中立刻看到效果，可以使用 supervisor。此命令需要先提权 `sudo`。
-
-	npm install -g supervisor
-	supervisor filename.js
+`supervisor filename.js` 运行文件
 
 ---
 
@@ -192,8 +194,9 @@ B. 把包安装到全局
 ## 3.4 调试
 暂略
 
-***
-# 4 Node.js 核心模块
+---
+
+# 第4章 Node.js 核心模块
 核心模块由一些精简而高效的库组成，为 Node.js 提供了基本的 API。
 
 ## 4.1 全局对象
