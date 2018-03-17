@@ -1,7 +1,8 @@
-var hello1 = require('./module');
+// 单次加载
+var hello1 = require('./05-module');
 hello1.setName('rabbit');
 
-var hello2 = require('./module');
+var hello2 = require('./05-module');
 hello2.setName('caroline');
 
 hello1.sayHello(); // Hello caroline
