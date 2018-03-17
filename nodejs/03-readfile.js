@@ -3,7 +3,7 @@ var fs = require('fs'); // require 到的 fs 是什么？
 // console.log(typeof fs); // object
 // console.log(fs);
 
-// readFile 读取了三个参数：文件名，编码方式，回调函数
+// readFile 读取了三个参数：文件名，编码方式，回调函数！
 fs.readFile('file.txt', 'utf-8', function (err, data) {
     if (err) {
         console.log(err);
