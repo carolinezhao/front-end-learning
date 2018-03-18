@@ -288,7 +288,31 @@ B. 把包安装到全局
 核心模块，提供常用函数的集合，弥补核心 js 功能过于精简的不足。
 
 ### util.inherits
+
+util.inherits(constructor, superConstructor) 实现对象间原型继承的函数。 --> _inherits.js_
+
+js 的面向对象特性是基于原型的。js 没有提供对象继承的语言级别特性，而是通过原型复制实现的。
+
+**原型**：[本书附录和其他教程对原型的讲解见 prototype 系列](https://github.com/carolinezhao/front-end-learning/tree/master/js/object)
+
 ### util.inspect
+
+util.inspect(object, [showHidden], [depth], [colors]) 将任意对象转换为字符串，用于调试和错误输出。 --> _inspect.js_
+
+* object 必选参数，要转换的对象。
+* showHidden 若值为 true，输出更多隐藏信息。
+* depth 最大递归层数。若不指定，默认递归2层。值为 null，完整遍历对象。
+* colors 若值为 true，输出格式以 ANSI 颜色编码。
+
+？？？但并不会简单地直接把对象转换为字符串，即使定义了 toString 也不会调用。？？？
+
+### 其他
+
+[了解以下方法](http://nodejs.org/api/util.html)
+
+util.isArray(), util.isRegExp(), util.isDate(), util.isError()
+
+util.format(), util.debug()
 
 ## 4.3 事件驱动 events
 
