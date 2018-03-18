@@ -256,22 +256,51 @@ B. 把包安装到全局
 
 核心模块由一些精简而高效的库组成，为 Node.js 提供了基本的 API。
 
-## 4.1 全局对象
+## 4.1 全局对象 global object
 
-### 全局对象与全局变量
+* 浏览器 js 中，全局对象是 window；
+* Node.js 中，全局对象是 global，所有全局变量都是 global 对象的属性。
+
+应使用 var 声明变量以避免引入全局变量，否则会污染命名空间。
 
 ### process
 
+全局变量，是用于描述当前 Node.js 进程状态的对象，提供了一个与操作系统的简单接口。
+
+常用的成员方法：
+
+* process.argv 命令行参数数组。 --> _argv.js_
+* process.stdout 标准输出流。<br>
+  通常使用 console.log() 向标准输出打印字符，process.stdout.write() 函数提供更底层的接口。
+* process.stdin 标准输入流。使用略。
+* process.nextTick(callback) 为事件循环设置一项任务，Node.js 在下次事件循环响应时调用 callback。使用略。
+
 ### console
 
+用于向标准输出流 (stdout) 或标准错误流 (stderr) 输出字符。
+
+* console.log()
+* console.err() 向标准错误流输出。
+* console.trace() 向标准错误流输出当前的调用栈。使用略。
+
 ## 4.2 常用工具 util
+
+核心模块，提供常用函数的集合，弥补核心 js 功能过于精简的不足。
 
 ### util.inherits
 ### util.inspect
 
 ## 4.3 事件驱动 events
 
+events 是 Node.js 最重要的模块！
+
+* 因为 Node.js 架构是事件式的，它提供了唯一的接口，是事件编程的基石。
+* 不仅用于用户代码与 Node.js 下层事件循环的交互，还几乎被所有的模块依赖。
+
 ### 事件发射器
+
+events 只提供一个对象：events.EventEmitter，其核心是事件发射与事件监听器功能的封装。
+
 ### error 事件
 ### 继承 EventEmitter
 
@@ -283,15 +312,18 @@ B. 把包安装到全局
 ### fs.read
 
 ## 4.5 HTTP 服务器与客户端
+
 Node.js 标准库提供了 http 模块，封装了一个高效的 HTTP 服务器和一个简易的 HTTP 客户端。<br>
 http.Server 是一个基于事件的 HTTP 服务器。<br>
 http.request 是一个 HTTP 客户端工具，用于向 HTTP 服务器发起请求。
 
 ### HTTP 服务器
+
 http.Server 是 http 模块中的 HTTP 服务器对象。用 Node.js 做的所有基于 HTTP 协议的系统，都是基于它实现的。<br>
 【参考 app.js】
 
 #### http.Server 的事件
+
 http.Server 是一个基于事件的 HTTP 服务器，所有的请求都被封装为独立的事件，只需要对它的事件编写响应函数即可实现 HTTP 服务器的所有功能。它继承自 EventEmitter，提供以下事件：
 
 * request: 在客户端请求到来时被触发。提供两个参数req和res，分别是 http.ServerRequest 和 http.ServerResponse 的实例。【参考 app.js】
@@ -308,6 +340,7 @@ HTTP 请求的信息，一般由 http.Server 的 request 事件发送，作为�
 * close
 
 #### 获取 GET 请求内容
+
 由于 GET 请求直接被嵌入在路径中，URL是完整的请求路径，包括了？后面的部分。<br>
 Node.js 的 url 模块中的 parse 函数用于解析后面的内容。<br>
 【参考 requestget.js】
