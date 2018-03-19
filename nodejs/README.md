@@ -323,7 +323,17 @@ events 是 Node.js 最重要的模块！
 
 ### 事件发射器
 
-events 只提供一个对象：events.EventEmitter，其核心是事件发射与事件监听器功能的封装。
+events 只提供一个对象：events.EventEmitter，其核心是事件发射与事件监听器功能的封装。 --> _events.js_
+
+常用 API (其中 [] 为可选参数)
+
+var emitter = new events.EventEmitter()
+
+* .on(event, listener) 为指定事件 (字符串) 注册一个监听器 (回调函数)
+* .emit(event, [arg1], [arg2], [...]) 发射事件和若干可选参数 (作为回调函数的参数)
+* .once(event, listener) 为指定事件注册一个单次监听器，最多触发一次，触发后立即解除
+* .removeListener(event, listener) 移除指定事件的某个监听器 (必须是已经注册过的)
+* .removeAllListeners([event]) 移除所有事件的所有监听器 (可指定某个事件)
 
 ### error 事件
 ### 继承 EventEmitter
