@@ -283,6 +283,8 @@ B. 把包安装到全局
 * console.err() 向标准错误流输出。
 * console.trace() 向标准错误流输出当前的调用栈。使用略。
 
+<br>
+
 ## 4.2 常用工具 util
 
 核心模块，提供常用函数的集合，弥补核心 js 功能过于精简的不足。
@@ -314,6 +316,8 @@ util.isArray(), util.isRegExp(), util.isDate(), util.isError()
 
 util.format(), util.debug()
 
+<br>
+
 ## 4.3 事件驱动 events
 
 events 是 Node.js 最重要的模块！
@@ -336,7 +340,22 @@ var emitter = new events.EventEmitter()
 * .removeAllListeners([event]) 移除所有事件的所有监听器 (可指定某个事件)
 
 ### error 事件
+
+EventEmitter 定义了一个特殊的事件 error，遇到异常时通常会发射 error 事件。<br>
+如果没有响应的监听器，Node.js 会把它当作异常，退出程序并打印调用栈。<br>
+为了避免遇到错误后整个程序崩溃，要为会发射 error 事件的对象设置监听器。<br>
+--> _error.js_
+
 ### 继承 EventEmitter
+
+大多数时候我们不会直接使用 EventEmitter，而是在对象中继承它。<br>
+包括 fs，net，http 在内，只要是支持事件响应的核心模块都是 EventEmitter 的子类。<br>
+原因如下：(？不理解 ？怎么用)
+
+* 具有某个实体功能的对象实现事件符合语义，事件的监听和发射应该是一个对象的方法。
+* js 的对象机制是基于原型的，支持部分多重继承，继承 EventEmitter 不会打乱对象原有的继承关系。
+
+<br>
 
 ## 4.4 文件系统 fs
 
@@ -344,6 +363,8 @@ var emitter = new events.EventEmitter()
 ### fs.readFileSync
 ### fs.open
 ### fs.read
+
+<br>
 
 ## 4.5 HTTP 服务器与客户端
 
