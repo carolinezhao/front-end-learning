@@ -280,7 +280,7 @@ B. 把包安装到全局
 用于向标准输出流 (stdout) 或标准错误流 (stderr) 输出字符。
 
 * console.log()
-* console.err() 向标准错误流输出。
+* console.error() 向标准错误流输出。 --> _readfile.js_
 * console.trace() 向标准错误流输出当前的调用栈。使用略。
 
 <br>
@@ -359,9 +359,30 @@ EventEmitter 定义了一个特殊的事件 error，遇到异常时通常会发�
 
 ## 4.4 文件系统 fs
 
-### fs.readFile
-### fs.readFileSync
+fs 模块是文件操作的封装。与其他模块不同的是，fs 模块中所有操作都提供了异步和同步两个版本。
+
+### fs.readFile 异步读取
+
+fs.readFile(filename, [encoding], [callback(err,data)])<br>
+参数：文件名，字符编码 ('utf-8')，回调函数 (是否报错，文件内容)；<br>
+如果指定了 encoding，data 是一个解析后的字符串，否则 data 是以 Buffer 形式表示的二进制数据。<br>
+--> _readfile.js_
+
+Node.js 的异步编程接口习惯是以函数的最后一个参数为回调函数，通常只有一个。<br>
+回调函数实际参数中第一个是 err，其余参数是其他返回内容。<br>
+如果没有错误，err 的值是 null 或 undefined；如果发生错误，err 是 Error 对象的实例。<br>
+Node.js 中的异步函数大多没有返回值。
+
+其他例子：3.2.2 回调函数 以异步和同步读取文件为例 --> _03-readfile.js 和 03-readfilesync.js_
+
+### fs.readFileSync 同步读取
+
+fs.readFile(filename, [encoding])<br>
+读取到的文件内容以函数返回值的形式返回。<br>
+如果发生错误，fs 会抛出异常，需要使用 try 和 catch 捕捉并处理异常。
+
 ### fs.open
+
 ### fs.read
 
 <br>
