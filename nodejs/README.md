@@ -291,7 +291,9 @@ B. 把包安装到全局
 
 ### util.inherits
 
-util.inherits(constructor, superConstructor) 实现对象间原型继承的函数。 --> _inherits.js_
+	util.inherits(constructor, superConstructor) 
+
+实现对象间原型继承的函数。 --> _inherits.js_
 
 js 的面向对象特性是基于原型的。js 没有提供对象继承的语言级别特性，而是通过原型复制实现的。
 
@@ -299,7 +301,9 @@ js 的面向对象特性是基于原型的。js 没有提供对象继承的语�
 
 ### util.inspect
 
-util.inspect(object, [showHidden], [depth], [colors]) 将任意对象转换为字符串，用于调试和错误输出。 --> _inspect.js_
+	util.inspect(object, [showHidden], [depth], [colors]) 
+
+将任意对象转换为字符串，用于调试和错误输出。 --> _inspect.js_
 
 * object 必选参数，要转换的对象。
 * showHidden 若值为 true，输出更多隐藏信息。
@@ -363,7 +367,8 @@ fs 模块是文件操作的封装。与其他模块不同的是，fs 模块中�
 
 ### fs.readFile 异步读取
 
-fs.readFile(filename, [encoding], [callback(err,data)])<br>
+	fs.readFile(filename, [encoding], [callback(err,data)])
+
 参数：文件名，字符编码 ('utf-8')，回调函数 (是否报错，文件内容)；<br>
 如果指定了 encoding，data 是一个解析后的字符串，否则 data 是以 Buffer 形式表示的二进制数据。<br>
 --> _readfile.js_
@@ -377,13 +382,50 @@ Node.js 中的异步函数大多没有返回值。
 
 ### fs.readFileSync 同步读取
 
-fs.readFile(filename, [encoding])<br>
+	fs.readFile(filename, [encoding])
+
 读取到的文件内容以函数返回值的形式返回。<br>
 如果发生错误，fs 会抛出异常，需要使用 try 和 catch 捕捉并处理异常。
 
 ### fs.open
 
+	fs.open(path, flags, [mode], [callback(err,fd)])
+
+fs.open 是 POSIX open 函数的封装。 --> _open.js_
+
+flags 可以是以下值：
+
+* r 读取模式打开
+* r+ 读写模式打开
+* w 写入模式打开，如果文件不存在则创建
+* w+ 读写模式打开，如果文件不存在则创建
+* a 追加模式打开，如果文件不存在则创建
+* a+ 读取追加模式打开，如果文件不存在则创建
+
+mode 用于创建文件时给文件指定权限，默认是 0666。<br>
+文件权限是 POSIX 操作系统中对文件读取和访问权限的规范，用八进制数表示。<br>
+比如 0754 表示文件所有者的权限是 7（读/写/执行），同组的用户权限是 5（读/执行），其他用户权限是 4（读），字符表示为 -rwxr-xr--。
+
+回调函数会传递一个文件描述符 fd (非负整数，表示操作系统内核为当前进程所维护的打开文件的记录表索引)。
+
 ### fs.read
+
+	fs.read(fd, buffer, offset, length, position, [callback(err, bytesRead, buffer)])
+
+fs.read 是 POSIX read 函数的封装。相比 fs.readFile 提供了更底层的接口。<br>
+fs.read 的功能是从指定的文件描述符 fd 中读取数据并写入 buffer 指向的缓冲区对象。 --> _read.js_
+
+* var buffer = new Buffer(8) ？
+* offset 是 buffer 的写入偏移量。？
+* length 是要从文件中读取的字节数。
+* position 是文件读取的起始位置，如果值为 null，则从当前文件指针的位置读取。
+* 回调函数传递 bytesRead 和 buffer，分别表示读取的字节数和缓冲区对象。
+
+_前后两个 buffer 是什么关系？前者传入回调函数？使用这个方法的意义是？_
+
+除非必要，一般不使用这种方式读取文件。
+
+fs 其他函数见书中 表4-1
 
 <br>
 
