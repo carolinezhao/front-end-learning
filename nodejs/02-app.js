@@ -27,14 +27,20 @@ res 显式地写回了？？响应代码 200（表示请求成功）
 res.end 结束并发送；
 最后调用 listen 函数，启动服务器并监听 3000 端口。
 
-http.Server 的事件
+http.Server 的事件 (见 .md 文档)
 request 是最常用的事件，http 提供了一个捷径：http.createServer([requestListener]) 
 功能是创建一个 HTTP 服务器并将 requestListener 作为 request 事件的监听函数。
 
 显式的实现方法为：
+var http = require('http');
 var server = new http.server();
+// request 事件
 server.on('request', function(req,res) {
-    ......
+    res.writeHead(200, {
+        'Content-type': 'text/html'
+    });
+    res.write('<h1>Node.js</h1>');
+    res.end('<p>Hello Rabbit</p>');
 });
 server.listen(3000);
 ==========================*/
