@@ -2,6 +2,10 @@
 
 > 理论知识见学习笔记，具体代码见 --> 对应的文件。
 
+> 书中部分示例与最新版本的 Node.js 有出入，参考[作者博客](https://www.byvoid.com/zht/project/node)和[豆瓣](https://book.douban.com/subject/10789820/)的读者评论。
+
+# Index
+
 - [第3章 Node.js 快速入门](#chapter3-quick-start)
 	- 3.1 开始
 	- 3.2 异步式 I/O 与事件式编程
@@ -484,10 +488,63 @@ http.ServerResponse 是返回给客户端的信息，决定了用户最终能看
 http.ServerResponse 有三个重要的成员函数，用于返回响应头、响应内容、结束请求。--> _02-app.js_
 
 * response.writeHead(statusCode, [headers]) 向请求的客户端发送响应头。<br>statusCode 是 HTTP 状态码，如 200 (请求成功)，404 (未找到)。<br>headers 是一个类似关联数组的对象，表示响应头的每个属性。<br>该函数在一个请求内最多只能调用一次，如果不调用，则自动生成一个响应头。
+
 * response.write(data, [encoding]) 向请求的客户端发送响应内容。<br>data 是一个 Buffer 或字符串，表示要发送的内容。如果是字符串，需要指定 encoding 说明它的编码方式，默认是 utf-8。<br>在 response.end 调用之前，response.write 可被多次调用。
+
 * response.end([data], [encoding]) 结束响应，告知客户端所有发送已经完成。<br>所有要返回的内容发送完毕时，该函数必须被调用一次。如果不调用，客户端永远处于等待状态。<br>两个可选参数，意义同上。
 
 ### 4.5.2 HTTP 客户端
+
+http.request 和 http.get，作为客户端向 HTTP 服务器发起请求。
+
+	http.request(options, callback)
+
+发起 HTTP 请求。两个参数：option 是一个类似关联数组的对象，表示请求的参数；callback 是请求的回调函数，传递一个参数，为 http.ClientResponse 的实例。
+
+option 常用参数如下：
+
+* host 请求网站的域名或 IP 地址。
+* port 请求网站的端口，默认 80。
+* method 请求方法，默认是 GET。
+* path 请求的相对于根的路径，默认是“/”。QueryString 应该包含在其中。比如 /search?query=rabbit。
+* headers 一个关联数组对象，为请求头的内容。
+
+http.request 返回一个 http.ClientRequest 的实例。<br>
+--> _clientrequest.js_
+
+	http.get(options, callback)
+
+http 模块提供了更简便的 http.get 方法用于处理 GET 请求。<br>
+它是 http.request 的简化版，唯一区别在于 http.get 自动将请求方法设为 GET，且不需要手动调用 req.end。<br>
+--> _clientget.js_
+
+### http.ClientRequest
+
+http.ClientRequest 是由 http.request 或 http.get 返回产生的对象，表示一个已经产生而且正在进行中的 HTTP 请求。<br>
+它提供一个 response 事件，即 http.request 或 http.get 第二个参数指定的回调函数的绑定对象。<br>
+--> _clientget.js 和 clientrequest.js_
+
+http.ClientRequest 像 http.ServerResponse 一样也提供了 write 和 end 函数，用于向服务器发送请求体，通常用于 POST、PUT 等操作。<br>
+所有内容结束后必须调用 end 函数以通知服务器，否则请求无效。
+
+其他函数：
+* request.abort() 终止正在发送的请求。
+* request.setTimeout(timeout, [callback]) 设置请求超时时间，timeout 为毫秒数。请求超时后，callback 会被调用。
+
+### http.ClientResponse
+
+http.ClientResponse 提供三个事件 data, end 和 close，分别在数据到达、传输结束和连接结束时触发，参考 http.ServerRequest 的内容。
+
+提供一些属性，用于表示请求的结果状态：
+* statusCode HTTP 状态码，如 200，404
+* httpVersion HTTP 协议版本
+* headers HTTP 请求头
+* trailers HTTP 请求尾 (不常见)
+
+提供几个特殊的函数：
+* response.setEncoding([encoding]) 设置默认的编码，当 data 事件被触发时，数据会以 encoding 编码。默认值 null (不编码)，以 Buffer 形式存储。常用编码 utf-8。
+* response.pause() 暂停接收数据和发送事件，方便实现下载功能。
+* response.resume() 从暂停的状态中恢复。
 
 <br>
 
