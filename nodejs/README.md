@@ -232,7 +232,7 @@ B. 把包安装到全局
 使用全局模式另有原因：本地模式不会注册 PATH 环境变量。<br>
 比如，在命令行中运行 supervisor script.js，需要在 PATH 环境变量中注册 supervisor。<br>
 本地模式下，包中的 bin 目录没有包含在 PATH 环境变量中，不能在命令行中调用。<br>
-全局模式下，包安装到系统目录 `/usr/local/lib/node_modules/`，同时 package.json 文件中 bin 字段包含的文件会被链接到 `/usr/local/bin`。<br>
+全局模式下，包安装到系统目录 `/usr/local/lib/node_modules/`，同时 package.json 文件中 bin 字段包含的文件会被链接到 `/usr/local/bin` ？？？。<br>
 `/usr/local/bin` 是在 PATH 环境变量中默认定义的，因此就可以在 CL 中运行。
 
 总结：

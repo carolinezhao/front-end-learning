@@ -2,8 +2,6 @@
 
 # Chapter5 Web Development
 
-[Express](http://expressjs.com/)
-
 ## 5.1 背景知识
 
 Node.js 和 PHP、Perl、ASP、JSP 一样，都是为了由服务器动态生成 HTML 页面。
@@ -35,13 +33,79 @@ Node.js 和其他语言的区别：
 
 <br>
 
+> 本节内容开始，需参考[Express 官网](http://expressjs.com/)使用最新命令。书中使用的版本过旧，很多命令已不再支持。
+
 ## 5.2 快速开始
 
 ### 安装 Express
 
+Express 提供 Quick Start 工具，功能是建立一个网站最小的基础框架。为了使用这个工具，需要全局模式下的 Express。
+
+    $ npm install -g express
+
+安装在 root 路径下：`/usr/local/lib/node_modules/express`\
+在终端中打开：`open /usr/...`
+
+在命令行中使用 Express 相关命令需要安装命令行工具。\
+The [express-generator](http://expressjs.com/en/starter/generator.html) package installs the express command-line tool.
+
+    $ npm install express-generator -g
+
 ### 建立工程
 
+Express 初始化一个项目时需要指定模板引擎，默认支持 jade 和 ejs。现在还有pug？
+
+ejs = Embedded JavaScript 是一个标签替换引擎。
+
+create an Express app named microblog. The app will be created in a folder named microblog in the current working directory and the view engine will be set to ejs:
+
+    $ express --view=ejs microblog
+
+生成的文件结构
+
+    ./microblog
+        |--- package.json
+        |--- app.js
+        |--- bin
+        |--- views
+        |--- routes
+        |--- public
+
+change directory and install dependencies
+
+    $ cd microblog
+    $ npm install
+
+运行无参数的 npm install，会检查当前目录下的 package.json，并自动安装所有指定的依赖。\
+"dependencies" 属性中指定了 "ejs": "~2.5.7" 和 "express": "~4.16.0"
+
+增加的文件
+
+    ./microblog
+        |--- package-lock.json
+        |--- node_modules
+                |--- ejs
+                |--- express
+                |--- qs
+                |--- mime
+                |--- mkdirp (没有)
+                |--- connect (没有)
+
 ### 启动服务器
+
+用 Express 实现的网站实际上就是一个 Node.js 程序，因此可以直接运行。
+
+run the app
+
+    $ DEBUG=microblog:* npm start
+
+运行后显示：`microblog:server Listening on port 3000`
+
+在浏览器中打开 `http://127.0.0.1:3000/` 可以看到欢迎页面。
+
+修改代码后需要重启服务器。想实现修改后自动重启，使用 supervisor。
+
+此时服务器是运行在开发模式下 development mode。6.3 节介绍如何在生产环境下部署。
 
 ### 工程的结构
 
