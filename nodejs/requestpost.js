@@ -4,6 +4,8 @@ var util = require('util')
 
 // 这只是一个帮助理解的示例。
 // 不要在真正的生产应用中使用这种简单方法来获取 POST 请求，因为它有严重的效率问题和安全问题。
+// 实际应用中的 POST 请求是啥样的？
+
 http.createServer(function(req, res) {
     var post = ''
     req.on('data', function(chunk) {

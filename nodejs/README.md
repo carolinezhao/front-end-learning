@@ -460,46 +460,59 @@ http.Server 是 http 模块中的 HTTP 服务器对象。用 Node.js 做的所�
 ### http.Server 的事件
 
 http.Server 是一个基于事件的 HTTP 服务器，所有请求都被封装为独立事件，只需要对它的事件编写响应函数即可实现 HTTP 服务器的所有功能。<br>
+
+	var http = require('http')
+	var server = new http.Server()
+	server.on('事件', function(参数) {})
+
 它继承自 EventEmitter，提供以下事件：
 
-* request 在客户端请求到来时被触发。提供2个参数 req 和 res，分别是 http.ServerRequest 和 http.ServerResponse 的实例，表示请求和响应信息。<br> 更多 --> _02-app.js_
+* **request** 在客户端请求到来时被触发。提供2个参数 req 和 res，分别是 [http.ServerRequest]() 和 [http.ServerResponse]() 的实例，表示请求和响应信息。<br> 更多 --> _02-app.js_
 * connection 在 TCP 连接建立时被触发。提供1个参数 socket，是 net.Socket 的实例。connection 事件的粒度(?)大于 request，因为客户端在 Keep-Alive 模式下可能会在同一个连接内发送多次请求(?)。
 * close 在服务器关闭时被触发。注意不是在用户连接断开时。
 
 ### http.ServerRequest
 
 http.ServerRequest 是 HTTP 请求的信息，一般由 http.Server 的 request 事件发送，作为第一个参数传递，简称 request 或 req。<br>
-http.ServerRequest 提供很多属性，见书中 表4-2。<br>
-HTTP 请求分为两部分：请求头 Request Header；请求体 Request Body。<br>
+http.ServerRequest 提供很多属性，见书中 表4-2。(用在哪里？)
+
+HTTP 请求分为两部分：请求头 (Request Header)；请求体 (Request Body)。<br>
 请求体可能较长，需要一定时间传输，以下3个事件用于控制其传输：
 
 * data 在请求体数据到来时被触发。提供一个参数 chunk，表示接收到的数据。如果此事件没有被监听，请求体将会被抛弃。可能会被调用多次。
 * end 在请求体数据传输完成时被触发，此后不会再有数据到来。
 * close 在用户当前请求结束时被触发。不同于 end，如果用户强制终止了传输，还是调用 close。
 
+--> _requestpost.js_
+
 ### 获取 GET 请求内容
 
-由于 GET 请求直接被嵌入在路径中，URL是完整的请求路径，包括了？后面的部分，可以手动解析后面的内容作为 GET 请求的参数。<br>
-Node.js 的 url 模块中的 parse 函数提供了这个功能。 --> _requestget.js_
+GET 请求把所有内容编码到访问路径中，URL是完整的请求路径，包括了 `?` 后面的部分，可以手动解析后面的内容作为 GET 请求的参数。<br>
+Node.js 的 `url 模块` 中的 parse 函数提供了这个功能。<br>
+--> _requestget.js_
+
+GET 是默认的请求方式。 --> _02-app.js_
 
 ### 获取 POST 请求内容
 
-GET 请求把所有内容编码到访问路径中，而 POST 请求的内容全部在请求体中。<br>
-http.ServerRequest 并没有一个属性内容为请求体，原因是等待请求体传输可能是一件耗时的工作，比如上传文件。<br>
-很多时候不需要理会请求体的内容，恶意的 POST 请求会大大消耗服务器的资源。因此 Node.js 默认不解析请求体，需要的时候需手动解析。
+POST 请求的内容全部在请求体中。<br>
+http.ServerRequest 并没有一个属性内容为请求体(?)，原因是等待请求体传输可能是一件耗时的工作，比如上传文件。<br>
+很多时候不需要理会请求体的内容，恶意的 POST 请求会大大消耗服务器的资源。因此 Node.js 默认不解析请求体，需要的时候需手动解析。<br>
 --> _requestpost.js_
 
 ### http.ServerResponse
 
 http.ServerResponse 是返回给客户端的信息，决定了用户最终能看到的结果。<br>
 它是由 http.Server 的 request 事件发送的，作为第二个参数传递，简称 response 或 res。<br>
-http.ServerResponse 有三个重要的成员函数，用于返回响应头、响应内容、结束请求。--> _02-app.js_
+http.ServerResponse 有三个重要的成员函数，用于返回响应头、响应内容、结束请求。
 
-* response.writeHead(statusCode, [headers]) 向请求的客户端发送响应头。<br>statusCode 是 HTTP 状态码，如 200 (请求成功)，404 (未找到)。<br>headers 是一个类似关联数组的对象，表示响应头的每个属性。<br>该函数在一个请求内最多只能调用一次，如果不调用，则自动生成一个响应头。
+* response.writeHead(statusCode, [headers]) 向请求的客户端发送响应头。<br>statusCode 是 HTTP 状态码，如 200 (请求成功)，404 (未找到)。<br>headers 是一个类似关联数组的对象，表示响应头的每个属性。(解释得不太清楚)<br>该函数在一个请求内最多只能调用一次，如果不调用，则自动生成一个响应头。
 
 * response.write(data, [encoding]) 向请求的客户端发送响应内容。<br>data 是一个 Buffer 或字符串，表示要发送的内容。如果是字符串，需要指定 encoding 说明它的编码方式，默认是 utf-8。<br>在 response.end 调用之前，response.write 可被多次调用。
 
 * response.end([data], [encoding]) 结束响应，告知客户端所有发送已经完成。<br>所有要返回的内容发送完毕时，该函数必须被调用一次。如果不调用，客户端永远处于等待状态。<br>两个可选参数，意义同上。
+
+--> _02-app.js_
 
 ### 4.5.2 HTTP 客户端
 
