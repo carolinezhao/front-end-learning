@@ -31,11 +31,9 @@ Node.js 和其他语言的区别：
 
 ### 使用 http 模块
 
-POST 数据表单 --> form.html
+例：以 POST 的方式发送数据表单 (书中给的例子不全)
 
-以 POST 的方式将请求发送给 `http://127.0.0.1:3000` --> formsubmit.js 出错
-
-不会用
+--> _formsubmit.js_
 
 ### Express 框架
 

@@ -319,14 +319,14 @@ js 的面向对象特性是基于原型的。js 没有提供对象继承的语�
 
 	util.inspect(object, [showHidden], [depth], [colors]) 
 
-将任意对象转换为字符串，用于调试和错误输出。 --> _inspect.js_
+将任意对象转换为字符串，用于调试和错误输出。 --> _inspect.js 和 formsubmit.js_
 
 * object 必选参数，要转换的对象。
 * showHidden 若值为 true，输出更多隐藏信息。
 * depth 最大递归层数。若不指定，默认递归2层。值为 null，完整遍历对象。
 * colors 若值为 true，输出格式以 ANSI 颜色编码。
 
-？？？但并不会简单地直接把对象转换为字符串，即使定义了 toString 也不会调用。？？？
+？？？但并不会简单地直接把对象转换为字符串，即使定义了 toString 也不会调用。
 
 ### 其他
 
