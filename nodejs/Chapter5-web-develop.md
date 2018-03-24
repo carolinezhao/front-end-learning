@@ -1,5 +1,7 @@
 > Chapter2-4 见 [README.md](https://github.com/carolinezhao/front-end-learning/blob/master/nodejs/README.md)
 
+> 本章内容需参考[Express 官网](http://expressjs.com/)使用最新命令。书中使用的版本过旧，很多命令已不再支持。
+
 # Chapter5 Web Development
 
 ## 5.1 背景知识
@@ -29,13 +31,17 @@ Node.js 和其他语言的区别：
 
 ### 使用 http 模块
 
+POST 数据表单 --> form.html
+
+以 POST 的方式将请求发送给 `http://127.0.0.1:3000` --> formsubmit.js 出错
+
+不会用
+
 ### Express 框架
 
 <br>
 
-> 本节内容开始，需参考[Express 官网](http://expressjs.com/)使用最新命令。书中使用的版本过旧，很多命令已不再支持。
-
-## 5.2 快速开始
+## 5.2 快速开始 (新版本与书中差异很大)
 
 ### 安装 Express
 
@@ -64,12 +70,12 @@ create an Express app named microblog. The app will be created in a folder named
 生成的文件结构
 
     ./microblog
-        |--- package.json
-        |--- app.js
-        |--- bin
-        |--- views
-        |--- routes
-        |--- public
+        ├── package.json
+        ├── app.js
+        ├── bin
+        ├── views
+        ├── routes
+        └── public
 
 change directory and install dependencies
 
@@ -77,19 +83,17 @@ change directory and install dependencies
     $ npm install
 
 运行无参数的 npm install，会检查当前目录下的 package.json，并自动安装所有指定的依赖。\
-"dependencies" 属性中指定了 "ejs": "~2.5.7" 和 "express": "~4.16.0"
+"dependencies" 属性中指定了 "ejs": "~2.5.7" 和 "express": "~4.16.0"\
+Express 安装到了本地，文件中可以通过 require 使用。
 
 增加的文件
 
     ./microblog
-        |--- package-lock.json
-        |--- node_modules
-                |--- ejs
-                |--- express
-                |--- qs
-                |--- mime
-                |--- mkdirp (没有)
-                |--- connect (没有)
+        ├── package-lock.json
+        └── node_modules
+                ├── ejs
+                ├── express
+                └── ...
 
 ### 启动服务器
 
@@ -101,21 +105,47 @@ run the app
 
 运行后显示：`microblog:server Listening on port 3000`
 
-在浏览器中打开 `http://127.0.0.1:3000/` 可以看到欢迎页面。
+在浏览器中访问 `http://127.0.0.1:3000/` 可以看到欢迎页面。
 
-修改代码后需要重启服务器。想实现修改后自动重启，使用 supervisor。
+修改代码后需要重启服务器。想实现修改后自动重启，使用 supervisor。(如何使用？)
 
 此时服务器是运行在开发模式下 development mode。6.3 节介绍如何在生产环境下部署。
 
 ### 工程的结构
 
-app.js
+    ./microblog
+        ├── app.js
+        ├── bin
+        ├── views
+        │       ├── index.ejs
+        │       └── error.ejs
+        ├── routes
+        │       ├── index.js
+        │       └── users.js
+        ├── public
+        │       ├── javascripts
+        │       ├── stylesheets
+        │       └── images
+        ├── package.json
+        ├── package-lock.json
+        └── node_modules
+                ├── ejs
+                ├── express
+                ├── qs
+                ├── mime
+                └── ...
 
-routes/index.js
+app.js 工程的入口
 
-index.ejs
+routes/index.js 路由文件，相当于控制器，用于组织展示内容。
 
-layout.ejs
+index.ejs 模板文件，即 routes/index.js 中调用的模板。\
+基础是 HTML，包含的标签 (如<%= title %>) 是为了显示引用的变量，即 res.render 函数第二个参数传入的对象的属性。(见 line 6)
+旧版：只显示 layouts.ejs 中 `<body><%- body %></body>` 的内容。
+？？？css 路径是怎么回事
+
+layout.ejs（现在没有了）
+旧版：显示页面框架，即共有的部分--除了 `<%- body %>` 内容之外的部分。
 
 <br>
 
@@ -123,7 +153,36 @@ layout.ejs
 
 ### 工作原理
 
+访问 `http://127.0.0.1:3000/`，浏览器会向服务器发送请求。\
+> 参考《图解 HTTP》第3章。
+
+上例中发送两次请求：
+127.0.0.1
+style.css
+
+浏览器发起请求，由路由控制器接收，然后根据不同的路径定向到不同的控制器，控制器处理用户的具体请求 (模板引擎，静态文件，对象模型)。
+最后控制器返回给浏览器，完成一次请求。
+
 ### 创建路由规则
+
+获得路由，使用路由 --> 参考 app.js
+
+    var indexRouter = require('./routes/index');
+    app.use('/', indexRouter);
+
+    var usersRouter = require('./routes/users');
+    app.use('/users', usersRouter);
+
+app.use 是路由规则创建函数，第一个参数是请求路径，第二个参数是回调函数，在路由规则被触发时调用。
+
+--> index.js 回调函数的参数 req res next 请求信息，响应信息，第三个是？
+
+    router.get('/', function(req, res, next) {
+        res.render('index', { title: 'Express' });
+    });
+
+host + app.use 中的第一个参数，就是访问它的路由地址
+比如访问第二个路由 `http://127.0.0.1:3000/users`
 
 ### 路径匹配
 
@@ -134,3 +193,7 @@ layout.ejs
 <br>
 
 ## 5.4 模板引擎
+
+<br>
+
+## 5.5 建立微博网站
