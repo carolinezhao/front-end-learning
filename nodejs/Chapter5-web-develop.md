@@ -70,25 +70,29 @@ Express 不是一个无所不包的全能框架，像 Rails 或 Django 那样实
 
 ### 安装 Express
 
-Express 提供 Quick Start 工具，功能是建立一个网站最小的基础框架。为了使用这个工具，需要全局模式下的 Express。
+Express 提供 Quick Start 工具，功能是建立一个网站最小的基础框架。为了使用这个工具，需要全局模式安装 Express，从而在命令行中使用。
 
     $ npm install -g express
 
 安装在 root 路径下：`/usr/local/lib/node_modules/express`\
-在终端中打开：`open /usr/...`
+在终端中打开：`$ open [path]`
 
 在命令行中使用 Express 相关命令需要安装命令行工具。\
 The [express-generator](http://expressjs.com/en/starter/generator.html) package installs the express command-line tool.
 
     $ npm install express-generator -g
 
+查看帮助信息
+
+    $ express --help
+
 ### 建立工程
 
-Express 初始化一个项目时需要指定模板引擎，默认支持 jade 和 ejs。现在还有pug？
+Express 初始化一个项目时需要指定模板引擎，默认支持 jade 和 ejs。现在还有 pug 等。
 
-ejs = Embedded JavaScript 是一个标签替换引擎。
+本项目中使用 ejs (Embedded JavaScript) 是一个标签替换引擎，语法类似于 ASP 和 PHP。
 
-create an Express app named microblog. The app will be created in a folder named microblog in the current working directory and the view engine will be set to ejs:
+Create an Express app named microblog. The app will be created in a folder named microblog in the current working directory and the view engine will be set to ejs:
 
     $ express --view=ejs microblog
 
@@ -124,7 +128,7 @@ Express 安装到了本地，文件中可以通过 require 使用。
 
 用 Express 实现的网站实际上就是一个 Node.js 程序，因此可以直接运行。
 
-run the app
+启动服务器 (在项目目录下)
 
     $ DEBUG=microblog:* npm start
 
@@ -132,15 +136,18 @@ run the app
 
 在浏览器中访问 `http://127.0.0.1:3000/` 可以看到欢迎页面。
 
-修改代码后需要重启服务器。想实现修改后自动重启，使用 supervisor。(如何使用？)
+修改代码后需要重启服务器。想实现修改后自动重启，[使用 supervisor](https://blog.csdn.net/u013758116/article/details/38982325)。
 
-此时服务器是运行在开发模式下 development mode。6.3 节介绍如何在生产环境下部署。
+关闭服务器 `ctrl + c`
+
+此时服务器是在开发模式 (development mode) 下运行。6.3 节介绍如何在生产环境下部署。
 
 ### 工程的结构
 
     ./microblog
         ├── app.js
         ├── bin
+            └── www
         ├── views
         │       ├── index.ejs
         │       └── error.ejs
@@ -160,11 +167,46 @@ run the app
                 ├── mime
                 └── ...
 
+1 **书中 app.js 的内容拆分为 bin/www 和 app.js**
 app.js 工程的入口
 
-routes/index.js 路由文件，相当于控制器，用于组织展示内容。
+routes 是一个文件夹形式的本地模块，功能是为指定路径组织返回内容，是 MVC 架构中的控制器。
 
-index.ejs 模板文件，即 routes/index.js 中调用的模板。\
+app.configure<br>
+书中：三个函数分别指定通用、开发和产品环境下的参数。第一个直接接受了一个回调函数，后两个只能在开发和产品环境中调用。<br>
+新版：只有书中第一个 app.configure 的回调函数中的内容 (也不完全一致)，从 app.set 开始。没有用到 app.configure 本身。
+
+app.set 是 Express 的参数设置工具，接受一个 key 和一个 value，可用参数如下：
+* basepath 基础地址，通常用于 res.redirect() 跳转
+* views 视图文件的目录，存放模板文件 (现文件中有)
+* view engine 视图模板引擎 (现文件中有)
+* view options 全局视图参数对象
+* view cache 启用视图缓存
+* case sensitive routes 路径区分大小写
+* strict routing 严格路径，启用后不会忽略路径末尾的“/”
+* jsonp callback 开启透明的 JSONP 支持
+
+Express 依赖于 connect，提供了大量的中间件，可以通过 app.use 启用。
+
+书中启用了 5 个中间件：
+* express.bodyParser (解析客户端请求，通常是通过 POST 发送的内容), 现文件中 express.json？
+* express.methodOverride (用于支持定制的 HTTP 方法)
+* app.router (项目的路由支持), 现文件 app.use 实现；
+* express.static (提供静态文件支持), 与现文件一致；
+* express.errorHandler (错误控制器)，现文件有但实现不同。
+现文件中的 express.urlencoded 和 cookieParser 对应书中哪个？
+
+书中：app.get('/', routes.index) 是一个路由控制器，用户如果访问“/”路径，则由 routes.index 控制。<br>
+现有：使用 app.use
+
+2
+routes/index.js 路由文件，相当于控制器，用于组织展示内容。
+书中：app.get('/', routes.index)，将“/”路径映射到 index.js 中的 exports.index 函数下。
+现有：app.use('/', indexRouter)，将“/”路径映射到 index.js 中的 router.get 函数下。
+函数中 res.render 调用模板解析引擎 (见文件)。
+
+3
+index.ejs 模板文件，即 routes/index.js 中调用的模板。<br>
 基础是 HTML，包含的标签 (如<%= title %>) 是为了显示引用的变量，即 res.render 函数第二个参数传入的对象的属性。(见 line 6)
 旧版：只显示 layouts.ejs 中 `<body><%- body %></body>` 的内容。
 ？？？css 路径是怎么回事
