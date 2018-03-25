@@ -1,3 +1,6 @@
+// 创建一个 http 实例，在其请求处理函数中编写 req 对象的事件监听器。
+// 当客户端数据到达时，将 POST 数据暂存在闭包的变量中，直到 end 事件触发，解析 POST 请求，处理后返回客户端。
+
 var http = require('http')
 var querystring = require('querystring')
 var util = require('util')
