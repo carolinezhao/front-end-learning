@@ -68,7 +68,7 @@ Express 不是一个无所不包的全能框架，像 Rails 或 Django 那样实
 
 ## 5.2 快速开始 (书中代码与最新版本 Express 差异很大)
 
-### 安装 Express
+### 安装 Express (v4.16.3 | March 2018)
 
 Express 提供 Quick Start 工具，功能是建立一个网站最小的基础框架。为了使用这个工具，需要全局模式安装 Express，从而在命令行中使用。
 
@@ -171,10 +171,11 @@ Express 安装到了本地，文件中可以通过 require 使用。
 
 书中 app.js 的内容拆分为现文件的 bin/www 和 app.js。<br>
 旧版 Express 中 app.js 是工程的入口；<br>
-新版 Express 的启动模块分离到了 bin/www 中，在 www 中创建服务器和端口。
+新版 Express 的启动模块分离到了 bin/www 中，在 www 中创建服务器和端口。启动服务器后，终端中会显示 `node ./bin/www`。
 
 app.js line 7<br>
 routes 是一个文件夹形式的本地模块，功能是为指定路径组织返回内容，是 MVC 架构中的控制器。
+> routes 更多内容见 5.3 路由控制
 
 书中：三个 app.configure 函数分别指定通用、开发和产品环境下的参数。第一个直接接受了一个回调函数，后两个只能在开发和产品环境中调用。<br>
 新版：只有书中第一个 app.configure 的回调函数中的内容 (也不完全一致)，从 app.set 开始。没有用到 app.configure 本身。
@@ -199,6 +200,8 @@ Express 依赖于 connect(?)，提供了大量的中间件，可以通过 app.us
 * express.static (提供静态文件支持), 与现文件一致；
 * express.errorHandler (错误控制器)，现文件有但实现不同。
 * 现文件中的 express.urlencoded 和 cookieParser 对应书中哪个？
+
+Express 4.0 去掉了 Bundled Middleware (比如 bodyParser，cookieParser, session 等)，添加了相应的模块。
 
 书中：app.get('/', routes.index) 是一个路由控制器，用户如果访问“/”路径，则由 routes.index 控制。<br>
 现有：使用 app.use (app.js line 24)
@@ -228,19 +231,31 @@ layout.ejs (现在没有了)<br>
 
 ### 工作原理
 
-访问 `http://127.0.0.1:3000/`，浏览器会向服务器发送请求。
-> 参考《图解 HTTP》第3章。
+访问 `http://127.0.0.1:3000/`，浏览器会向服务器发送请求。<br>
+查看请求：打开 Chrome 开发者工具 -> Network -> 刷新页面 -> 点开 127.0.0.1 -> `Request Headers` (点击 view source)
 
-上例中发送两次请求：
-127.0.0.1
-style.css
+> 具体内容的含义参考《图解 HTTP》第3章。
 
-浏览器发起请求，由路由控制器接收，然后根据不同的路径定向到不同的控制器，控制器处理用户的具体请求 (模板引擎，静态文件，对象模型)。
-最后控制器返回给浏览器，完成一次请求。
+书中：app.js 中的 `app.get('/', routes.index)`，规定路径“/”的 GET 请求由 routers.index 函数处理。<br>
+routers.index 通过 res.render 调用视图模板 index，传递 title 变量。
+
+现在（需要改）：app.js 中的 `app.use('/', indexRouter)`，规定路径“/”的 GET 请求由 index.js 中的 router.get 函数处理。<br>
+router.get 通过 res.render 调用视图模板 index.ejs，传递 title 变量。
+
+最终视图模板生成 HTML 页面，返回给浏览器，根据上面查看请求的相同方法查看响应 `Response Headers`。
+
+浏览器收到内容后，经过分析发现要获取 `/stylesheets/style.css`，会再次向服务器发起请求。<br>
+app.js 中并没有一个路由规则指派到该文件，但程序通过 `app.use(express.static(path.join(__dirname, 'public')));` 配置了静态文件服务器，因此 `/stylesheets/style.css` 会定向到 app.js 所在目录的子目录中的文件 `public/stylesheets/style.css`，向客户端返回响应 (也在浏览器中查看)。
+
+Express 网站架构见书中图 5-3
+
+这是一个典型的 MVC 架构，浏览器发起请求，由路由控制器接收，然后根据不同的路径定向到不同的控制器。控制器处理用户的具体请求 -- 模板引擎，静态文件，对象模型。最后控制器返回给浏览器，完成一次请求。
 
 ### 创建路由规则
 
-获得路由，使用路由 --> 参考 app.js
+在浏览器中访问一个不存在的页面时，比如 `http://127.0.0.1:3000/abc`，服务器会在响应头中返回 404 Not Found 错误。因为 `/abc` 是一个不存在的路由规则，而且也不是 public 目录下的文件。
+
+现文件 app.js 中已有的路由规则：
 
     var indexRouter = require('./routes/index');
     app.use('/', indexRouter);
@@ -248,16 +263,25 @@ style.css
     var usersRouter = require('./routes/users');
     app.use('/users', usersRouter);
 
-app.use 是路由规则创建函数，第一个参数是请求路径，第二个参数是回调函数，在路由规则被触发时调用。
+访问第二个路由 `http://127.0.0.1:3000/users`
 
---> index.js 回调函数的参数 req res next 请求信息，响应信息，第三个是？
+增加地址为 `/hello` 的页面：<br>
+书中：在 app.js 中使用 `app.get('/hello', routes.hello)` 添加，然后在 index.js 中添加页面内容 `exports.hello=function(req, res) {res.send(...)}`。<br>
+现文件：使用的是 app.use 方法，尝试在 index.js 中的 router.get 中添加没有成功？另写一个 router.get 也没有成功？，因此另写了一个文件 hello.js。<br>
+router 是 Express 对象的实例：var router = express.Router();
+
+打开 `http://127.0.0.1:3000/hello` 可以看到当前时间，刷新页面时间也会刷新。
+
+服务器在开始监听之前，设置好了所有的路由规则，当请求到达时直接分配到响应函数。
+
+app.get（旧）是路由规则创建函数，第一个参数是请求路径，第二个参数是回调函数 (routes.hello -> exports.hello)，在路由规则被触发时调用，两个参数分别是 req 和 res，请求信息和响应信息。
+
+现文件：用 app.use 和 router.get 代替。<br>
+参数 req res next 请求信息，响应信息，第三个是？
 
     router.get('/', function(req, res, next) {
         res.render('index', { title: 'Express' });
     });
-
-host + app.use 中的第一个参数，就是访问它的路由地址
-比如访问第二个路由 `http://127.0.0.1:3000/users`
 
 ### 路径匹配
 
