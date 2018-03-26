@@ -11,14 +11,15 @@ var helloRouter = require('./routes/hello');
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views')); // 视图模板的路径
+app.set('view engine', 'ejs'); // 设置模板引擎
 
+// 当 http 请求到来时，会依次被括号里这些中间件函数处理。
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public'))); // 提供静态文件支持
 
 // 路由
 app.use('/', indexRouter);

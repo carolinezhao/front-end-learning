@@ -186,15 +186,14 @@ exports 本身只是一个空对象 {}，专门用来声明接口，本质上是
 
 .json 中的字段必须使用双引号。
 
-	/package
-	|
-	|--- package.json
-	|
-	|--- index.js
-	|
-	|--- /lib
-	|     |
-	|     |---interface.js
+	./package
+		│
+		├── package.json
+		│
+		├── index.js
+		│
+		└── lib
+		    └── interface.js
 
 Node.js 在调用某个包时，会首先检查包中 package.json 的 main 字段，将其作为包的接口模块。如果该文件或字段不存在，则会寻找 index.js 或 index.node 作为包的接口。
 

@@ -130,9 +130,13 @@ Express 安装到了本地，文件中可以通过 require 使用。
 
 启动服务器 (在项目目录下)
 
-    $ DEBUG=microblog:* npm start
+    $ DEBUG=microblog:* npm start (官网)
 
-运行后显示：`microblog:server Listening on port 3000`
+或者
+
+    $ npm start
+
+运行后显示：`> node ./bin/www`
 
 在浏览器中访问 `http://127.0.0.1:3000/` 可以看到欢迎页面。
 
@@ -147,7 +151,7 @@ Express 安装到了本地，文件中可以通过 require 使用。
     ./microblog
         ├── app.js
         ├── bin
-            └── www
+        │   └── www
         ├── views
         │       ├── index.ejs
         │       └── error.ejs
@@ -172,16 +176,35 @@ Express 安装到了本地，文件中可以通过 require 使用。
 书中 app.js 的内容拆分为现文件的 bin/www 和 app.js。<br>
 旧版 Express 中 app.js 是工程的入口；<br>
 新版 Express 的启动模块分离到了 bin/www 中，在 www 中创建服务器和端口。启动服务器后，终端中会显示 `node ./bin/www`。
+这是因为 package.json 中的配置为：
 
-app.js line 7<br>
+    "scripts": {
+        "start": "node ./bin/www"
+    }
+
+在终端中查看
+
+    $ file bin/www
+
+返回 `bin/www: a /usr/bin/env node script text executable, ASCII text`
+
+什么叫可执行的node脚本呢？通常我们如果要执行一个node.js的文件，会采用这种形式：$ node hello.js，但如果是一个可执行的脚本，则无须使用node 命令，直接这样：./hello.js就可以了。
+
+`app.js`
+
+用 require 方法加载模块，返回的是各模块的 exports 对象。与 package.json 中 "dependencies" 的内容对应。<br>
+为什么没有 path？？
+> review 3.3.2 创建及加载模块
+
 routes 是一个文件夹形式的本地模块，功能是为指定路径组织返回内容，是 MVC 架构中的控制器。
 > routes 更多内容见 5.3 路由控制
 
 书中：三个 app.configure 函数分别指定通用、开发和产品环境下的参数。第一个直接接受了一个回调函数，后两个只能在开发和产品环境中调用。<br>
-新版：只有书中第一个 app.configure 的回调函数中的内容 (也不完全一致)，从 app.set 开始。没有用到 app.configure 本身。
+新版：Express 4.x 不再支持 app.configure，旧版中其包含的 app.set 等内容可以直接使用。<br>
+基于 environments 配置路由的方法见 bin/www。
+[示例](https://scotch.io/bar-talk/expressjs-4-0-new-features-and-upgrading-from-3-0#removed-appconfigure)
 
-app.set 是 Express 的参数设置工具，接受一个 key 和一个 value，可用参数如下 (书中提供，不确定现在是否改了)：
-
+app.set 是 Express 的参数设置工具，接受一个 key 和一个 value。可用参数如下 (书中提供，不确定现在是否改了)：
 * basepath 基础地址，通常用于 res.redirect() 跳转
 * views 视图文件的目录，存放模板文件 (app.js 中有)
 * view engine 视图模板引擎 (app.js 中有)
@@ -192,26 +215,45 @@ app.set 是 Express 的参数设置工具，接受一个 key 和一个 value，�
 * jsonp callback 开启透明的 JSONP 支持
 * port (www line 16)
 
-Express 依赖于 connect(?)，提供了大量的中间件，可以通过 app.use 启用。书中启用的中间件：
+旧版 Express 依赖于 connect()，提供了大量的中间件，可以通过 app.use 启用。书中启用的中间件：
+* express.bodyParser (解析客户端请求，通常是通过 POST 发送的内容)
+* express.methodOverride (用于支持定制的 HTTP 方法)
+* app.router (项目的路由支持) Express 4.x 不再支持。现文件中用 app.use 直接实现。
+* express.static (提供静态文件支持) 与现文件一致；
+* express.errorHandler (错误控制器)
 
-* express.bodyParser (解析客户端请求，通常是通过 POST 发送的内容), 现文件中 express.json？
-* express.methodOverride (用于支持定制的 HTTP 方法) ？
-* app.router (项目的路由支持), 现文件 app.use 实现？，以前是 app.get；
-* express.static (提供静态文件支持), 与现文件一致；
-* express.errorHandler (错误控制器)，现文件有但实现不同。
-* 现文件中的 express.urlencoded 和 cookieParser 对应书中哪个？
-
-Express 4.0 去掉了 Bundled Middleware (比如 bodyParser，cookieParser, session 等)，添加了相应的模块。
+Express 4.x 不再支持 Connect (the HTTP framework for Node)<br>
+除了 static 之外，Express 4.x 中很多功能不再提供中间件 (middleware) 形式，使用时需要通过模块的方式分别调用。<br>
+使用方法：在 package.json 的 "dependencies" 中添加要使用的包；文件中用 require 加载。<br>
+[变更对照表](https://scotch.io/bar-talk/expressjs-4-0-new-features-and-upgrading-from-3-0#removed-bundled-middleware)
 
 书中：app.get('/', routes.index) 是一个路由控制器，用户如果访问“/”路径，则由 routes.index 控制。<br>
-现有：使用 app.use (app.js line 24)
+现有：使用 app.use (与下个文件有关)
 
-`routes/index.js` 
+`routes/index.js`
 
 路由文件，相当于控制器，用于组织展示的内容。<br>
 书中：app.js 中的 app.get('/', routes.index) 将“/”路径映射到 index.js 中的 exports.index 函数下。<br>
 现有：app.js 中的 app.use('/', indexRouter) 将“/”路径映射到 index.js 中的 router.get 函数下。<br>
 函数中 res.render 调用模板解析引擎 (见文件)。
+
+Router is the public API for express's Router. It provides routing APIs for things like .use(), .get(), .param(), and .route().
+
+``` JavaScript
+// index.js
+var dogs = express.Router();
+
+dogs.get('/', function(req, res, next) {
+    // doing more stuff 
+});
+
+dogs.post('/', function(req, res, next) {
+    // stuff stuff stuff
+});
+
+// app.js
+app.use('/dogs', dogs);
+```
 
 `index.ejs` 
 
@@ -219,7 +261,6 @@ Express 4.0 去掉了 Bundled Middleware (比如 bodyParser，cookieParser, sess
 基础是 HTML，包含的标签 (如 `<%= title %>`) 是为了显示引用的变量，即 res.render 函数第二个参数传入的对象的属性。(index.js line 6)<br>
 旧版：只显示 layouts.ejs 中 `<%- body %>` 的内容。<br>
 现有：全部 HTML 标签都在 index.ejs 中。<br>
-？？？css 路径是怎么回事
 
 layout.ejs (现在没有了)<br>
 旧版：显示页面框架，即共有内容--除了 `<%- body %>` 之外的部分。<br>
@@ -296,3 +337,10 @@ app.get（旧）是路由规则创建函数，第一个参数是请求路径，�
 <br>
 
 ## 5.5 建立微博网站
+
+
+参考
+
+* [Express 4.0 与 3.0 特性对比](https://scotch.io/bar-talk/expressjs-4-0-new-features-and-upgrading-from-3-0)
+* [使用 Express 4.x 实现书中的微博示例](http://www.cnblogs.com/SheilaSun/p/4746749.html)
+* [对 bin/www 和 app.js 的解读](https://www.jianshu.com/p/a7b47778e734)
