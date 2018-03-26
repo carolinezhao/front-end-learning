@@ -2,8 +2,10 @@
 ## 二级标题下有横线
 ### 共有六级标题
 
-#### Review
-> A nice way to review the README is by using the VS Code Markdown Preview. You can open the preview in either the current editor group (Markdown: Open Preview ⇧⌘V)
+#### 在 VS Code 中预览 .md
+
+1. 打开：`$ code filename` 
+2. 预览：⇧⌘V
 
 #### 无序列表
 
@@ -26,22 +28,30 @@
 Bear is a `bad` guy.
 
 #### 代码区块
-###### 缩进4个空格或1个制表符
 
-	for (var i = 0; i < array.length; i++) {
-	    console.log("Hello, Bear!")
-	}
+* 缩进1个制表符或4个空格。
+* 使用语言高亮时，无需缩进。
 
-#### url链接
+``` JavaScript
+for (var i = 0; i < array.length; i++) {
+    console.log("Hello, Bear!")
+}
+```
+
+#### url 链接
 
 [Markdown Document](http://wowubuntu.com/markdown/)
 
-#### text链接
+#### text 链接
 
 <rabbit@gmail.com>
 
+#### 特殊字体
+
 *这是斜体*
 **这是粗体**
+
+#### 符号
 
 > & 符号在 markdown 中的写法为 &amp;
 
@@ -49,11 +59,6 @@ Bear is a `bad` guy.
 
 #### Table is not available here
 
-#### 在 VS Code 中预览 .md
-1. 终端中输入 `code filename` 打开文件
-2. cmd + k, v 进行预览
-
 #### 分割线
 ***
 ---
-- - -
