@@ -167,52 +167,60 @@ Express 安装到了本地，文件中可以通过 require 使用。
                 ├── mime
                 └── ...
 
-1 **书中 app.js 的内容拆分为 bin/www 和 app.js**
-app.js 工程的入口
+`bin/www 和 app.js`
 
+书中 app.js 的内容拆分为现文件的 bin/www 和 app.js。<br>
+旧版 Express 中 app.js 是工程的入口；<br>
+新版 Express 的启动模块分离到了 bin/www 中，在 www 中创建服务器和端口。
+
+app.js line 7<br>
 routes 是一个文件夹形式的本地模块，功能是为指定路径组织返回内容，是 MVC 架构中的控制器。
 
-app.configure<br>
-书中：三个函数分别指定通用、开发和产品环境下的参数。第一个直接接受了一个回调函数，后两个只能在开发和产品环境中调用。<br>
+书中：三个 app.configure 函数分别指定通用、开发和产品环境下的参数。第一个直接接受了一个回调函数，后两个只能在开发和产品环境中调用。<br>
 新版：只有书中第一个 app.configure 的回调函数中的内容 (也不完全一致)，从 app.set 开始。没有用到 app.configure 本身。
 
-app.set 是 Express 的参数设置工具，接受一个 key 和一个 value，可用参数如下：
+app.set 是 Express 的参数设置工具，接受一个 key 和一个 value，可用参数如下 (书中提供，不确定现在是否改了)：
+
 * basepath 基础地址，通常用于 res.redirect() 跳转
-* views 视图文件的目录，存放模板文件 (现文件中有)
-* view engine 视图模板引擎 (现文件中有)
+* views 视图文件的目录，存放模板文件 (app.js 中有)
+* view engine 视图模板引擎 (app.js 中有)
 * view options 全局视图参数对象
 * view cache 启用视图缓存
 * case sensitive routes 路径区分大小写
 * strict routing 严格路径，启用后不会忽略路径末尾的“/”
 * jsonp callback 开启透明的 JSONP 支持
+* port (www line 16)
 
-Express 依赖于 connect，提供了大量的中间件，可以通过 app.use 启用。
+Express 依赖于 connect(?)，提供了大量的中间件，可以通过 app.use 启用。书中启用的中间件：
 
-书中启用了 5 个中间件：
 * express.bodyParser (解析客户端请求，通常是通过 POST 发送的内容), 现文件中 express.json？
-* express.methodOverride (用于支持定制的 HTTP 方法)
-* app.router (项目的路由支持), 现文件 app.use 实现；
+* express.methodOverride (用于支持定制的 HTTP 方法) ？
+* app.router (项目的路由支持), 现文件 app.use 实现？，以前是 app.get；
 * express.static (提供静态文件支持), 与现文件一致；
 * express.errorHandler (错误控制器)，现文件有但实现不同。
-现文件中的 express.urlencoded 和 cookieParser 对应书中哪个？
+* 现文件中的 express.urlencoded 和 cookieParser 对应书中哪个？
 
 书中：app.get('/', routes.index) 是一个路由控制器，用户如果访问“/”路径，则由 routes.index 控制。<br>
-现有：使用 app.use
+现有：使用 app.use (app.js line 24)
 
-2
-routes/index.js 路由文件，相当于控制器，用于组织展示内容。
-书中：app.get('/', routes.index)，将“/”路径映射到 index.js 中的 exports.index 函数下。
-现有：app.use('/', indexRouter)，将“/”路径映射到 index.js 中的 router.get 函数下。
+`routes/index.js` 
+
+路由文件，相当于控制器，用于组织展示的内容。<br>
+书中：app.js 中的 app.get('/', routes.index) 将“/”路径映射到 index.js 中的 exports.index 函数下。<br>
+现有：app.js 中的 app.use('/', indexRouter) 将“/”路径映射到 index.js 中的 router.get 函数下。<br>
 函数中 res.render 调用模板解析引擎 (见文件)。
 
-3
-index.ejs 模板文件，即 routes/index.js 中调用的模板。<br>
-基础是 HTML，包含的标签 (如<%= title %>) 是为了显示引用的变量，即 res.render 函数第二个参数传入的对象的属性。(见 line 6)
-旧版：只显示 layouts.ejs 中 `<body><%- body %></body>` 的内容。
+`index.ejs` 
+
+模板文件，即 routes/index.js 中调用的模板。<br>
+基础是 HTML，包含的标签 (如 `<%= title %>`) 是为了显示引用的变量，即 res.render 函数第二个参数传入的对象的属性。(index.js line 6)<br>
+旧版：只显示 layouts.ejs 中 `<%- body %>` 的内容。<br>
+现有：全部 HTML 标签都在 index.ejs 中。<br>
 ？？？css 路径是怎么回事
 
-layout.ejs（现在没有了）
-旧版：显示页面框架，即共有的部分--除了 `<%- body %>` 内容之外的部分。
+layout.ejs (现在没有了)<br>
+旧版：显示页面框架，即共有内容--除了 `<%- body %>` 之外的部分。<br>
+现有：取消此文件，内容合并到 index.ejs。
 
 <br>
 
