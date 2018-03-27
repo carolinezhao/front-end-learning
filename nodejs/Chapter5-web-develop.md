@@ -234,12 +234,19 @@ router.use('', function(req,res,next) {
 
 // 其中 METHOD 可以是 get, post, put 等。
 ```
-第三方中间件
 
-旧版 Express 使用的中间件依赖于 Connect，书中的写法已过时。
-Express 4.x 不再支持 Connect，使用第三方中间件需要通过模块的方式调用。
-[第三方中间件的变更](http://expressjs.com/zh-cn/resources/middleware.html)<br>
-使用方法：在 package.json 的 "dependencies" 中添加要使用的包；文件中用 require 加载。
+[第三方中间件的变更](http://expressjs.com/zh-cn/resources/middleware.html)
+
+旧版 Express 使用的中间件依赖于 Connect，书中的写法已过时。<br>
+Express 4 不再依赖于 Connect，从其核心移除了所有内置的中间件（除了 express.static 函数）。<br>
+Express 现在是独立的路由和中间件 Web 框架，其版本控制和发行不受中间件更新的影响。<br>
+由于没有内置中间件，因此必须显式添加所需的所有中间件才能运行应用程序。
+
+安装模块：`npm install --save <module-name>`<br>
+在应用程序中需要此模块：`require('module-name')`<br>
+根据文档使用模块：`app.use( ... )`
+
+--
 
 书中：app.get('/', routes.index) 是一个路由控制器，用户如果访问“/”路径，则由 routes.index 控制。<br>
 现有：使用 app.use (与下个文件有关)
@@ -266,7 +273,7 @@ layout.ejs (现在没有了)<br>
 
 ## 5.3 路由控制
 
-### 工作原理
+### 5.3.1 工作原理
 
 访问 `http://127.0.0.1:3000/`，浏览器会向服务器发送请求。<br>
 查看请求：打开 Chrome 开发者工具 -> Network -> 刷新页面 -> 点开 127.0.0.1 -> `Request Headers` (点击 view source)
@@ -292,7 +299,7 @@ Express 网站架构见书中图 5-3
 
 这是一个典型的 MVC 架构，浏览器发起请求，由路由控制器接收，然后根据不同的路径定向到不同的控制器。控制器处理用户的具体请求 -- 模板引擎，静态文件，对象模型。最后控制器返回给浏览器，完成一次请求。
 
-### 创建路由规则
+### 5.3.2 创建路由规则
 
 在浏览器中访问一个不存在的页面时，比如 `http://127.0.0.1:3000/abc`，服务器会在响应头中返回 404 Not Found 错误。因为 `/abc` 是一个不存在的路由规则，而且也不是 public 目录下的文件。
 
@@ -322,6 +329,7 @@ try1: 在 index.js 中的 router.get 中添加 res.send 没有成功<br>
     [res.send 文档](http://expressjs.com/zh-cn/4x/api.html#res.send)<br>
 try2: 另写一个 router.get 也没有效果，但是没有报错。<br>
     相同的 get 无效吗？？<br>
+    解释：见 5.3.5 控制权转移
 try3: 单独写一个文件 hello.js。<br>
 打开 `http://127.0.0.1:3000/hello` 可以看到当前时间，刷新页面时间也会刷新。
 
@@ -331,7 +339,7 @@ app.get（旧）是路由规则创建函数，第一个参数是请求路径，�
 
 现文件：用 app.use 和 router.get 代替。
 
-### 路径匹配
+### 5.3.3 路径匹配
 
 除了为固定路径设置路由规则，还可以与变动的路由匹配，比如用户的个人页面，路径为 /user/[username]
 
@@ -340,7 +348,7 @@ app.get('/user/:username', function(req, res, next) {
   res.send('user: ' + req.params.username)
 })
 ```
-写在 app.js 中<br>
+写在 app.js 中可运行，怎么添加到 routes 的某个文件中？<br>
 [路由文档](http://expressjs.com/zh-cn/guide/routing.html)<br>
 res.send 之后不能有 next()
 
@@ -348,9 +356,78 @@ res.send 之后不能有 next()
 路径参数可以在响应函数中通过 req.params 的属性访问。<br>
 上述函数中可以直接使用正则，好处是可以定义更复杂的路径规则，不同之处在于匹配的参数是匿名的，因此需要通过 req.params[0] 这样的形式访问。
 
-### REST 风格的路由规则
+### 5.3.4 REST 风格的路由规则
 
-### 控制权转移
+REST 是一种基于 HTTP 协议的网络应用的接口风格。
+
+HTTP 协议定义了8种标准的方法，常用的是以下4种：
+* GET 请求获取指定资源
+* POST 向指定资源提交数据
+* PUT 请求服务器存储一个资源
+* DELETE 请求服务器删除指定资源
+
+根据 REST 设计模式，这4种方法分别用于实现以下功能：
+* GET 获取 (安全Y；幂等Y)
+* POST 新增 (安全N；幂等N)
+* PUT 更新 (安全N；幂等Y)
+* DELETE 删除 (安全N；幂等Y)
+
+特点
+* 安全：指没有副作用，即请求不会对资源产生变动，连续访问多次所获得的结果不受访问者的影响。
+* 幂等：指的是重复请求多次与一次请求的效果是一致的，以上4种方法中只有新增不是幂等的。
+
+Express 支持的 HTTP 请求绑定函数：[app.METHOD(path, callback [,callback...])](http://expressjs.com/en/api.html#app.METHOD)<br>
+比如 app.get，表示为该路径绑定了 GET 请求，向它发起其他方式的请求不会被响应。<br>
+app.all 支持把所有的请求方式绑定到同一个响应函数。
+
+### 5.3.5 控制权转移
+
+Express 支持同一路径绑定多个路由响应函数 (比如 app.all 和 app.get)。<br>
+访问该路径时，请求只能被前一条路由规则捕获，后面的规则会被忽略。<br>
+因为 Express 在处理路由规则时，会优先匹配先定义的路由规则，屏蔽后面相同的规则。
+
+Express 提供了路由控制权转移的方法，即回调函数的第三个参数 next。通过调用 next()，路由控制权会被转移给后面的规则。
+
+``` JavaScript
+app.all('/user/:username', function(req, res, next) {
+    console.log('all methods captured')
+    next() // 请求被捕获后，转移控制权给第二条规则
+})
+app.get('/user/:username', function(req, res) {
+    res.send('user: ' + req.params.username)
+})
+```
+
+这个工具非常有用，可以轻易实现中间件，而且还能提高代码的复用程度。
+比如针对一个用户查询信息和修改信息的操作，分别对应 GET 和 PUT 操作，而两者共有的一个步骤是检查用户名是否合法，可以用 next() 实现。
+
+``` JavaScript
+var users = {
+    'caroline': {
+        name: 'rabbit',
+        website: 'https://github.com/carolinezhao'
+    }
+}
+
+app.all('/user/:username', function(req, res, next) {
+    // 检查用户是否存在
+    if (users[req.params.username]) {
+        next()
+    } else {
+        next(new Error(req.params.username + 'does not exist.'))
+    }
+})
+app.get('/user/:username', function(req, res) {
+    // 用户存在，直接展示
+    res.send(JSON.stringify(users[req.params.username]))
+})
+app.put('/user/:username', function(req, res) {
+    // 修改用户信息
+    res.send('Done')
+})
+```
+
+这个例子中，app.all 定义的路由规则实际上起到了中间件的作用，把相似请求的相同部分提取出来，有利于代码维护，其他 next 方法如果接受了参数，说明发生了错误。使用这种方法可以**把错误检查分段化，降低代码耦合度**。
 
 <br>
 
@@ -378,7 +455,7 @@ Download the MongoDB driver and add a dependency entry in `package.json` file.
 
 ## 参考文献
 
-* [Express 4.0 与 3.0 特性对比](https://scotch.io/bar-talk/expressjs-4-0-new-features-and-upgrading-from-3-0)
+* [Express 4.0 相对于 3.0 的特性更改](http://expressjs.com/zh-cn/guide/migrating-4.html)
 * [使用 Express 4.x 实现书中的微博示例](http://www.cnblogs.com/SheilaSun/p/4746749.html)
 * [对 bin/www 和 app.js 的解读](https://www.jianshu.com/p/a7b47778e734)
 * [讲解中间件的使用](http://www.html-js.com/article/1603)
