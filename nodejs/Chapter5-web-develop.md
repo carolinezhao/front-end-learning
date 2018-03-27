@@ -188,12 +188,12 @@ Express 安装到了本地，文件中可以通过 require 使用。
 
 返回 `bin/www: a /usr/bin/env node script text executable, ASCII text`
 
-什么叫可执行的node脚本呢？通常我们如果要执行一个node.js的文件，会采用这种形式：$ node hello.js，但如果是一个可执行的脚本，则无须使用node 命令，直接这样：./hello.js就可以了。
+什么叫可执行的 node 脚本呢？通常要执行一个 node.js 文件，会采用这种形式：`$ node hello.js`，但如果是一个可执行的脚本，则无须使用 node 命令，`./hello.js` 就可以了。
 
 `app.js`
 
-用 require 方法加载模块，返回的是各模块的 exports 对象。与 package.json 中 "dependencies" 的内容对应。<br>
-为什么没有 path？？
+用 require 方法加载模块，返回的是各模块的 `module.exports` 对象。与 package.json 中 "dependencies" 的内容对应。(为什么没有 path？？)<br>
+书中使用 `exports` 对象作为各模块接口，两种方法的区别见 --> _05-module.js 和 07-singleobject.js_
 > review 3.3.2 创建及加载模块
 
 routes 是一个文件夹形式的本地模块，功能是为指定路径组织返回内容，是 MVC 架构中的控制器。
@@ -215,17 +215,31 @@ app.set 是 Express 的参数设置工具，接受一个 key 和一个 value。�
 * jsonp callback 开启透明的 JSONP 支持
 * port (www line 16)
 
-旧版 Express 依赖于 connect()，提供了大量的中间件，可以通过 app.use 启用。书中启用的中间件：
-* express.bodyParser (解析客户端请求，通常是通过 POST 发送的内容)
-* express.methodOverride (用于支持定制的 HTTP 方法)
-* app.router (项目的路由支持) Express 4.x 不再支持。现文件中用 app.use 直接实现。
-* express.static (提供静态文件支持) 与现文件一致；
-* express.errorHandler (错误控制器)
+--
 
-Express 4.x 不再支持 Connect (the HTTP framework for Node)<br>
-除了 static 之外，Express 4.x 中很多功能不再提供中间件 (middleware) 形式，使用时需要通过模块的方式分别调用。<br>
-使用方法：在 package.json 的 "dependencies" 中添加要使用的包；文件中用 require 加载。<br>
-[变更对照表](https://scotch.io/bar-talk/expressjs-4-0-new-features-and-upgrading-from-3-0#removed-bundled-middleware)
+[使用中间件](http://expressjs.com/zh-cn/guide/using-middleware.html)
+
+应用层中间件和路由层中间件
+
+``` JavaScript
+var app = express() //应用程序对象的实例
+app.use('', function(req,res,next) {
+    // app.use() 和 app.METHOD() 函数用于绑定应用层中间件
+})
+
+var router = express.Router()
+router.use('', function(req,res,next) {
+    // router.use() 和 router.METHOD() 函数装入路由器层中间件
+})
+
+// 其中 METHOD 可以是 get, post, put 等。
+```
+第三方中间件
+
+旧版 Express 使用的中间件依赖于 Connect，书中的写法已过时。
+Express 4.x 不再支持 Connect，使用第三方中间件需要通过模块的方式调用。
+[第三方中间件的变更](http://expressjs.com/zh-cn/resources/middleware.html)<br>
+使用方法：在 package.json 的 "dependencies" 中添加要使用的包；文件中用 require 加载。
 
 书中：app.get('/', routes.index) 是一个路由控制器，用户如果访问“/”路径，则由 routes.index 控制。<br>
 现有：使用 app.use (与下个文件有关)
@@ -234,26 +248,8 @@ Express 4.x 不再支持 Connect (the HTTP framework for Node)<br>
 
 路由文件，相当于控制器，用于组织展示的内容。<br>
 书中：app.js 中的 app.get('/', routes.index) 将“/”路径映射到 index.js 中的 exports.index 函数下。<br>
-现有：app.js 中的 app.use('/', indexRouter) 将“/”路径映射到 index.js 中的 router.get 函数下。<br>
+现有：app.js 中使用 app.use('/', indexRouter) 将“/”路径映射到 index.js 中的 router 对象，由 router 执行 get 请求。<br>
 函数中 res.render 调用模板解析引擎 (见文件)。
-
-Router is the public API for express's Router. It provides routing APIs for things like .use(), .get(), .param(), and .route().
-
-``` JavaScript
-// index.js
-var dogs = express.Router();
-
-dogs.get('/', function(req, res, next) {
-    // doing more stuff 
-});
-
-dogs.post('/', function(req, res, next) {
-    // stuff stuff stuff
-});
-
-// app.js
-app.use('/dogs', dogs);
-```
 
 `index.ejs` 
 
@@ -277,13 +273,17 @@ layout.ejs (现在没有了)<br>
 
 > 具体内容的含义参考《图解 HTTP》第3章。
 
+生成 HTML 页面
+
 书中：app.js 中的 `app.get('/', routes.index)`，规定路径“/”的 GET 请求由 routers.index 函数处理。<br>
 routers.index 通过 res.render 调用视图模板 index，传递 title 变量。
 
-现在（需要改）：app.js 中的 `app.use('/', indexRouter)`，规定路径“/”的 GET 请求由 index.js 中的 router.get 函数处理。<br>
-router.get 通过 res.render 调用视图模板 index.ejs，传递 title 变量。
+现在：app.js 中的 `app.use('/', indexRouter)` 将路由指向 index.js 中的 `router.get` 处理 GET 请求。<br>
+通过 res.render 调用视图模板 index.ejs，传递 title 变量。
 
 最终视图模板生成 HTML 页面，返回给浏览器，根据上面查看请求的相同方法查看响应 `Response Headers`。
+
+加载 CSS
 
 浏览器收到内容后，经过分析发现要获取 `/stylesheets/style.css`，会再次向服务器发起请求。<br>
 app.js 中并没有一个路由规则指派到该文件，但程序通过 `app.use(express.static(path.join(__dirname, 'public')));` 配置了静态文件服务器，因此 `/stylesheets/style.css` 会定向到 app.js 所在目录的子目录中的文件 `public/stylesheets/style.css`，向客户端返回响应 (也在浏览器中查看)。
@@ -296,35 +296,57 @@ Express 网站架构见书中图 5-3
 
 在浏览器中访问一个不存在的页面时，比如 `http://127.0.0.1:3000/abc`，服务器会在响应头中返回 404 Not Found 错误。因为 `/abc` 是一个不存在的路由规则，而且也不是 public 目录下的文件。
 
-现文件 app.js 中已有的路由规则：
+现文件中的路由规则示例：
 
-    var indexRouter = require('./routes/index');
-    app.use('/', indexRouter);
+``` JavaScript
+// routes/app.js
+var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
 
-    var usersRouter = require('./routes/users');
-    app.use('/users', usersRouter);
-
-访问第二个路由 `http://127.0.0.1:3000/users`
+// routes/users.js
+var router = express.Router();
+router.get('/', function(req, res, next) { // 这里的路径是什么？为什么不是 /users ？
+  res.send('respond with a resource');
+});
+module.exports = router;
+```
 
 增加地址为 `/hello` 的页面：<br>
 书中：在 app.js 中使用 `app.get('/hello', routes.hello)` 添加，然后在 index.js 中添加页面内容 `exports.hello=function(req, res) {res.send(...)}`。<br>
-现文件：使用的是 app.use 方法，尝试在 index.js 中的 router.get 中添加没有成功？另写一个 router.get 也没有成功？，因此另写了一个文件 hello.js。<br>
-router 是 Express 对象的实例：var router = express.Router();
-
+现文件：app.js 中使用 app.use<br> 
+try1: 在 index.js 中的 router.get 中添加 res.send 没有成功<br>
+    res.send 之后不能再有 res.send，否则会报错：Error: Can't set headers after they are sent.<br>
+    解释：https://cnodejs.org/topic/53774ffecbcc396349ca1155<br>
+    [res.send 文档](http://expressjs.com/zh-cn/4x/api.html#res.send)<br>
+try2: 另写一个 router.get 也没有效果，但是没有报错。<br>
+    相同的 get 无效吗？？<br>
+try3: 单独写一个文件 hello.js。<br>
 打开 `http://127.0.0.1:3000/hello` 可以看到当前时间，刷新页面时间也会刷新。
 
 服务器在开始监听之前，设置好了所有的路由规则，当请求到达时直接分配到响应函数。
 
-app.get（旧）是路由规则创建函数，第一个参数是请求路径，第二个参数是回调函数 (routes.hello -> exports.hello)，在路由规则被触发时调用，两个参数分别是 req 和 res，请求信息和响应信息。
+app.get（旧）是路由规则创建函数，第一个参数是请求路径，第二个参数是回调函数，在路由规则被触发时调用。
 
-现文件：用 app.use 和 router.get 代替。<br>
-参数 req res next 请求信息，响应信息，第三个是？
-
-    router.get('/', function(req, res, next) {
-        res.render('index', { title: 'Express' });
-    });
+现文件：用 app.use 和 router.get 代替。
 
 ### 路径匹配
+
+除了为固定路径设置路由规则，还可以与变动的路由匹配，比如用户的个人页面，路径为 /user/[username]
+
+``` JavaScript
+app.get('/user/:username', function(req, res, next) {
+  res.send('user: ' + req.params.username)
+})
+```
+写在 app.js 中<br>
+[路由文档](http://expressjs.com/zh-cn/guide/routing.html)<br>
+res.send 之后不能有 next()
+
+路径规则 `/user/:username` 会被自动编译为正则表达式，类似于 `\/user\/([^\/]+)\/?`。<br>
+路径参数可以在响应函数中通过 req.params 的属性访问。<br>
+上述函数中可以直接使用正则，好处是可以定义更复杂的路径规则，不同之处在于匹配的参数是匿名的，因此需要通过 req.params[0] 这样的形式访问。
 
 ### REST 风格的路由规则
 
@@ -338,9 +360,25 @@ app.get（旧）是路由规则创建函数，第一个参数是请求路径，�
 
 ## 5.5 建立微博网站
 
+### 路由规划
 
-参考
+<br>
+
+## 5.6 用户注册和登录
+
+### MongoDB
+
+[MongoDB Node.JS Driver](https://mongodb.github.io/node-mongodb-native/)
+
+Download the MongoDB driver and add a dependency entry in `package.json` file.
+
+    npm install mongodb --save
+
+<br>
+
+## 参考文献
 
 * [Express 4.0 与 3.0 特性对比](https://scotch.io/bar-talk/expressjs-4-0-new-features-and-upgrading-from-3-0)
 * [使用 Express 4.x 实现书中的微博示例](http://www.cnblogs.com/SheilaSun/p/4746749.html)
 * [对 bin/www 和 app.js 的解读](https://www.jianshu.com/p/a7b47778e734)
+* [讲解中间件的使用](http://www.html-js.com/article/1603)
