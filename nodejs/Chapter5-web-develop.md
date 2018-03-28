@@ -524,11 +524,27 @@ NoSQL
 
 ### MongoDB
 
-[MongoDB Node.JS Driver](https://mongodb.github.io/node-mongodb-native/)
+MongoDB 是一个对象数据库，没有表、行等概念，也没有固定的模式和结构，所有数据以文档的形式存储。<br>
+MongoDB 的数据格式是 BSON (Binary JSON)，是 JSON 的一个扩展，因此与 js 的亲和性很强。<br>
+在 MongoDB 中对数据的操作都是以文档为单位的，也可以修改文档的部分属性。<br>
+对于查询操作，只需要指定文档的任何一个属性，就可以在数据库中筛选出满足条件的所有文档。<br>
+为了加快查询，MongoDB 也对文档实现了索引，这一点和 SQL 数据库一样。
+
+### 连接数据库
+
+在本地安装 [MongoDB](https://www.mongodb.com/)
+
+在 Node.js 中使用 MongoDB，需要获取一个模块。[MongoDB Node.JS Driver](https://mongodb.github.io/node-mongodb-native/)
 
 Download the MongoDB driver and add a dependency entry in `package.json` file.
 
     npm install mongodb --save
+
+在工程目录中创建 settings.js，用于保存数据库的连接信息。
+
+在 models 子目录中创建 db.js，创建数据库连接。
+
+### 会话支持
 
 <br>
 

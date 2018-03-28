@@ -11,28 +11,31 @@
 
 <body>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <a class="navbar-brand" href="#">Home</a>
+        <a class="navbar-brand" href="#">Microblog</a>
         <div class="collapse navbar-collapse" id="">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Hot</a>
+                    <a class="nav-link" href="#">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Special</a>
+                    <a class="nav-link" href="#">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Register</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="" id="dropdown01" data-toggle="dropdown">Follow</a>
+                    <a class="nav-link dropdown-toggle" href="" id="dropdown01" data-toggle="dropdown">More</a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="#">Following</a>
                         <a class="dropdown-item" href="#">Followers</a>
                     </div>
                 </li>
             </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="button">Search</button>
-        </form>
-    </div>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="button">Search</button>
+            </form>
+        </div>
     </nav>
     <main role="main">
         <div class="jumbotron">
@@ -44,7 +47,8 @@
                     <%= title %> based on Node.js + Express + Bootstrap + MongoDB.
                 </p>
                 <p>
-                    <a class="btn btn-primary btn-lg" href="https://github.com/carolinezhao/front-end-learning/tree/master/nodejs" role="button">Learn more »</a>
+                    <a href="/login" class="btn btn-primary" role="button">Login</a>
+                    <a href="/reg" class="btn btn-light" role="button">Register</a>                    
                 </p>
             </div>
         </div>
