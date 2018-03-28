@@ -484,6 +484,14 @@ partials
 
 ### 使用 Bootstrap 设计界面
 
+安装 bootstrap@4.0.0 及其依赖的两个模块 jquery@3.3.1 和 popper.js@1.14.1
+
+    $ npm install bootstrap --save
+    $ npm install jquery --save
+    $ npm install popper.js --save
+
+但是需要把 .css 和 .js 分贝拷贝到 public/stylesheets 和 public/javascripts 目录下，以静态文件的方式加载。直接按路径引用无效。
+
 <br>
 
 ## 5.6 用户注册和登录
