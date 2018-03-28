@@ -14,7 +14,7 @@ Node.js 和 PHP、Perl、ASP、JSP 一样，都是为了由服务器动态生成
 
 动态网页的历程：
 * Perl 和 CGI：在 Perl 程序中输出 HTML，由 HTTP 服务器调用 Perl，结果返回给客户端。
-* 以模板为中心的架构：PHP、ASP、JSP，以 HTML 为主的模板中插入程序代码。
+* 以模板为中心的架构：PHP (源自 Personal Home Page Tools)、ASP、JSP，以 HTML 为主的模板中插入程序代码。
 * 基于 MVC 架构的平台：Ruby on Rails, Django, Zend Framework。
 
 MVC = Model-View-Controller<br>
@@ -273,6 +273,8 @@ layout.ejs (现在没有了)<br>
 
 ## 5.3 路由控制
 
+MVC 架构中的控制器。
+
 ### 5.3.1 工作原理
 
 访问 `http://127.0.0.1:3000/`，浏览器会向服务器发送请求。<br>
@@ -314,7 +316,7 @@ app.use('/users', usersRouter);
 
 // routes/users.js
 var router = express.Router();
-router.get('/', function(req, res, next) { // 这里的路径是什么？为什么不是 /users ？
+router.get('/', function(req, res, next) { // 这里的路径与 app.use 中的路径接起来
   res.send('respond with a resource');
 });
 module.exports = router;
@@ -329,7 +331,7 @@ try1: 在 index.js 中的 router.get 中添加 res.send 没有成功<br>
     [res.send 文档](http://expressjs.com/zh-cn/4x/api.html#res.send)<br>
 try2: 另写一个 router.get 也没有效果，但是没有报错。<br>
     相同的 get 无效吗？？<br>
-    解释：见 5.3.5 控制权转移
+    解释：可以写，加 next()，见 5.3.5 控制权转移
 try3: 单独写一个文件 hello.js。<br>
 打开 `http://127.0.0.1:3000/hello` 可以看到当前时间，刷新页面时间也会刷新。
 
@@ -348,13 +350,14 @@ app.get('/user/:username', function(req, res, next) {
   res.send('user: ' + req.params.username)
 })
 ```
-写在 app.js 中可运行，怎么添加到 routes 的某个文件中？<br>
-[路由文档](http://expressjs.com/zh-cn/guide/routing.html)<br>
-res.send 之后不能有 next()
-
 路径规则 `/user/:username` 会被自动编译为正则表达式，类似于 `\/user\/([^\/]+)\/?`。<br>
 路径参数可以在响应函数中通过 req.params 的属性访问。<br>
 上述函数中可以直接使用正则，好处是可以定义更复杂的路径规则，不同之处在于匹配的参数是匿名的，因此需要通过 req.params[0] 这样的形式访问。
+
+写在 app.js 中，使用完整路径。<br>
+写在 users.js 中 (路由是 /users)，注意路径拼接 (get 中写 /:username)。<br>
+[路由文档](http://expressjs.com/zh-cn/guide/routing.html)<br>
+res.send 之后不能有 next()
 
 ### 5.3.4 REST 风格的路由规则
 
@@ -433,15 +436,83 @@ app.put('/user/:username', function(req, res) {
 
 ## 5.4 模板引擎
 
+模板引擎 (Template Engine)：将页面模板和要显示的数据结合起来生成 HTML 页面。<br>
+既可以运行在服务器端，也可以运行在客户端。<br>
+多数时候它都在**服务器端**直接被解析为 HTML，解析完成后再传输给客户端，因此客户端甚至无法判断页面是否是由模板引擎生成的。
+
+MVC 架构中，模板引擎包含在服务器端。<br>
+流程：控制器得到用户请求后，从模型获取数据，调用模板引擎。模板引擎以数据和页面模板为输入，生成 HTML 页面，然后返回给控制器，由控制器交回客户端。
+
+### 使用模板引擎
+
+【文件内容解释部分与前边重合】
+
+ejs 有3种标签
+* `<% code %>` js 代码
+* `<%= code %>` 显示替换过 HTML 特殊字符的内容
+* `<%- code %>` 显示原始 HTML 内容
+
+### 页面布局
+
+新版 Express 中没有使用 layout.ejs
+
+### 片段视图
+
+partials
+
+### 视图助手
+
 <br>
 
 ## 5.5 建立微博网站
 
 ### 路由规划
 
+是整个网站的骨架，应该优先考虑。
+
+* / 首页 (针对已登录和未登录用户显示不同内容)
+* /u/[user] 用户的主页 (针对已登录和未登录用户显示不同内容)
+* /post 发布信息 (已登录用户操作)
+* /reg 用户注册 (未登录用户操作)
+* /login 用户登录 (未登录用户操作)
+* /logout 用户登出 (已登录用户操作)
+
+/post，/login，/reg 要接受表单信息，使用 app.post 注册路由；<br>
+/login，/reg 显示用户注册时要填写的表单，还要用 app.get 注册。
+
+--> _index.js_
+
+### 使用 Bootstrap 设计界面
+
 <br>
 
 ## 5.6 用户注册和登录
+
+引入会话机制来记录用户状态，访问数据库来保存和读取用户信息。
+
+### 5.6.1 访问数据库
+
+选用 MongoDB 作为网站的数据库系统，它是一个开源的 NoSQL 数据库。<br>
+相比 MySQL 那样的关系型数据库，它更为轻巧灵活，适合在数据规模很大、事务性不强的场合使用。
+
+### 数据库
+
+关系型数据库/SQL数据库
+
+* 使用 SQL (Structured Query Language) 查询语言作为接口。
+* 数据库由表 (table)、行 (row)、字段 (field) 组成。<br>表有固定的结构，规定了每行有哪些字段，在创建时被定义，之后修改很困难。<br>行的格式是相同的，由若干个固定的字段组成。
+* 每个表可能有若干个字段作为索引 (index)，主键 (primary key) 用于约束表中的数据，唯一键 (unique key) 确保字段中不存放重复数据。<br>表和表之间可能还有相互的约束，为外键 (foreign key)。
+* 对数据库的每次查询都要以**行**为单位，复杂的查询包括嵌套查询、连接查询和交叉表查询。
+
+典型的 SQL 数据库：MySQL, Oracle, Microsoft SQL Server, PostgreSQL, SQLite 等。
+
+ACID 是数据库系统中事务 (transaction) 所必须具备的四个特性，原子性 (atomicity)，一致性 (consistency)，隔离性 (isolation) 和持久性 (durability)。
+
+NoSQL
+
+* 可以理解为 Not Only SQL，指非关系型、分布式、不提供 ACID 的数据库系统。
+* 设计的初衷并不是为了取代 SQL，而是作为一个补充，两者有各自不同的适应领域。
+* 不像 SQL 那样都有统一的架构和接口，不同的 NoSQL 数据库系统从内而外可能完全不同。
 
 ### MongoDB
 
