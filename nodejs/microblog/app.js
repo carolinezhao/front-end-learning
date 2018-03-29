@@ -4,6 +4,10 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+// connect-mongo: MongoDB session store for Express
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var helloRouter = require('./routes/hello');
@@ -20,7 +24,11 @@ app.use(express.json());
 app.use(express.urlencoded({
     extended: false
 }));
-app.use(cookieParser());
+app.use(cookieParser()); // Cookie 解析
+app.use(session({
+    secret: 'foo',
+    store: new MongoStore(options)
+})); // 提供会话支持，把会话信息存入数据库
 app.use(express.static(path.join(__dirname, 'public'))); // 提供静态文件支持
 
 // 路由

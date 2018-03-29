@@ -331,7 +331,7 @@ try1: 在 index.js 中的 router.get 中添加 res.send 没有成功<br>
     [res.send 文档](http://expressjs.com/zh-cn/4x/api.html#res.send)<br>
 try2: 另写一个 router.get 也没有效果，但是没有报错。<br>
     相同的 get 无效吗？？<br>
-    解释：可以写，加 next()，见 5.3.5 控制权转移
+    解释：可以写，加 next()，见 5.3.5 控制权转移<br>
 try3: 单独写一个文件 hello.js。<br>
 打开 `http://127.0.0.1:3000/hello` 可以看到当前时间，刷新页面时间也会刷新。
 
@@ -544,7 +544,30 @@ Download the MongoDB driver and add a dependency entry in `package.json` file.
 
 在 models 子目录中创建 db.js，创建数据库连接。
 
-### 会话支持
+### 5.6.2 会话支持 Session
+
+会话是一种持久的网络协议，用于完成服务器和客户端之间的一些交互行为。<br>
+会话是一个比连接粒度更大的概念，一次会话可能包含多次连接，每次连接都是会话的一次操作。<br>
+网络应用开发中，有必要实现会话以帮助用户交互。比如网上购物场景，用户浏览了多个页面，购买了一些物品，这些请求在多次连接中完成。
+
+许多应用层网络协议都是由会话支持的，如 FTP、Telnet 等，而 HTTP 协议是无状态的，本身不支持会话，因此在没有额外手段的帮助下，购物场景中服务器不知道用户购买了什么。
+
+为了在无状态的 HTTP 协议上实现会话，Cookie 诞生了。Cookie 是一些存储在客户端的信息，每次连接的时候由浏览器向服务器递交，服务器也向浏览器发起存储 Cookie 的请求，依靠这样的手段，服务器可以识别客户端。通常意义上的 HTTP 会话功能就是这样实现的。<br>
+具体来说，浏览器首次向服务器发起请求时，服务器生成一个唯一标识符并发送给客户端浏览器，浏览器将这个唯一标识符存储在 Cookie 中，以后每次再发起请求，客户端浏览器都会向服务器传送这个唯一标识符，服务器由此来识别用户。
+
+对于开发者来说，无须关心浏览器端的存储，需要关注的仅仅是如何通过唯一标识符来识别用户。<br>
+很多服务端脚本语言都有会话功能，如 PHP 把每个唯一标识符存储到文件中。<br>
+Express 也提供了会话中间件，默认情况下是把用户信息存储在内存中，但既然已经有了 MongoDB，不妨把会话信息存储在数据库中，便于持久维护。
+
+connect-mongo: MongoDB session store for Express
+
+安装模块
+
+    $ npm install connect-mongo --save
+
+[配置信息](https://github.com/jdesboeufs/connect-mongo) 写入 app.js
+
+### 5.6.3 注册和登入
 
 <br>
 
