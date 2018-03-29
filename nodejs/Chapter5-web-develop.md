@@ -563,11 +563,16 @@ connect-mongo: MongoDB session store for Express
 
 安装模块
 
+    $ npm install express-session --save
     $ npm install connect-mongo --save
 
 [配置信息](https://github.com/jdesboeufs/connect-mongo) 写入 app.js
 
 ### 5.6.3 注册和登入
+
+<br>
+
+## 5.7 发表微博
 
 <br>
 

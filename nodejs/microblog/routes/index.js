@@ -17,7 +17,7 @@ router.post('/post', function (req, res) {
 })
 
 router.get('/reg', function (req, res) {
-
+    res.render('reg', {})
 })
 
 router.post('/reg', function (req, res) {

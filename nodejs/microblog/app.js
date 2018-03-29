@@ -25,10 +25,10 @@ app.use(express.urlencoded({
     extended: false
 }));
 app.use(cookieParser()); // Cookie 解析
-app.use(session({
-    secret: 'foo',
-    store: new MongoStore(options)
-})); // 提供会话支持，把会话信息存入数据库
+// app.use(session({
+//     secret: 'foo',
+//     store: new MongoStore(options) // options is not defined
+// })); // 提供会话支持，把会话信息存入数据库
 app.use(express.static(path.join(__dirname, 'public'))); // 提供静态文件支持
 
 // 路由
