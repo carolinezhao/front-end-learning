@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="">
-    <title>Signin</title>
+    <title>Login</title>
     <!-- Bootstrap core CSS -->
     <link href="/stylesheets/bootstrap.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
@@ -20,21 +20,19 @@
     <header>
         <% include header.ejs %>
     </header>
-    <form class="form-signin" method="post">
+    <form class="form-signin">
         <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
-        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+        <h1 class="h3 mb-3 font-weight-normal">Please login</h1>
         <label for="inputEmail" class="sr-only">Username</label>
-        <input type="text" id="inputUsername" class="form-control" placeholder="Username" name="username" required autofocus>
+        <input type="text" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" required>
-        <label for="inputPassword" class="sr-only">Confirm Password</label>
-        <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm Password" name="password-confirm" required>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
         <div class="checkbox mb-3">
             <label>
                 <input type="checkbox" value="remember-me"> Remember me
             </label>
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
         <p class="mt-5 mb-3 text-muted">Powered by Caroline</p>
     </form>
 </body>

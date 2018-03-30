@@ -2,6 +2,19 @@
 
 > 本章内容需参考[Express 官网](http://expressjs.com/)使用最新命令。书中使用的版本过旧，很多命令已不再支持。
 
+# Index
+
+- 5.1 背景知识
+- 5.2 快速开始
+- 5.3 路由控制
+- 5.4 模板引擎
+- 5.5 建立微博网站
+- 5.6 用户注册和登录
+    - 数据库
+    - 会话支持
+    - 登入登出
+- 5.7 发表微博
+
 # Chapter5 Web Development
 
 ## 5.1 背景知识
@@ -266,7 +279,7 @@ Express 现在是独立的路由和中间件 Web 框架，其版本控制和发�
 现有：全部 HTML 标签都在 index.ejs 中。<br>
 
 layout.ejs (现在没有了)<br>
-旧版：显示页面框架，即共有内容--除了 `<%- body %>` 之外的部分。<br>
+旧版：显示页面框架，即共有内容--除了 `<%- body %>` 之外的部分（head，页眉，页脚）。<br>
 现有：取消此文件，内容合并到 index.ejs。
 
 <br>
@@ -356,7 +369,7 @@ app.get('/user/:username', function(req, res, next) {
 
 写在 app.js 中，使用完整路径。<br>
 写在 users.js 中 (路由是 /users)，注意路径拼接 (get 中写 /:username)。<br>
-[路由文档](http://expressjs.com/zh-cn/guide/routing.html)<br>
+[路由文档](http://www.expressjs.com.cn/guide/routing.html)<br>
 res.send 之后不能有 next()
 
 ### 5.3.4 REST 风格的路由规则
@@ -445,7 +458,13 @@ MVC 架构中，模板引擎包含在服务器端。<br>
 
 ### 使用模板引擎
 
-【文件内容解释部分与前边重合】
+本项目中使用的模板引擎是 ejs，它由标准 js 实现，因此既可以运行在服务器端，也可以运行在浏览器中。
+
+(前边也讲了一些)<br>
+在 app.js 中设置了模板引擎和页面模板的位置。<br>
+在 index.js 中通过 res.render 调用模板引擎，并将其产生的页面直接返回给客户端。接受两个参数：
+* 模板的名称 (views 目录下)，不需要扩展名；
+* 传递给模板的数据，用于模板翻译 (替换)。比如 `<%= title %>` 的内容会替换为 `{title: ''}` 提供的值。
 
 ejs 有3种标签
 * `<% code %>` js 代码
@@ -454,13 +473,46 @@ ejs 有3种标签
 
 ### 页面布局
 
-新版 Express 中没有使用 layout.ejs
+新版 Express 不再支持 layout.ejs，前面介绍过。
+
+本项目中，将页面分为三部分：header, main, footer。header 和 footer 是各页面共用的部分。
+
+在 index.ejs 中引入 header.ejs 的方法如下：
+
+```HTML
+<header>
+    <% include header.ejs %>
+</header>
+```
 
 ### 片段视图
 
-partials
+新版 Express 不再支持，仅了解。
+
+partials，用于迭代显示重复的标签。两个参数：
+* 片段视图的名称；
+* 一个对象或一个数组 (变量引用对象；数组中的元素依次被迭代)。
+
+```js
+res.render('list', {title: 'List', items: [1, 2, 3, 4]})
+```
+
+```HTML
+<!-- list.ejs -->
+<ul><%- partial('listitem', items) %></ul>
+<!-- listitem.ejs -->
+<li><%= listitem %></li>
+```
 
 ### 视图助手
+
+新版 Express 不再支持，仅了解。
+
+视图助手：允许在视图中访问一个全局的函数或对象，不用每次调用视图解析的时候单独传入。partial 就是一个视图助手。
+
+视图助手有两类：
+* 静态：可以是任何类型的对象，包括接受任意参数的函数，但访问到的对象必须是与用户请求无关的。通过 app.helpers() 注册。
+* 动态：只能是一个函数，不能接受参数，但可以访问 req 和 res 对象。通过 app.dynamicHelpers() 注册。
 
 <br>
 
@@ -568,7 +620,7 @@ connect-mongo: MongoDB session store for Express
 
 [配置信息](https://github.com/jdesboeufs/connect-mongo) 写入 app.js
 
-### 5.6.3 注册和登入
+### 5.6.3 注册和登入（变化多，需要多看几遍）
 
 <br>
 
