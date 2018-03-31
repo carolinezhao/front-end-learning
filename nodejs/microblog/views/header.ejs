@@ -5,19 +5,25 @@
             <li class="nav-item active">
                 <a class="nav-link" href="#">Home</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Login</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Register</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="" id="dropdown01" data-toggle="dropdown">More</a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Following</a>
-                    <a class="dropdown-item" href="#">Followers</a>
-                </div>
-            </li>
+            <% if (!user) { %>
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/reg">Register</a>
+                </li>
+            <% } else { %>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+            <% } %>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="" id="dropdown01" data-toggle="dropdown">More</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Following</a>
+                        <a class="dropdown-item" href="#">Followers</a>
+                    </div>
+                </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">

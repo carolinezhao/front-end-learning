@@ -592,9 +592,9 @@ Download the MongoDB driver and add a dependency entry in `package.json` file.
 
     npm install mongodb --save
 
-在工程目录中创建 settings.js，用于保存数据库的连接信息。
+在工程目录中创建 _settings.js_，用于保存数据库的连接信息。
 
-在 models 子目录中创建 db.js，创建数据库连接。
+在 models 子目录中创建 _db.js_，创建数据库连接。
 
 ### 5.6.2 会话支持 Session
 
@@ -618,9 +618,82 @@ connect-mongo: MongoDB session store for Express
     $ npm install express-session --save
     $ npm install connect-mongo --save
 
-[配置信息](https://github.com/jdesboeufs/connect-mongo) 写入 app.js
+[配置信息](https://github.com/jdesboeufs/connect-mongo) 写入 _app.js_
 
-### 5.6.3 注册和登入（变化多，需要多看几遍）
+### 5.6.3 注册和登入
+
+### 注册页
+
+注册页内容 --> _views/reg.ejs_ (见 5.4 中的页面布局)
+
+书中：把路由规则分离出去，app.use(app.router) 用 app.use(express.router(routes)) 代替。<br>
+新版 Express 中直接就把路由规则分离出去了：(前边写过)
+
+``` js
+// app.js 引入路由模块
+var indexRouter = require('./routes/index');
+app.use('/', indexRouter);
+
+// index.js 路由模块
+var router = express.Router()
+router.get('/', ...) // 实际路径 localhost/
+router.post('/reg', ...) // 实际路径 localhost/reg.ejs
+module.exports = router
+```
+
+### 注册响应 
+
+--> _index.js_ 中的 router.post('/reg', function() {})
+
+* req.body 是 POST 请求信息解析后的对象。<br>比如 reg.ejs 中表单提交的是 name='value' 的内容，则 post 事件中 req.body['value'] = 内容。
+* **req.flash** 是 Express 提供的很有用的工具。通过它保存的变量只会在用户当前和下一次的请求中被访问，之后会被清除，通过它可以实现页面通知和显示错误信息。
+* res.redirect 重定向功能，通过它向用户返回 303 See Other 状态，通知浏览器转向相应页面。
+* crypto 是 Node.js 的核心模块，功能是加密并生成各种散列，使用前声明 `var crypto = require('crypto')`
+* User 是项目中设计的用户对象，具体介绍见下一节**用户模型**，这里假设它的接口都是可用的，使用前声明 `var User = require('../models/user.js')`
+* User.get 通过用户名获取已知用户，这里用于判断用户名是否已经存在。
+* User.save 将用户对象的修改写入数据库。
+* req.session.user = newUser 向会话对象写入当前用户的信息，后面会通过它判断用户是否已经登录。
+
+### 用户模型
+
+--> _index.js_ 中使用了 User 对象。
+
+User 是一个描述数据的对象，即 MVC 架构中的模型，模型是真正与数据打交道的工具，没有它，网站就只是一个外壳。
+
+在 models 目录中创建 _user.js_ (即上一节中引入 User 对象的路径)
+
+    ├── models
+    │   ├── user.js
+    │   └── db.js
+    └── settings.js
+
+### 视图交互
+
+不同登录状态下，页面呈现不同内容。<br>
+
+书中：创建动态视图助手，从而在视图中访问会话中的用户数据。为了显示错误和成功的信息，需要在动态视图助手中增加响应函数。使用 app.dynamicHelpers<br>
+新版本：不再支持，[改用 locals](http://www.cnblogs.com/yumianhu/p/3713380.html)。--> _app.js_
+
+在 header.ejs 中的菜单处添加：
+
+    <% if (!user) { %>
+    ...登录，注册
+    <% } else { %>
+    ...登出
+    <% } %>
+
+在 body 前加入通知信息：
+
+    <% if (success) { %>
+    ...显示成功信息
+    <% } %>
+    <% if (error) { %>
+    ...显示错误信息
+    <% } %>
+
+### 登入和登出
+
+### 5.6.4 页面权限控制
 
 <br>
 
