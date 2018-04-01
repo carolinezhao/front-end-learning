@@ -584,13 +584,63 @@ MongoDB 的数据格式是 BSON (Binary JSON)，是 JSON 的一个扩展，因�
 
 ### 连接数据库
 
-在本地安装 [MongoDB](https://www.mongodb.com/)
+在 [MongoDB 官网](https://www.mongodb.com/) 下载 Community 版本
 
-在 Node.js 中使用 MongoDB，需要获取一个模块。[MongoDB Node.JS Driver](https://mongodb.github.io/node-mongodb-native/)
+[安装和运行步骤](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/)
 
-Download the MongoDB driver and add a dependency entry in `package.json` file.
+把解压后的文件夹放在目标路径下 `~/Workplace/mongodb`。文件结构：
 
-    npm install mongodb --save
+    mongodb
+        ├── 4个其他文件
+        └── bin
+            └── 可执行文件们
+
+The MongoDB binaries are in the bin/ directory of the archive. To ensure that the binaries are in your PATH, you can modify your PATH. 
+
+只有把路径添加到 PATH 变量中才能全局使用，否则在其他终端窗口中不可用，或在不同文件目录下也不可用。
+
+两种检查方法：
+
+查看 PATH 变量包含哪些路径，返回的结果是以冒号分隔的路径，比如 `/usr/local/bin:/usr/bin:/bin:...`，如果不包含目标路径则需要手动添加。
+
+    $ echo $PATH
+
+查看路径是否包含在 PATH 变量中，返回 `not found` 则需要手动添加该路径。
+
+    $ which mongo
+
+在 .bashrc 文件中手动添加路径 (`$ open ~/.bashrc`)，需要用实际路径替换其中的 `<directory>`，查看所在路径 `$ pwd`。
+
+`export PATH=<directory>/bin:$PATH`
+
+添加后以下命令使其立即生效，或者新开一个终端窗口 (自动执行 source)。
+
+    $ source ~/.bashrc
+
+确认是否添加成功，若成功则返回所在路径 `.../mongodb/bin/mongo`
+
+    $ which mongo
+
+--
+
+Run MongoDB
+
+--
+
+在 Node.js 中使用 MongoDB，需要获取一个模块。
+
+书中安装的是 "mongodb": ">= 0.9.9"
+
+这个安装的是 "mongodb": "^3.0.5"<br>
+Download the [MongoDB Node.JS Driver](https://mongodb.github.io/node-mongodb-native/) and add a dependency entry in `package.json` file.
+
+    $ npm install mongodb --save
+
+另一个常用的是 [Mongoose](http://mongoosejs.com/docs/index.html) (还没研究)
+
+    $ npm install mongoose
+
+"mongoose": "^5.0.12"
 
 在工程目录中创建 _settings.js_，用于保存数据库的连接信息。
 
