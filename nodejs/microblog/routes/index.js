@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+var crypto = require('crypto'); // Node.js 的核心模块，加密并生成散列
+var User = require('../models/user.js'); // 用户对象
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -59,15 +61,36 @@ router.post('/reg', function (req, res) {
 })
 
 router.get('/login', function (req, res) {
-    res.render('login', {})
+    res.render('login', {
+        title: 'Please Login'
+    })
 })
 
 router.post('/login', function (req, res) {
+    // 生成密码的散列值
+    var md5 = crypto.createHash('md5')
+    var password = md5.update(req.body.password).digest('base64')
+
+    User.get(req.body.username, function (err, user) {
+        if (!user) {
+            req.flash('error', '用户不存在')
+            return res.redirect('/login')
+        }
+        if (user.password != password) {
+            req.flash('error', '用户密码错误')
+            return res.redirect('/login')
+        }
+        req.session.user = user
+        req.flash('success', '登录成功！')
+        res.redirect('/')
+    })
 
 })
 
 router.get('/logout', function (req, res) {
-    res.render('logout', {})
+    req.session.user = null
+    req.flash('success', '登出成功。')
+    res.redirect('/')
 })
 
 module.exports = router;
