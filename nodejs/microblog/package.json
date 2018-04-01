@@ -16,7 +16,9 @@
     "http-errors": "~1.6.2",
     "jquery": "^3.3.1",
     "mongodb": "^3.0.5",
+    "mongoose": "^5.0.12",
     "morgan": "~1.9.0",
-    "popper.js": "^1.14.1"
+    "popper.js": "^1.14.1",
+    "req-flash": "0.0.3"
   }
 }
