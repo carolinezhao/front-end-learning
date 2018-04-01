@@ -609,13 +609,13 @@ The MongoDB binaries are in the bin/ directory of the archive. To ensure that th
 
     $ which mongo
 
-在 .bashrc 文件中手动添加路径 (`$ open ~/.bashrc`)，需要用实际路径替换其中的 `<directory>`，查看所在路径 `$ pwd`。
+在 rc 文件中手动添加路径，如果是 bash 终端，则 `$ open ~/.bashrc` 修改；如果是 zsh 终端，则 `$ open ~/.zshrc` 修改。各终端只读取自己的文件。用实际路径替换其中的 `<directory>`，查看所在路径 `$ pwd`。
 
 `export PATH=<directory>/bin:$PATH`
 
-添加后以下命令使其立即生效，或者新开一个终端窗口 (自动执行 source)。
+添加后以下命令使其立即生效，或者新开一个终端窗口 (自动执行 source)。如果修改了 .bashrc 文件，使用 zsh 终端打开，则必须手动执行该命令。
 
-    $ source ~/.bashrc
+    $ source ~/.zshrc
 
 确认是否添加成功，若成功则返回所在路径 `.../mongodb/bin/mongo`
 
@@ -624,6 +624,31 @@ The MongoDB binaries are in the bin/ directory of the archive. To ensure that th
 --
 
 Run MongoDB
+
+By default, the mongod process uses the `/data/db` directory.<br>
+也可以使用其他路径，需要手动配置，见文档。<br>
+以 `/` 开头意味着在 root 目录下创建文件，需要加 `sudo`。
+
+    $ sudo mkdir -p /data/db
+
+To run MongoDB, run the mongod process at the system prompt.<br>
+使用 mongod 也需要加 `sudo`。
+
+    $ sudo mongod
+
+看到打印以下语句则说明成功启动
+
+`[initandlisten] waiting for connections on port 27017`
+
+开始使用
+
+Start a mongo shell on the same host machine as the mongod. Use the --host command line option to specify the localhost address and port that the mongod listens on.
+
+在新窗口中执行此命令，因为刚才的命令是持续运行的。
+
+    $ mongo --host 127.0.0.1:27017
+
+To stop MongoDB, press `Control+C` in the terminal where the mongod instance is running.
 
 --
 
@@ -757,3 +782,4 @@ User 是一个描述数据的对象，即 MVC 架构中的模型，模型是真�
 * [使用 Express 4.x 实现书中的微博示例](http://www.cnblogs.com/SheilaSun/p/4746749.html)
 * [对 bin/www 和 app.js 的解读](https://www.jianshu.com/p/a7b47778e734)
 * [讲解中间件的使用](http://www.html-js.com/article/1603)
+* [Linux 下查看和添加 PATH 环境变量](https://blog.csdn.net/dlutbrucezhang/article/details/8811456)
