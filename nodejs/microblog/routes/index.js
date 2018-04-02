@@ -18,10 +18,12 @@ router.post('/post', function (req, res) {
 
 })
 
+router.get('/reg', checkNotLogin)
 router.get('/reg', function (req, res) {
     res.render('reg', {})
 })
 
+router.post('/reg', checkNotLogin)
 router.post('/reg', function (req, res) {
     // 检查两次输入的密码是否一致
     if (req.body['password-confirm'] != req.body['password']) {
@@ -60,12 +62,14 @@ router.post('/reg', function (req, res) {
     })
 })
 
+router.get('/login', checkNotLogin)
 router.get('/login', function (req, res) {
     res.render('login', {
         title: 'Please Login'
     })
 })
 
+router.post('/login', checkNotLogin)
 router.post('/login', function (req, res) {
     // 生成密码的散列值
     var md5 = crypto.createHash('md5')
@@ -87,10 +91,27 @@ router.post('/login', function (req, res) {
 
 })
 
+router.get('/logout', checkLogin)
 router.get('/logout', function (req, res) {
     req.session.user = null
     req.flash('success', '登出成功。')
     res.redirect('/')
 })
+
+function checkLogin(req, res, next) {
+    if (!req.session.user) {
+        req.flash('error', '您还没有登录')
+        return res.redirect('/login')
+    }
+    next()
+}
+
+function checkNotLogin(req, res, next) {
+    if (req.session.user) {
+        req.flash('error', '您已登录')
+        return res.redirect('/')
+    }
+    next()
+}
 
 module.exports = router;

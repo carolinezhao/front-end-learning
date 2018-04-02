@@ -1,9 +1,9 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <a class="navbar-brand" href="#">Microblog</a>
+    <a class="navbar-brand" href="/">Microblog</a>
     <div class="collapse navbar-collapse" id="">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="#">Home</a>
+                <a class="nav-link" href="/">Home</a>
             </li>
             <% if (!user) { %>
                 <li class="nav-item">
@@ -17,13 +17,6 @@
                     <a class="nav-link" href="/logout">Logout</a>
                 </li>
             <% } %>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="" id="dropdown01" data-toggle="dropdown">More</a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Following</a>
-                        <a class="dropdown-item" href="#">Followers</a>
-                    </div>
-                </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">

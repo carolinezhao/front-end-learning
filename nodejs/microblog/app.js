@@ -12,7 +12,7 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 
 // req.flash, depends on session
-var flash = require('req-flash');
+var flash = require('connect-flash');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -57,7 +57,7 @@ app.use(express.static(path.join(__dirname, 'public'))); // 提供静态文件�
 
 // 替代书中 dynamicHelpers 实现动态视图
 // 以下代码要放在指定路由的语句之前，否则访问 user、error、success 变量会出错。
-// 【这段代码有问题，还没有找到替代方案】
+// user 用于判断用户是否登录，从而显示登录/登出；error、success 用于提供页面通知。
 app.use(function (req, res, next) {
     res.locals.user = req.session.user;
 

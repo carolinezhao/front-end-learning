@@ -652,6 +652,11 @@ To stop MongoDB, press `Control+C` in the terminal where the mongod instance is 
 
 --
 
+什么时候运行数据库？<br>
+运行项目 ($ DEBUG=microblog:* npm start) 前都需要启动数据库 ($ sudo mongod)，否则相关设置会报错。
+
+--
+
 在 Node.js 中使用 MongoDB，需要获取一个模块。
 
 书中安装的是 "mongodb": ">= 0.9.9"
@@ -721,7 +726,7 @@ module.exports = router
 --> _index.js_ 中的 router.post('/reg', function() {})
 
 * req.body 是 POST 请求信息解析后的对象。<br>比如 reg.ejs 中表单提交的是 name='value' 的内容，则 post 事件中 req.body['value'] = 内容。
-* **req.flash** 是 Express 提供的很有用的工具。通过它保存的变量只会在用户当前和下一次的请求中被访问，之后会被清除，通过它可以实现页面通知和显示错误信息。
+* **req.flash** 是 Express 提供的很有用的工具。通过它保存的变量只会在用户当前和下一次的请求中被访问，之后会被清除，通过它可以实现页面通知和显示错误信息。(learn more in 视图交互)
 * res.redirect 重定向功能，通过它向用户返回 303 See Other 状态，通知浏览器转向相应页面。
 * crypto 是 Node.js 的核心模块，功能是加密并生成各种散列，使用前声明 `var crypto = require('crypto')`
 * User 是项目中设计的用户对象，具体介绍见下一节**用户模型**，这里假设它的接口都是可用的，使用前声明 `var User = require('../models/user.js')`
@@ -737,19 +742,34 @@ User 是一个描述数据的对象，即 MVC 架构中的模型，模型是真�
 
 在 models 目录中创建 _user.js_ (即上一节中引入 User 对象的路径)
 
+[数据库，session 相关设置参考](https://blog.csdn.net/sinat_25127047/article/details/54644989)
+
     ├── models
-    │   ├── user.js
-    │   └── db.js
-    └── settings.js
+    │   ├── user.js //用户对象，引入 db 模块
+    │   └── db.js //创建数据库连接，引入 settings 模块
+    └── settings.js //数据库设置，app.js 中的 session 和 db 都以此为基础
 
 ### 视图交互
 
 不同登录状态下，页面呈现不同内容。<br>
 
 书中：创建动态视图助手，从而在视图中访问会话中的用户数据。为了显示错误和成功的信息，需要在动态视图助手中增加响应函数。使用 app.dynamicHelpers<br>
-新版本：不再支持，[改用 locals](http://www.cnblogs.com/yumianhu/p/3713380.html)。--> _app.js_
+新版本：不再支持 dynamicHelpers，[改用 locals](http://www.cnblogs.com/yumianhu/p/3713380.html)。--> _app.js_<br>
+locals 的用法还不了解？？？
 
-在 header.ejs 中的菜单处添加：
+响应函数中用到 req.flash，尝试支持的模块
+req-flash：报错。<br>
+connect-flash：可用，[安装及使用](https://www.npmjs.com/package/connect-flash)
+
+    $ npm install connect-flash
+
+[参考](https://github.com/JianjunZU/Microblog/blob/master/app.js)
+
+--
+
+app.js 中的 user，error，success 是怎样和模板中的建立联系的？？？
+
+为已登录和未登录用户显示不同信息，在 header.ejs 中的菜单处添加：
 
     <% if (!user) { %>
     ...登录，注册
@@ -757,7 +777,7 @@ User 是一个描述数据的对象，即 MVC 架构中的模型，模型是真�
     ...登出
     <% } %>
 
-在 body 前加入通知信息：
+显示通知，在 reg.ejs 页面主要内容前加入：
 
     <% if (success) { %>
     ...显示成功信息
@@ -768,7 +788,22 @@ User 是一个描述数据的对象，即 MVC 架构中的模型，模型是真�
 
 ### 登入和登出
 
+--> _index.js_ 添加登录登出方法
+
+登入登出仅仅是 req.session.user 变量的标记。不会有安全性问题，因为这个变量只有服务端才能访问，如果服务器没有被攻破，就无法从外部改动。
+
+--> _login.ejs_ 登录页面
+
 ### 5.6.4 页面权限控制
+
+登出功能应该只对已登入用户开放，注册和登录页眉应该阻止已登录用户访问。
+
+简单的方法是在每个页面的路由响应函数内检查用户是否已经登录，但是这会带来很多重复代码，违反了 DRY (Don't Repeat Yourself) 原则。因此利用路由中间件实现这个功能。
+
+5.3.5 节介绍了同一路径绑定多个响应函数的方法，通过调用 next() 转移控制权，这种方法叫做路由中间件。<br>
+可以把用户登录状态检查放到路由中间件中，在每个路径前增加路由中间件，即可实现页面权限控制。
+
+router.METHOD('/', checkNotLogin) --> _index.js_
 
 <br>
 
