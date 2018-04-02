@@ -1,6 +1,6 @@
 // 通过 require 加载 module 模块，就可以直接访问 module.js 中 exports 对象的成员函数了。
 // 注意引入文件时的 ./ 不可以省略。
-var myModule = require('./05-module.js');
+var myModule = require('./05-module');
 // myModule 中存储的是一个object，即 exports
 console.log(myModule)
 // 调用 exports 对象的成员函数 object.method();

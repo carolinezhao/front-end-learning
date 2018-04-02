@@ -142,6 +142,11 @@ Node.js 中，通过 require 函数调用其他模块。
 
 --> _05-module.js 和 05-getmodule.js_
 
+require 的文件不需要加后缀, 它会自动依以下顺序搜索：
+
+* 同名 js 文件 
+* 同名文件夹下的 index.js 文件
+
 ### 单次加载
 
 require 不会重复加载模块，无论调用多少次，获得的模块都是同一个。<br>

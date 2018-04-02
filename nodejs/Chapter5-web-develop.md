@@ -155,6 +155,8 @@ Express 安装到了本地，文件中可以通过 require 使用。
 
 修改代码后需要重启服务器。想实现修改后自动重启，[使用 supervisor](https://blog.csdn.net/u013758116/article/details/38982325)。
 
+如果只是修改了模板, CSS文件, 或者客户端的 js 代码, 无需重新启动。
+
 关闭服务器 `ctrl + c`
 
 此时服务器是在开发模式 (development mode) 下运行。6.3 节介绍如何在生产环境下部署。
@@ -309,6 +311,8 @@ routers.index 通过 res.render 调用视图模板 index，传递 title 变量�
 
 浏览器收到内容后，经过分析发现要获取 `/stylesheets/style.css`，会再次向服务器发起请求。<br>
 app.js 中并没有一个路由规则指派到该文件，但程序通过 `app.use(express.static(path.join(__dirname, 'public')));` 配置了静态文件服务器，因此 `/stylesheets/style.css` 会定向到 app.js 所在目录的子目录中的文件 `public/stylesheets/style.css`，向客户端返回响应 (也在浏览器中查看)。
+
+[用户请求处理逻辑图](https://blog.csdn.net/congyihao/article/details/60747076)
 
 Express 网站架构见书中图 5-3
 
@@ -542,7 +546,8 @@ res.render('list', {title: 'List', items: [1, 2, 3, 4]})
     $ npm install jquery --save
     $ npm install popper.js --save
 
-但是需要把 .css 和 .js 分贝拷贝到 public/stylesheets 和 public/javascripts 目录下，以静态文件的方式加载。直接按路径引用无效。
+但是需要把 bootstrap.min.css 和 bootstrap.min.js，jquery.min.js 分别拷贝到 public/stylesheets 和 public/javascripts 目录下，以静态文件的方式加载。直接按路径引用无效。<br>
+min.css.map 和 min.js.map 用于定位 error 在原文件 (未压缩文件) 中的位置。
 
 <br>
 
@@ -640,7 +645,7 @@ To run MongoDB, run the mongod process at the system prompt.<br>
 
 `[initandlisten] waiting for connections on port 27017`
 
-开始使用
+操作数据库
 
 Start a mongo shell on the same host machine as the mongod. Use the --host command line option to specify the localhost address and port that the mongod listens on.
 
@@ -653,7 +658,8 @@ To stop MongoDB, press `Control+C` in the terminal where the mongod instance is 
 --
 
 什么时候运行数据库？<br>
-运行项目 ($ DEBUG=microblog:* npm start) 前都需要启动数据库 ($ sudo mongod)，否则相关设置会报错。
+运行项目 ($ DEBUG=microblog:* npm start) 前都需要启动数据库 ($ sudo mongod)，否则相关设置会报错。<br>
+如果不是直接操作数据库，一般不需要 `$ mongo --host 127.0.0.1:27017`
 
 --
 
@@ -818,3 +824,4 @@ router.METHOD('/', checkNotLogin) --> _index.js_
 * [对 bin/www 和 app.js 的解读](https://www.jianshu.com/p/a7b47778e734)
 * [讲解中间件的使用](http://www.html-js.com/article/1603)
 * [Linux 下查看和添加 PATH 环境变量](https://blog.csdn.net/dlutbrucezhang/article/details/8811456)
+* [使用Heroku进行网站的对外在线演示](https://blog.csdn.net/congyihao/article/details/60747076)

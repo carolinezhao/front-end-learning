@@ -25,6 +25,7 @@ router.get('/reg', function (req, res) {
 
 router.post('/reg', checkNotLogin)
 router.post('/reg', function (req, res) {
+    console.log(req.body)
     // 检查两次输入的密码是否一致
     if (req.body['password-confirm'] != req.body['password']) {
         req.flash('error', '两次输入的密码不一致')
@@ -37,7 +38,7 @@ router.post('/reg', function (req, res) {
 
     var newUser = new User({
         name: req.body.username,
-        password: password
+        password: req.body.password
     })
 
     // 检查用户名是否已经存在

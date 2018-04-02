@@ -36,7 +36,8 @@ app.use(session({
     secret: settings.cookieSecret,
     store: new MongoStore({
         // db: settings.db // Error: Connection strategy not found
-        url: 'mongodb://localhost'
+        url: 'mongodb://localhost',
+        autoRemove: 'native'
     })
 })); // 提供会话支持，把会话信息存入数据库
 app.use(flash());
