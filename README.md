@@ -30,9 +30,12 @@
 * 图解 HTTP
 * 网络是怎样连接的
 
+## Linux
+
+* 鸟哥的 Linux 私房菜 之基础学习篇
+
 ## Engineering and Algorithm
 
 * 构建之法
 * 算法图解
-* 具体数学
 * 黑客与画家
