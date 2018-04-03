@@ -25,7 +25,6 @@ router.get('/reg', function (req, res) {
 
 router.post('/reg', checkNotLogin)
 router.post('/reg', function (req, res) {
-    console.log(req.body)
     // 检查两次输入的密码是否一致
     if (req.body['password-confirm'] != req.body['password']) {
         req.flash('error', '两次输入的密码不一致')
@@ -38,7 +37,7 @@ router.post('/reg', function (req, res) {
 
     var newUser = new User({
         name: req.body.username,
-        password: req.body.password
+        password: password // 把散列值形式的密码存入数据库
     })
 
     // 检查用户名是否已经存在
@@ -72,11 +71,15 @@ router.get('/login', function (req, res) {
 
 router.post('/login', checkNotLogin)
 router.post('/login', function (req, res) {
+    console.log(req.body) // 输入的用户名和密码
+
     // 生成密码的散列值
     var md5 = crypto.createHash('md5')
     var password = md5.update(req.body.password).digest('base64')
+    console.log(password) // 登录时输入的密码变为散列值
 
     User.get(req.body.username, function (err, user) {
+        console.log(user) // 数据库保存的用户名和密码(散列值)
         if (!user) {
             req.flash('error', '用户不存在')
             return res.redirect('/login')
