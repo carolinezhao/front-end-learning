@@ -11,11 +11,37 @@ router.get('/', function (req, res, next) {
     // 调用模板解析引擎，翻译名为 index 的模板 (.ejs)，并传入一个对象作为参数，这个对象只有一个属性，即 title:'Express'。
 });
 
-// 目前写在 users.js 中
-// router.get('/u/:user', function (req, res) {})
+router.get('/u/:user', function (req, res) {
+    User.get(req.params.user, function (err, user) {
+        if (!user) {
+            req.flash('error', '用户不存在')
+            return res.redirect('/')
+        }
+        Post.get(user.name, function (err, posts) {
+            if (err) {
+                req.flash('error', err)
+                return res.redirect('/')
+            }
+            res.render('user', {
+                title: user.name,
+                post: posts
+            })
+        })
+    })
+})
 
+router.post('/reg', checkLogin)
 router.post('/post', function (req, res) {
-
+    var currentUser = req.session.user
+    var post = new Post(currentUser.name, req.body.post)
+    post.save(function (err) {
+        if (err) {
+            req.flash('error', err)
+            return res.redirect('/')
+        }
+        req.flash('success', '发布成功')
+        res.redirect('/u/' + currentUser.name)
+    })
 })
 
 router.get('/reg', checkNotLogin)
