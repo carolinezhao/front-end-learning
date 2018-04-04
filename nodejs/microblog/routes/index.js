@@ -44,7 +44,8 @@ router.post('/post', function (req, res) {
     var post = new Post(currentUser.name, req.body.post) // 获取用户发表内容，建立 Post 对象
     post.save(function (err) { // 调用 save 方法存储信息
         if (err) {
-            req.flash('error', err)
+            // console.log(JSON.stringify(err)) // object
+            req.flash('error', '发布失败')
             return res.redirect('/')
         }
         req.flash('success', '发布成功')

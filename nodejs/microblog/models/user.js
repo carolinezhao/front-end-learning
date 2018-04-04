@@ -31,14 +31,15 @@ User.prototype.save = function save(callback) {
         assert.equal(null, err);
         console.log("Connected successfully to server");
         const db = client.db(dbName);
-        console.log(client)
-        console.log(db)
+        // console.log(client)
+        // console.log(db)
 
         if (err) {
             return callback(err)
         }
         // 读取 users 集合
         db.collection('users', function (err, collection) {
+            console.log('collection of users')
             if (err) {
                 client.close();
                 return callback(err)
@@ -46,6 +47,8 @@ User.prototype.save = function save(callback) {
             // 为 name 属性添加索引
             collection.ensureIndex('name', {
                 unique: true
+            }, function (err, result) { // test
+                console.log(result) // name_1        
             })
             // 写入 user 文档
             collection.insert(user, {

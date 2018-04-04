@@ -10,13 +10,22 @@
     <header>
         <% include header.ejs %>
     </header>
-
-    <% if (user) { %>
-        <% include say.ejs %>
-    <% } %>
-
-    <% include posts.ejs %>
-
+    <main role="main">
+        <div class="jumbotron">
+            <% if (user) { %>
+                <% include say.ejs %>
+            <% } %>
+            <% if (success) { %>
+                <div class="alert alert-success"><%= success %></div>
+            <% } %>
+            <% if (error) { %>
+                <div class="alert alert-danger"><%= error %></div>
+            <% } %>
+        </div>
+        <div class="container">
+            <% include posts.ejs %>
+        </div>
+    </div>
     <script src='/javascripts/jquery.min.js'></script>
     <script src='/javascripts/bootstrap.min.js'></script>
 </body>

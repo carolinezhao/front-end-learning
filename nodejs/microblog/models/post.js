@@ -27,36 +27,43 @@ Post.prototype.save = function save(callback) {
     var post = {
         user: this.user,
         post: this.post,
-time: this.time
+        time: this.time
     }
     console.log(post)
-    // Use connect method to connect to the server
 
+    // Use connect method to connect to the server
     // mongoUtil.connectToServer(function(err) {
     MongoClient.connect(url, function (err, client) {
         assert.equal(null, err);
         console.log("Connected successfully to server");
         const db = client.db(dbName);
-console.log(client)        
-console.log(db)
 
         if (err) {
             return callback(err)
         }
         // 读取 posts 集合
         db.collection('posts', function (err, collection) {
+            console.log('collection of posts')
             if (err) {
                 client.close();
                 return callback(err)
             }
-            // 为 user 属性添加索引
-            collection.ensureIndex('user', {
-                unique: true
+            // console.log(collection) // Collection {}
+
+            // 为 user 属性添加索引？？？
+            // collection.ensureIndex('user') //书中的写法，也可以用
+            collection.createIndex('user', {
+                unique: false
+            }, function(err, result) {
+                console.log(JSON.stringify(err)) //null
+                console.log(result) // user_1         
             })
+
             // 写入 post 文档
             collection.insert(post, {
                 safe: true
             }, function (err, post) {
+                console.log(JSON.stringify(err))
                 client.close();
                 callback(err, post)
             })
@@ -88,14 +95,16 @@ Post.get = function get(username, callback) {
             if (username) {
                 query.user = username
             }
-            collection.find(query).sort({time:-1}).toArray(function(err, docs) {
+            collection.find(query).sort({
+                time: -1
+            }).toArray(function (err, docs) {
                 client.close();
                 if (err) {
                     callback(err, null)
                 }
                 // 封装 posts 为 Post 对象
                 var posts = []
-                docs.forEach(function(doc,index) {
+                docs.forEach(function (doc, index) {
                     var post = new Post(doc.user, doc.post, doc.time)
                     posts.push(post)
                 })

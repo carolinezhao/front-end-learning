@@ -776,7 +776,7 @@ User 是一个描述数据的对象，即 MVC 架构中的模型，模型是真�
 * _index.ejs_
 
 书中：创建动态视图助手，从而在视图中访问会话中的用户数据。为了显示错误和成功的信息，需要在动态视图助手中增加响应函数。使用 app.dynamicHelpers。<br>
-新版：不再支持 dynamicHelpers，[改用 locals](http://www.cnblogs.com/yumianhu/p/3713380.html)。<br>
+新版：不再支持 dynamicHelpers，[改用 locals](https://blog.csdn.net/sinat_25127047/article/details/54644989)。<br>
 
 [模板传值对象 app.locals、res.locals 的使用方法](https://itbilu.com/nodejs/npm/Ny0k0TKP-.html)
 
@@ -878,10 +878,10 @@ _modules/post.js_ 与用户模型类似
 
 router.post('/post', ...)
 
-test: 发布微博，数据库查看微博 db.posts.find()，不是每次都能成功，原因？
-
 --
+
 bug: /u/:user 访问 posts.ejs 报错，但是从首页访问没问题。
+```
 ReferenceError: /Users/zhaoximeng/Workplace/front-end-learning/nodejs/microblog/views/user.ejs:25
  >> 25|     <% include posts.ejs %>
 
@@ -889,9 +889,46 @@ ReferenceError: /Users/zhaoximeng/Workplace/front-end-learning/nodejs/microblog/
  >> 1| <% posts.forEach(function (post, index) {
 
 posts is not defined
-
+```
 fix: /u/:user 得渲染函数内的属性写成了 post，应为 posts
+
 --
+
+test: 发布微博，数据库查看所有微博 db.posts.find()
+```
+{ 
+    "_id" : ObjectId("5ac3685cd7e0c037a36d8b09"), 
+    "user" : "bear", 
+    "post" : "The game is exciting!", 
+    "time" : ISODate("2018-04-03T11:41:16.608Z") 
+}
+```
+bug：每个用户可以发一条微博，发第二条时报错
+```
+{
+    "code":11000,
+    "index":0,
+    "errmsg":"E11000 duplicate key error collection: microblog.posts index: user_1 dup key: { : \"bear\" }",
+    "op":{
+        "user":"bear",
+        "post":"It's snowing in April",
+        "time":"2018-04-04T07:11:12.580Z",
+        "_id":"5ac47a907f14494b91fc6d10"}
+}
+```
+出错位置：post.js line 52 为 user 属性添加索引 `collection.ensureIndex()`<br>
+换为 collection.createIndex 同样报错；<br>
+user.js 中为 name 属性添加索引使用同样的方法，没有报错；<br>
+换成别的名字也不会影响到报错中的 index，始终为 user_1？？<br>
+——问题出在 `{unique: true}`
+
+reason：[要清空已有 index](https://www.opentechguides.com/askotg/question/16/mongodb-create-unique-index-e11000-duplicate-key-error-collection-dup-keynull)
+
+fix：unique 应为 false，且设为 false 之前要使用 shell `db.posts.drop()` 清除数据库中的已有微博。
+
+相关文档
+* [Index](https://docs.mongodb.com/manual/indexes/#index-type-id)
+* [Create Index](http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#createIndexes)
 
 ### 用户页面
 
@@ -902,6 +939,10 @@ router.get('/u/:user', ...)
 提取可重用的部分
 * say.ejs 发表微博的表单
 * posts.ejs 按照行列显示传入的 posts 的内容
+
+--
+
+posts.ejs 是怎么工作的？
 
 ### 首页
 
