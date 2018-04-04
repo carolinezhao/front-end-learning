@@ -11,7 +11,7 @@ var settings = require('./settings');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 
-// req.flash, depends on session
+// depends on session
 var flash = require('connect-flash');
 
 var indexRouter = require('./routes/index');
@@ -36,29 +36,15 @@ app.use(session({
     secret: settings.cookieSecret,
     store: new MongoStore({
         // db: settings.db // Error: Connection strategy not found
-        url: 'mongodb://localhost',
-        autoRemove: 'native'
+        url: 'mongodb://localhost/microblog'
     })
 })); // 提供会话支持，把会话信息存入数据库
 app.use(flash());
 app.use(express.static(path.join(__dirname, 'public'))); // 提供静态文件支持
 
-// 测试 req.flash
-// app.get('/test', function(req, res) {
-//     req.flash('successMessage', 'You are successfully using req-flash');
-//     req.flash('errorMessage', 'No errors, you\'re doing fine');
- 
-//     res.redirect('/');
-// });
- 
-// app.get('/', function(req, res) {
-//     res.send(req.flash());
-// });
-// 测试结束
-
 // 替代书中 dynamicHelpers 实现动态视图
 // 以下代码要放在指定路由的语句之前，否则访问 user、error、success 变量会出错。
-// user 用于判断用户是否登录，从而显示登录/登出；error、success 用于提供页面通知。
+// user 用于判断用户是否登录；error、success 用于提供页面通知。
 app.use(function (req, res, next) {
     res.locals.user = req.session.user;
 
@@ -72,8 +58,8 @@ app.use(function (req, res, next) {
 });
 
 // 路由
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/', indexRouter); // 项目所有路由都写在 index.js
+app.use('/users', usersRouter); // 练习
 app.use('/hello', helloRouter); // 练习
 
 // catch 404 and forward to error handler

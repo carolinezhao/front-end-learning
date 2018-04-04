@@ -680,18 +680,22 @@ Download the [MongoDB Node.JS Driver](https://mongodb.github.io/node-mongodb-nat
 
 在工程目录中创建 _settings.js_，用于保存数据库的连接信息。
 
-在 models 子目录中创建 _db.js_，创建数据库连接。
+在 models 子目录中创建 _db.js_，创建数据库连接。<br>
+书中的方法不再支持 (bug: mongodb.open() is not a function) _db-old.js_<br>
+[搭配 3.0 版本 mongodb 的方法](http://mongodb.github.io/node-mongodb-native/3.0/tutorials/connect/)
+
+未完成：抽取通用部分，[参考](https://stackoverflow.com/questions/24621940/how-to-properly-reuse-connection-to-mongodb-across-nodejs-application-and-module)
 
 ### 5.6.2 会话支持 Session
 
 会话是一种持久的网络协议，用于完成服务器和客户端之间的一些交互行为。<br>
-会话是一个比连接粒度更大的概念，一次会话可能包含多次连接，每次连接都是会话的一次操作。<br>
+**会话**是一个比**连接**粒度更大的概念，一次会话可能包含多次连接，每次连接都是会话的一次操作。<br>
 网络应用开发中，有必要实现会话以帮助用户交互。比如网上购物场景，用户浏览了多个页面，购买了一些物品，这些请求在多次连接中完成。
 
 许多应用层网络协议都是由会话支持的，如 FTP、Telnet 等，而 HTTP 协议是无状态的，本身不支持会话，因此在没有额外手段的帮助下，购物场景中服务器不知道用户购买了什么。
 
-为了在无状态的 HTTP 协议上实现会话，Cookie 诞生了。Cookie 是一些存储在客户端的信息，每次连接的时候由浏览器向服务器递交，服务器也向浏览器发起存储 Cookie 的请求，依靠这样的手段，服务器可以识别客户端。通常意义上的 HTTP 会话功能就是这样实现的。<br>
-具体来说，浏览器首次向服务器发起请求时，服务器生成一个唯一标识符并发送给客户端浏览器，浏览器将这个唯一标识符存储在 Cookie 中，以后每次再发起请求，客户端浏览器都会向服务器传送这个唯一标识符，服务器由此来识别用户。
+为了在无状态的 HTTP 协议上实现会话，Cookie 诞生了。Cookie 是一些存储在客户端的信息。<br>
+具体步骤：浏览器首次向服务器发起请求时，服务器生成一个唯一标识符并发送给客户端浏览器，浏览器将这个唯一标识符存储在 Cookie 中，以后每次再发起请求，客户端浏览器都会向服务器传送这个唯一标识符，服务器由此来识别客户端。通常意义上的 HTTP 会话功能就是这样实现的。
 
 对于开发者来说，无须关心浏览器端的存储，需要关注的仅仅是如何通过唯一标识符来识别用户。<br>
 很多服务端脚本语言都有会话功能，如 PHP 把每个唯一标识符存储到文件中。<br>
@@ -704,7 +708,9 @@ connect-mongo: MongoDB session store for Express
     $ npm install express-session --save
     $ npm install connect-mongo --save
 
-[配置信息](https://github.com/jdesboeufs/connect-mongo) 写入 _app.js_
+在 _app.js_ 中[配置 session](https://github.com/jdesboeufs/connect-mongo) (略有不同，以实际项目为准)
+
+使用 session：后面讲到的视图交互
 
 ### 5.6.3 注册和登入
 
@@ -740,6 +746,8 @@ module.exports = router
 * User.save 将用户对象的修改写入数据库。
 * req.session.user = newUser 向会话对象写入当前用户的信息，后面会通过它判断用户是否已经登录。
 
+test：注册可用，数据库查看用户 db.users.find()
+
 ### 用户模型
 
 --> _index.js_ 中使用了 User 对象。
@@ -755,16 +763,27 @@ User 是一个描述数据的对象，即 MVC 架构中的模型，模型是真�
     │   └── db.js //创建数据库连接，引入 settings 模块
     └── settings.js //数据库设置，app.js 中的 session 和 db 都以此为基础
 
-### 视图交互
+### 视图交互 (本质是传递数据？)
 
-不同登录状态下，页面呈现不同内容。<br>
+目的：不同登录状态下，页面呈现不同内容。<br>
 
-书中：创建动态视图助手，从而在视图中访问会话中的用户数据。为了显示错误和成功的信息，需要在动态视图助手中增加响应函数。使用 app.dynamicHelpers<br>
-新版本：不再支持 dynamicHelpers，[改用 locals](http://www.cnblogs.com/yumianhu/p/3713380.html)。--> _app.js_<br>
-locals 的用法还不了解？？？
+相关的文件：
+* _app.js_ 设置响应函数，要写在路由之前。
+* _index.js_ 设置路由请求方法。
+* _header.ejs_
+* _reg.ejs_
+* _login.ejs_
+* _index.ejs_
 
-响应函数中用到 req.flash，尝试支持的模块
-req-flash：报错。<br>
+书中：创建动态视图助手，从而在视图中访问会话中的用户数据。为了显示错误和成功的信息，需要在动态视图助手中增加响应函数。使用 app.dynamicHelpers。<br>
+新版：不再支持 dynamicHelpers，[改用 locals](http://www.cnblogs.com/yumianhu/p/3713380.html)。<br>
+
+[模板传值对象 app.locals、res.locals 的使用方法](https://itbilu.com/nodejs/npm/Ny0k0TKP-.html)
+
+--
+
+响应函数中用到 req.flash，尝试支持的模块<br>
+req-flash：报错，不支持 app.use()，例子中是 app.get()。<br>
 connect-flash：可用，[安装及使用](https://www.npmjs.com/package/connect-flash)
 
     $ npm install connect-flash
@@ -773,17 +792,48 @@ connect-flash：可用，[安装及使用](https://www.npmjs.com/package/connect
 
 --
 
-app.js 中的 user，error，success 是怎样和模板中的建立联系的？？？
+index.ejs GET 方法中没有获取 user，但是页面 (ejs) 可以读取。why？
 
-为已登录和未登录用户显示不同信息，在 header.ejs 中的菜单处添加：
+* 通过 locals 注册 user，error，success (app.js)；
+* 在请求中注入的内容 (index.js)，由 locals 保存；
+* 页面显示时读取 locals 保存的内容 (各 .ejs 文件)
+
+``` js
+// app.js
+app.use(function (req, res, next) {
+    res.locals.user = req.session.user; // 读取会话中的 user
+    var error = req.flash('error'); // 定义 error 事件
+    var success = req.flash('success');
+    res.locals.error = error.length ? error : null; // 如果 error 事件的内容不为空，读取该事件在页面中显示
+    res.locals.success = success.length ? success : null;
+    next();
+});
+
+// index.js login POST请求中
+User.get(req.body.username, function (err, user) {
+        if (!user) {
+            req.flash('error', '用户不存在') // 定义 error 事件的内容
+            return res.redirect('/login')
+        }
+        if (user.password != password) {
+            req.flash('error', '用户密码错误')
+            return res.redirect('/login')
+        }
+        req.session.user = user // 会话记录 user
+        req.flash('success', '登录成功！')
+        res.redirect('/')
+    })
+```
+
+为已登录和未登录用户显示不同菜单/页面内容，在 header.ejs 和 index.ejs 添加：
 
     <% if (!user) { %>
-    ...登录，注册
+    ...未登录显示的内容
     <% } else { %>
-    ...登出
+    ...登录后显示的内容
     <% } %>
 
-显示通知，在 reg.ejs 页面主要内容前加入：
+显示通知，在 reg.ejs 和 login.ejs 页面主要内容前加入：
 
     <% if (success) { %>
     ...显示成功信息
@@ -792,11 +842,16 @@ app.js 中的 user，error，success 是怎样和模板中的建立联系的？�
     ...显示错误信息
     <% } %>
 
+加功能：登录后在 header 处显示用户名且可跳转。
+
 ### 登入和登出
 
 --> _index.js_ 添加登录登出方法
 
 登入登出仅仅是 req.session.user 变量的标记。不会有安全性问题，因为这个变量只有服务端才能访问，如果服务器没有被攻破，就无法从外部改动。
+
+bug：登录，用户密码错误。<br>
+fix：注册时生成了密码的散列值，但是写入数据库的是原密码。登录时生成的散列值就是与原密码对比，会报错。
 
 --> _login.ejs_ 登录页面
 
@@ -814,6 +869,45 @@ router.METHOD('/', checkNotLogin) --> _index.js_
 <br>
 
 ## 5.7 发表微博
+
+### 微博模型
+
+_modules/post.js_ 与用户模型类似
+
+### 发表微博
+
+router.post('/post', ...)
+
+test: 发布微博，数据库查看微博 db.posts.find()，不是每次都能成功，原因？
+
+--
+bug: /u/:user 访问 posts.ejs 报错，但是从首页访问没问题。
+ReferenceError: /Users/zhaoximeng/Workplace/front-end-learning/nodejs/microblog/views/user.ejs:25
+ >> 25|     <% include posts.ejs %>
+
+/Users/zhaoximeng/Workplace/front-end-learning/nodejs/microblog/views/posts.ejs:1
+ >> 1| <% posts.forEach(function (post, index) {
+
+posts is not defined
+
+fix: /u/:user 得渲染函数内的属性写成了 post，应为 posts
+--
+
+### 用户页面
+
+展示用户发表的所有内容 _views/user.ejs_
+
+router.get('/u/:user', ...)
+
+提取可重用的部分
+* say.ejs 发表微博的表单
+* posts.ejs 按照行列显示传入的 posts 的内容
+
+### 首页
+
+在首页路由中加入 Post.get 方法，读取所有用户微博，传递给页面 posts 属性，按时间从新到旧的顺序。
+
+登录前显示“欢迎”，登录后显示 say.ejs 的内容。
 
 <br>
 

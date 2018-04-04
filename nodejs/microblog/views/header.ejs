@@ -2,7 +2,7 @@
     <a class="navbar-brand" href="/">Microblog</a>
     <div class="collapse navbar-collapse" id="">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="/">Home</a>
             </li>
             <% if (!user) { %>
@@ -14,7 +14,7 @@
                 </li>
             <% } else { %>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Me</a>
+                    <a class="nav-link" href="/u/<%= user.name %>"><%= user.name %></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/logout">Logout</a>

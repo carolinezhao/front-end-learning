@@ -12,7 +12,8 @@
     </header>
     <main role="main">
         <div class="jumbotron">
-        <% if (!user) { %>       
+        <p>user 变量：<%= JSON.stringify(user) %></p>
+        <% if (!user) { %>             
             <div class="container">
                 <h1>
                     <%= title %>
