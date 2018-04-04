@@ -1,14 +1,21 @@
 var express = require('express');
 var router = express.Router();
 var crypto = require('crypto'); // Node.js 的核心模块，加密并生成散列
-var User = require('../models/user.js'); // 用户对象
+var User = require('../models/user.js'); // 用户模型
+var Post = require('../models/post.js'); // 发布模型
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-    res.render('index', {
-        title: 'Microblog'
-    });
-    // 调用模板解析引擎，翻译名为 index 的模板 (.ejs)，并传入一个对象作为参数，这个对象只有一个属性，即 title:'Express'。
+    Post.get(null, function (err, posts) {
+        if (err) {
+            posts = []
+        }
+        // 调用模板解析引擎，翻译名为 index 的模板 (.ejs)，并传入一个对象作为参数。            
+        res.render('index', {
+            title: 'Microblog',
+            posts: posts // 读取所有用户微博传递给 posts
+        });
+    })    
 });
 
 router.get('/u/:user', function (req, res) {
@@ -17,6 +24,7 @@ router.get('/u/:user', function (req, res) {
             req.flash('error', '用户不存在')
             return res.redirect('/')
         }
+        // 如果用户存在，则从数据库中获取该用户的微博，通过 posts 属性传递给 user 视图
         Post.get(user.name, function (err, posts) {
             if (err) {
                 req.flash('error', err)
@@ -24,17 +32,17 @@ router.get('/u/:user', function (req, res) {
             }
             res.render('user', {
                 title: user.name,
-                post: posts
+                posts: posts
             })
         })
     })
 })
 
-router.post('/reg', checkLogin)
+router.post('/post', checkLogin)
 router.post('/post', function (req, res) {
-    var currentUser = req.session.user
-    var post = new Post(currentUser.name, req.body.post)
-    post.save(function (err) {
+    var currentUser = req.session.user // 获取当前用户信息
+    var post = new Post(currentUser.name, req.body.post) // 获取用户发表内容，建立 Post 对象
+    post.save(function (err) { // 调用 save 方法存储信息
         if (err) {
             req.flash('error', err)
             return res.redirect('/')
@@ -46,7 +54,9 @@ router.post('/post', function (req, res) {
 
 router.get('/reg', checkNotLogin)
 router.get('/reg', function (req, res) {
-    res.render('reg', {})
+    res.render('reg', {
+        title: 'Signin'
+    })
 })
 
 router.post('/reg', checkNotLogin)
@@ -91,7 +101,7 @@ router.post('/reg', function (req, res) {
 router.get('/login', checkNotLogin)
 router.get('/login', function (req, res) {
     res.render('login', {
-        title: 'Please Login'
+        title: 'Login'
     })
 })
 
