@@ -1,6 +1,6 @@
 # Index
 
-# CSS 知识点
+## CSS 知识点
 
 ### 样式的优先级
 
@@ -19,4 +19,20 @@
 
 通配选择符(universal selector) `*`, 关系选择符(combinators) (+, >, ~, ' ') 和 否定伪类(negation pseudo-class) `:not()` 对优先级没有影响。但是，在 `:not()` 内部声明的选择器会影响优先级。
 
+<br>
 
+## CSS3 新特性
+
+[参考](https://segmentfault.com/a/1190000010780991)
+
+### 过渡
+
+过渡：元素从一种样式逐渐变为另一种效果。使交互效果 (比如 hover) 更生动。
+
+实例：button hover；下拉菜单 --> _CSS3.html_
+
+```
+transition: property, duration, timing-function(default=ease), delay(default=0)
+// property 可以为 all
+// 可以分开写 transition-property 等
+```
