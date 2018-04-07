@@ -6,12 +6,126 @@
     <title>CSS3</title>
     <style>
         body {
-            padding: 5%
+            margin: 0;
+            /* padding: 0 5%; */
+            font-size: 20px;
+            font-family: -apple-system, Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
         }
 
-        nav {
-            background-color:antiquewhite;
+        .container {
+            margin: 10%;
         }
+
+        header {
+            background-color: antiquewhite;
+            margin-bottom: 100px;
+            /* height: 100px; */
+            /* padding 无效 */
+        }
+
+        /* 去掉原生装饰 */
+
+        ul,
+        li {
+            list-style: none;
+
+        }
+
+        a {
+            text-decoration: none;
+            color: black;
+        }
+
+        /* 一级菜单 */
+
+        ul.first {
+            margin: 0;
+            padding: 0 30px;
+            /* 一级 ul 内部的所有 li 作为一个整体，在 ul 内部垂直居中 */
+            text-align: center;
+            height: 80px;
+            /* test */
+            /* border: mediumslateblue solid 1px; */
+        }
+
+        ul.first>li {
+            display: inline-block;
+            padding: 0 55px;
+            height: 80px;
+            line-height: 80px;
+            /* 二级 ul 设为 (position: absolute & left: 0)，如果没有这句，二级 ul 不受位置限制 */
+            position: relative;
+            /* test */
+            /* border: brown solid 1px; */
+        }
+
+        ul.first>li:hover {
+            background-color: salmon;
+            color: white;
+            cursor: pointer;
+            transition: all .5s;
+        }
+
+        /* 二级菜单 */
+
+        ul.second {
+            margin: 0;
+            padding: 0;
+            background-color: powderblue;
+            line-height: 30px;
+            /* 使一级菜单内的 li (也就是这级 ul 的父元素) 顶部对齐 */
+            position: absolute;
+            transform: scaleY(0);
+            /* top: 80px; */
+            /* 使展开的二级菜单左侧与一级标签对齐 */
+            left: 0;
+            /* 使二级菜单的宽度与一级标签一致 */
+            width: 100%;
+            /* 隐藏溢出的文本 */
+            overflow: hidden;
+        }
+
+        /* 使二级菜单由上至下展开，一级和二级ul都要写 transform-origin ？？ */
+
+        ul.first,
+        ul.second {
+            transform-origin: 0 0;
+            transition: all .5s;
+        }
+
+        /* 在一级菜单hover时，二级菜单的效果 */
+
+        ul.first>li:hover ul.second {
+            transform: scaleY(1);
+        }
+
+        ul.second>li {
+            padding: 5px 20px;
+        }
+
+        ul.second>li:hover {
+            /* 效果不太好，加了 border 会重新计算高度 */
+            border-bottom: 1px solid salmon;
+        }
+
+        /* test: 基本属性和 ul.second 一致 */
+
+        ul.test {
+            margin: 0;
+            padding: 0;
+            line-height: 30px;
+            /* 使一级菜单内的 li (也就是这级 ul 的父元素) 顶部对齐 */
+            position: absolute;
+            /* top: 80px; */
+            /* 使展开的二级菜单左侧与一级标签对齐 */
+            left: 0;
+            /* 使二级菜单的宽度与一级标签一致 */
+            width: 100%;
+            /* 隐藏溢出的文本 */
+            overflow: hidden;
+        }
+
+        /* 按钮 */
 
         button {
             width: 150px;
@@ -27,32 +141,54 @@
         button:hover {
             background-color: powderblue;
             color: black;
+            cursor: pointer;
             transition: all, 1s;
         }
     </style>
 </head>
 
 <body>
-    <nav>
-        <ul>
-            <li class="first-menu">
+    <header>
+        <ul class="first">
+            <li>
                 <a href="#">JavaScript</a>
-                <ul>
-                    <li>Browser</li>
-                    <li>Node.js</li>
+                <ul class="second">
+                    <li>
+                        <a href="#">Browser</a>
+                    </li>
+                    <li>
+                        <a href="#">Node.js</a>
+                    </li>
                 </ul>
             </li>
-            <li class="first-menu">
+            <li>
                 <a href="#">Framework</a>
-                <ul>
-                    <li>Vue</li>
-                    <li>React</li>
-                    <li>Angular</li>
+                <ul class="second">
+                    <li>
+                        <a href="#">Vue</a>
+                    </li>
+                    <li>
+                        <a href="#">React</a>
+                    </li>
+                    <li>
+                        <a href="#">AngularAngularAngularAngular</a>
+                    </li>
                 </ul>
+            </li>
+            <li>
+                <a href="#">Tool</a>
             </li>
         </ul>
-    </nav>
-    <button>Learn More</button>
+    </header>
+    <section class="container">
+        <button>Hover Here</button>
+    </section>
+    <section class="container">
+        <ul>test</ul>
+        <li>test</li>
+        <li>test</li>
+    </section>
+
 </body>
 
 </html>
