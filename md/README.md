@@ -39,6 +39,26 @@ for (var i = 0; i < array.length; i++) {
 }
 ```
 
+#### 特殊字体
+
+*这是斜体*，_这是斜体_，**这是粗体**
+
+#### 符号
+
+> & 符号在 markdown 中的写法为 &amp;
+
+&amp;
+
+#### 插入表格
+
+| 左对齐标题 | 右对齐标题 | 居中对齐标题 |
+| ------ | ------: | :------: |
+| 短文本 | 中等文本 | 稍微长一点的文本 |
+| 稍微长一点的文本 | 短文本 | 中等文本 |
+
+* 默认标题栏居中对齐，内容居左对齐。
+* 如果设置了对齐方式，则标题和内容一致。
+
 #### url 链接
 
 [Markdown Document](http://wowubuntu.com/markdown/)
@@ -47,18 +67,9 @@ for (var i = 0; i < array.length; i++) {
 
 <rabbit@gmail.com>
 
-#### 特殊字体
+#### 插入图片
 
-*这是斜体*
-**这是粗体**
-
-#### 符号
-
-> & 符号在 markdown 中的写法为 &amp;
-
-&amp;
-
-#### Table is not available here
+![image][img/bear.jpeg]
 
 #### 分割线
 ***
