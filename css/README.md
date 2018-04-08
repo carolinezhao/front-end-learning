@@ -1,5 +1,18 @@
 # Index
 
+功能：
+- menu --> 横排菜单，hover展开
+
+结构：
+- layout-table-cell
+- layout-flex
+
+文本：
+- content-text-overflow
+
+图形：
+- shape-rhombus
+
 ## CSS 知识点
 
 ### 选择器
@@ -62,6 +75,24 @@ text-align 定义的是容器包含内容在该容器内垂直方向对齐方式
 
 ### position: absolute vs relative
 
+### white-space
+
+| white-space 的值 | 保留空格 | 是否手动换行 | 是否自动换行 |
+| :------: | :------: | :------: | :------: |
+| pre | all | Y | N |
+| pre-wrap | all | Y | Y |
+| pre-line | 1 | Y | Y |
+| normal | 1 | N | Y |
+| nowrap | 1 | N | N |
+
+空格：all 表示保留全部；1 表示只保留1个空格
+
+手动换行的两种情况
+
+* 在 HTML 中回车换行，在浏览器中的显示；
+* 在 textarea 中回车换行，存入数据库的形式为 `\r\n`，在浏览器中展示；<br>
+实例：[发布微博渲染到页面](https://github.com/carolinezhao/microblog/blob/master/views/posts.ejs)，希望保留空格、换行，使用 `white-space: pre-wrap;`
+
 <br>
 
 ## CSS3 新特性
@@ -72,7 +103,7 @@ text-align 定义的是容器包含内容在该容器内垂直方向对齐方式
 
 过渡：元素从一种样式逐渐变为另一种效果。使交互效果 (比如 hover) 更生动。
 
-实例：button hover；下拉菜单 --> _CSS3.html_
+实例：button hover；下拉菜单 --> _menu.html_
 
 ```
 transition: property, duration, timing-function(default=ease), delay(default=0)

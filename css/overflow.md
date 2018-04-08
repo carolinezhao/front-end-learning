@@ -15,10 +15,10 @@ overflow，text-overflow，white-space 通常搭配使用。**
 
 ### white-space
 * normal	默认。空白会被浏览器忽略。
-* pre	空白会被浏览器保留。其行为方式类似 HTML 中的 pre 标签。【*空白和换行都会被表现出来*】
+* pre	空白会被浏览器保留。其行为方式类似 HTML 中的 pre 标签。
 * **nowrap	文本不会换行，文本会在在同一行上继续，直到遇到 br 标签为止。**
-* pre-wrap	保留空白符序列，但是正常地进行换行。【*换行和空格都会表现为空格*】
-* pre-line	合并空白符序列，但是保留换行符。【*目前没看出与pre的区别*】
+* pre-wrap	保留空白符序列，但是正常地进行换行。
+* pre-line	合并空白符序列，但是保留换行符。
 * inherit	规定应该从父元素继承 white-space 属性的值。
 
 ---
