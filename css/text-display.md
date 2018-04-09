@@ -43,7 +43,8 @@
 
 * 在 HTML 中回车换行，在浏览器中的显示；
 * 在 textarea 中回车换行，存入数据库的形式为 `\r\n`，在浏览器中展示；<br>
-实例：[发布微博渲染到页面](https://github.com/carolinezhao/microblog/blob/master/views/posts.ejs)，希望保留空格、换行，使用 `white-space: pre-wrap;`
+实例：[发布微博渲染到页面](https://github.com/carolinezhao/microblog/blob/master/views/posts.ejs)，希望保留空格、换行，使用 `white-space: pre-wrap;`<br>
+为什么可以读取 `\r\n` 呢？？
 
 ---
 

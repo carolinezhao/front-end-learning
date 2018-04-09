@@ -1,6 +1,8 @@
 # Index
 
-[文本显示]()
+[文本显示](https://github.com/carolinezhao/front-end-learning/blob/master/css/text-display.md)
+
+[背景](https://github.com/carolinezhao/front-end-learning/blob/master/css/background.md)
 
 功能：
 - menu --> 横排菜单，hover展开

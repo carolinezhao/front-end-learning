@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>背景</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        .container1,
+        .container2,
+        .container3,
+        .container4 {
+            display: inline-block;
+            border: 1px solid aquamarine;
+            margin: 10px;
+        }
+
+        .box {
+            width: 200px;
+            height: 120px;
+            margin: 10px;
+            padding: 20px;
+            border: 5px dashed royalblue;
+        }
+
+        .container1 .box {
+            background-color: plum;
+        }
+
+        .container1 .border {
+            background-clip: border-box;
+        }
+
+        .container1 .padding {
+            background-clip: padding-box;
+        }
+
+        .container1 .content {
+            background-clip: content-box;
+        }
+
+        .container2 .box {
+            background: url(img/bear.jpeg) no-repeat, powderblue;
+            background-position: 10px 10px;
+        }
+
+        .container2 .border {
+            background-origin: border-box;
+        }
+
+        .container2 .padding {
+            background-origin: padding-box;
+        }
+
+        .container2 .content {
+            background-origin: content-box;
+        }
+
+        .container3 .box {
+            background: url(img/bear.jpeg) no-repeat, peachpuff;
+        }
+
+        .container3 .contain {
+            background-size: contain;
+        }
+
+        .container3 .cover {
+            background-size: cover;
+        }
+
+        .container3 .auto {
+            background-size: auto;
+            background-repeat: repeat-x;
+        }
+
+        .container3 .width {
+            background-size: 200px;
+            background-position: center;
+        }
+
+        .container4 .box {
+            background: url(img/bear.jpeg) no-repeat left, url(img/baby.png) no-repeat right, palevioletred;
+        }
+
+        .pics {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="container1">
+        <h1>background-clip</h1>
+        <div class="box border">border-box</div>
+        <div class="box padding">padding-box</div>
+        <div class="box content">content-box</div>
+    </section>
+    <section class="container2">
+        <h1>background-origin</h1>
+        <div class="box border">border-box</div>
+        <div class="box padding">padding-box</div>
+        <div class="box content">content-box</div>
+    </section>
+    <section class="container3">
+        <h1>background-size</h1>
+        <div class="box contain">contain</div>
+        <div class="box cover">cover</div>
+        <div class="box auto">auto</div>
+        <div class="box width">width</div>
+    </section>
+    <section class="container4">
+        <h1>multiple pics</h1>
+        <div class="box pics">
+            <h1>小熊和乖巧</h1>
+        </div>
+    </section>
+</body>
+
+</html>
