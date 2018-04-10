@@ -1,0 +1,43 @@
+.container1 div {
+    width: 100px;
+    height: 60px;
+    background: palevioletred;
+    margin: 10px;
+    color: white;
+
+    /* 动画相关 */
+    position: relative; /* 没有这句动不了 */
+    animation: move 5s infinite;
+    -webkit-animation: move 5s infinite alternate;       
+}
+
+#box1 {
+    animation-timing-function: linear;
+    -webkit-animation-timing-function: linear;            
+}
+#box3 {
+    animation-timing-function: ease-in;
+    -webkit-animation-timing-function: ease-in;
+}
+#box4 {
+    animation-timing-function: ease-out;
+    -webkit-animation-timing-function: ease-out;            
+}
+#box5 {
+    animation-timing-function: ease-in-out;
+    -webkit-animation-timing-function: ease-in-out;          
+}
+#box6 {
+    animation-timing-function: cubic-bezier(0.1, 0.1, 0.1, 0.8);
+    -webkit-animation-timing-function: cubic-bezier();          
+}
+
+@keyframes move {
+    from {left: 0px;}
+    to {left: 260px;}       
+}
+
+@-webkit-keyframes move {
+    from {left: 0px;}
+    to {left: 260px;}       
+}
