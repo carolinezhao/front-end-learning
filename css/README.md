@@ -4,6 +4,8 @@
 
 [背景](https://github.com/carolinezhao/front-end-learning/blob/master/css/background.md)
 
+[动画](https://github.com/carolinezhao/front-end-learning/blob/master/css/animation.md)
+
 功能：
 - menu --> 横排菜单，hover展开
 
