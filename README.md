@@ -25,7 +25,7 @@
 * Node.js 开发指南 (快速上手)
 * 深入浅出 Node.js (理论深入)
 
-## Internet
+## Network
 
 * 图解 HTTP
 * 网络是怎样连接的
