@@ -69,7 +69,13 @@ for (var i = 0; i < array.length; i++) {
 
 #### 插入图片
 
-![image][img/bear.jpeg]
+![image][img/bear.jpeg] 
+
+not work
+
+### 图案
+
+<kbd>Ctrl</kbd>
 
 #### 分割线
 ***

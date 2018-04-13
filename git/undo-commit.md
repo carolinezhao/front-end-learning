@@ -1,4 +1,11 @@
-撤销最新的 commit
+## 撤销 git add
+
+撤销所有或某个文件
+
+    git reset HEAD .
+    git reset HEAD -filename
+
+## 撤销最新的 commit
 
 Undo the commit but keep all changes staged
 

@@ -2,9 +2,9 @@
 
 > 理论知识见学习笔记，具体代码见 --> 对应的文件。
 
-> 书中使用的 Node.js 版本较老 (0.7.5)，部分示例与最新版本有出入，参考[作者博客](https://www.byvoid.com/zht/project/node)和[豆瓣](https://book.douban.com/subject/10789820/)的读者评论。
+> 书中使用的 Node.js 版本较老 (0.7.5)，部分示例与最新版本有出入。
 
-> 更多参考[API官方文档](https://nodejs.org/api/)和[CNode社区](http://cnodejs.org/)。
+> 参考[API官方文档](https://nodejs.org/api/)和[CNode社区](http://cnodejs.org/)。
 
 # Index
 
@@ -20,7 +20,7 @@
 	- 4.3 events
 	- 4.4 fs
 	- 4.5 HTTP server and client
-- [第5章 使用 Node.js 进行 Web 开发](https://github.com/carolinezhao/front-end-learning/blob/master/nodejs/Chapter5-web-develop.md)
+- 第5章 使用 Node.js 进行 Web 开发 --> [microblog project](https://github.com/carolinezhao/microblog)
 - [第6章 Node.js 进阶话题](#chapter6-advanced)
 
 # Chapter2 Install
