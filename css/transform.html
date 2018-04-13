@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>transform</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+        }
+
+        .box {
+            width: 250px;
+            height: 150px;
+            border: 2px solid lightcoral;
+            margin: 10px;
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        *:hover {
+            transition: all .5s;
+        }
+
+        #first:hover {
+            transform: translate(10px, 30px);
+        }
+
+        #second:hover {
+            transform: scale(.7);
+            transform-origin: 80% 10%;            
+        }
+
+        #third:hover {
+            transform: rotate(30deg);
+        }
+
+        #third2:hover {
+            transform: rotate(30deg);
+            transform-origin: 20% 40%;
+        }
+
+        #forth:hover {
+            transform: rotateX(180deg);
+        }
+
+        #fifth:hover {
+            transform: skew(10deg, 5deg);
+        }
+    </style>
+</head>
+
+<body>
+    <h2>transform</h2>
+    <div class="container">
+        <div class="box" id="zero">none</div>
+        <div class="box" id="first">transform: translate(10px,30px);</div>
+        <div class="box" id="second">transform: scale(.7);<br>transform-origin: 80% 10%;</div>
+        <div class="box" id="fifth">transform: skew(10deg,5deg);</div>        
+        <div class="box" id="third">transform: rotate(30deg);</div>
+        <div class="box" id="third2">transform: rotate(30deg);<br>transform-origin: 20% 40%;</div>        
+        <div class="box" id="forth">transform: rotateX(180deg);</div>
+    </div>
+</body>
+
+</html>

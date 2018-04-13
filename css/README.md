@@ -4,17 +4,24 @@
 
 [背景](https://github.com/carolinezhao/front-end-learning/blob/master/css/background.md)
 
-[动画](https://github.com/carolinezhao/front-end-learning/blob/master/css/animation.md)
+动画
+- [animation 属性](https://github.com/carolinezhao/front-end-learning/blob/master/css/animation.md)
 
-功能：
-- menu --> 横排菜单，hover展开
+交互 & 形状变换
+- [transition](###transition)
+- [transform](###transform)
+- clip-path
 
-结构：
+* menu --> hover 展开菜单
+* shape-rhombus --> hover 形状变换
+
+位置
+- [position 属性](https://github.com/carolinezhao/front-end-learning/blob/master/css/position.md)
+- [display 属性](https://github.com/carolinezhao/front-end-learning/blob/master/css/display.md)
+
+布局
 - layout-table-cell
 - layout-flex
-
-图形：
-- shape-rhombus
 
 ## CSS 知识点
 
@@ -76,17 +83,13 @@ text-align 定义的是容器包含内容在该容器内垂直方向对齐方式
 * li1 {display: incline-block} --> li1 横向排列
 * ul2 {display：absolute} --> li1 顶部对齐
 
-### position: absolute vs relative
-
 <br>
 
 [参考](https://segmentfault.com/a/1190000010780991)
 
-### 过渡  (`CSS3`)
+### transition  
 
-过渡：元素从一种样式逐渐变为另一种效果。使交互效果 (比如 hover) 更生动。
-
-实例：button hover；下拉菜单 --> _menu.html_
+过渡 (`CSS3`)：元素从一种样式逐渐变为另一种效果。使交互效果 (比如 hover) 更生动。
 
 ```
 transition: property, duration, timing-function(default=ease), delay(default=0)
@@ -94,3 +97,16 @@ transition: property, duration, timing-function(default=ease), delay(default=0)
 // cursor 的变化不需要 transition 指定
 // 可以分开写 transition-property 等
 ```
+
+### transform
+
+transform --> _transform.html_
+
+transform-origin: x-axis y-axis z-axis;
+* 使用此属性必须先使用 transform 属性。
+* 默认值 50% 50% 0
+* [在线调试](http://www.runoob.com/try/try.php?filename=trycss3_transform-origin_inuse)
+
+transform-style: flat | preserve-3d;
+* 使用此属性必须先使用 transform 属性。
+* 默认值 flat
