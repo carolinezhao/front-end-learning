@@ -7,9 +7,12 @@
 动画
 - [animation 属性](https://github.com/carolinezhao/front-end-learning/blob/master/css/animation.md)
 
+滤镜
+- [filter 属性](###filter)
+
 交互 & 形状变换
-- [transition](###transition)
-- [transform](###transform)
+- [transition 属性](###transition)
+- [transform 属性](###transform)
 - clip-path
 
 * menu --> hover 展开菜单
@@ -89,7 +92,7 @@ text-align 定义的是容器包含内容在该容器内垂直方向对齐方式
 
 ### transition  
 
-过渡 (`CSS3`)：元素从一种样式逐渐变为另一种效果。使交互效果 (比如 hover) 更生动。
+过渡：元素从一种样式逐渐变为另一种效果。使交互效果 (比如 hover) 更生动。
 
 ```
 transition: property, duration, timing-function(default=ease), delay(default=0)
@@ -110,3 +113,11 @@ transform-origin: x-axis y-axis z-axis;
 transform-style: flat | preserve-3d;
 * 使用此属性必须先使用 transform 属性。
 * 默认值 flat
+
+### filter
+
+--> _filter.html_
+
+filter: none | blur() | drop-shadow() | grayscale() | opacity(); [全部值](http://www.runoob.com/cssref/css3-pr-filter.html)
+
+使用空格分隔多个滤镜。
