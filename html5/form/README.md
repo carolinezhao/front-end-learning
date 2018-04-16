@@ -1,3 +1,7 @@
+## Web Form
+
+《HTML5 实战》示例项目 & 个人总结
+
 以下文件是书中提供的代码，用于辅助完成表单。
 
 * style.css
@@ -8,11 +12,18 @@
 
 项目中用到的 HTML5 特性
 
+form.html
+
 * 使用 input 元素类型及其他属性提供小部件及数据验证
-* 使用 data-* 属性保存产品价格，从 data-* 属性中获取数据
-* 使用 output 元素呈现单个产品金额小计和订单金额总计，更新 output 元素
+* 使用 data-* 属性保存产品价格
+* 使用 output 元素呈现单个产品金额小计和订单金额总计
 * 使用 formnovalidate 和 formaction 绕过验证，保存未完成的表单
+
+app.js
+
 * 使用 valueAsNumber 属性，以数字形式读取输入值
+* 从 data-* 属性中获取数据
+* 更新 output 元素
 
 ---
 
@@ -71,7 +82,9 @@ type 属性
 
 * type = "submit" 见表单最下方的两个提交按钮 用 button 和 input 的区别是？
 
-name 属性有什么实际意义？
+name 属性【后端数据收集】
+
+* 向服务器提交表单时，name 属性值用于标注 input 中输入数据的名称。
 
 提升用户体验
 
@@ -119,10 +132,9 @@ input 作为保存按钮，保存表单时，绕开验证操作
 
 ### form 元素
 
-method 属性：规定如何发送表单数据
+method 属性：规定如何发送表单数据，即 HTTP 方法。
 
 * method = "get"
-
 * method = "post"
 
-action 属性：指定表单处理服务器
+action 属性：指定表单处理服务器，即表单提交到的程序/路由。

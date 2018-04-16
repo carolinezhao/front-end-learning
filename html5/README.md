@@ -8,7 +8,7 @@ JavaScript 是 HTML5 真正的主角。
 
 HTML5 实战
 
-* newtag 使用新的语义元素
+* newtag 使用新的语义元素，反映在页面结构中的角色
 * form 表单
 
 ---
