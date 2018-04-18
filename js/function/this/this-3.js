@@ -18,5 +18,5 @@ foo();
 
 // node 运行结果：TypeError: this.bar is not a function
 // chrome 运行结果：undefined
-// (与网友的运行结果一致)
+// (与网友的运行结果一致：https://book.douban.com/annotation/37398585/)
 // 书上：ReferenceError
