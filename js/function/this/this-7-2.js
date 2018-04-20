@@ -12,8 +12,8 @@ var bar = function () {
     foo.call(obj);
 }
 
-bar(); // 2 (node, chrome)
-setTimeout(bar, 1000); // 2 (node, chrome)
+bar(); // 2
+setTimeout(bar, 1000); // 2
 
 // 硬绑定的 bar 不可能再修改它的 this
 // bar.call(window); // 2 (chrome)

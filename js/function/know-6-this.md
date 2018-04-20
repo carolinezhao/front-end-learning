@@ -74,10 +74,16 @@ further: node/chrome 运行结果差异的原因？
 
 --> _this-7-1.js_ (this-1-1 和 this-2 方案3 也是)
 
-硬绑定 (hard binding)
+硬绑定 (hard binding) 难
+
+--> _this-7-2.js_
 
 API 调用的“上下文”
 
+--> _this-7-3.js_
+
 ### [4/4] new 绑定
+
+--> _this-8.js_
 
 ### 2.3 优先级
