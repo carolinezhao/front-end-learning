@@ -7,7 +7,7 @@
 
 function foo() {
     var a = 2;
-    this.bar();
+    this.bar(); // 这是错误的写法
 }
 
 function bar() {
