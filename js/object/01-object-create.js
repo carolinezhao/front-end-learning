@@ -8,6 +8,13 @@ Creating an object
 - Constructor notation
 =====================================================*/
 
+// 初学时的两种写法
+var user = new Object();
+user.age = 25;
+
+var user = {};
+user.city = 'Beijing';
+
 /*=====================================================
 Literal notation
 * creates a single object;
@@ -57,7 +64,7 @@ function Person(job, married) {
     }
 }
 var person1 = new Person('developer', false);
-var person2 = new Person('Dentist', true)
+var person2 = new Person('designer', true)
 person1.speak();
 person2.speak();
 // person1 和 person2 分别保存着 Person 的一个不同的实例。这两个对象都有一个 constructor(构造函数) 属性。
@@ -65,15 +72,46 @@ console.log(person1.constructor === Person)
 // 创建的所有对象既是 Object 的实例，同时也是 Person 的实例。
 console.log(person2 instanceof Object)
 console.log(person2 instanceof Person)
+
+// 构造函数作为普通函数调用
+Person('manager', true); // 添加到 window
+// window.speak();
+
+// 在另一个对象的作用域中调用
+var obj = {};
+Person.call(obj,'artist', false); // 把构造函数的 this 绑定到 obj
+obj.speak();
+
+// 实例中虽然都有名为 speak 的方法，但它们不是同一个 Function 实例。
+// 每定义一个函数，就实例化了一个对象。
+// 可以理解为：this.speak = new Function();
+console.log(person1.speak === person2.speak) // false
+
+// 创建两个完成同样任务的 Function 实例没有必要；
+// 况且有 this 对象在，不用在执行代码前就把函数绑定到特定对象上面。
+// 可以通过把函数定义转移到构造函数外部来解决这个问题。
+function Child(name, age) {
+    this.name = name;
+    this.age = age;
+    this.sayName = sayName;
+}
+
+// 在构造函数内部，将 sayName 属性设置成等于全局的 sayName 函数。
+// 由于 sayName 包含的是一个指向函数的指针，child1 和 child2 对象就共享了在全局作用域中定义的同一个 sayName() 函数。
+function sayName() {
+    console.log(this.name);
+}
+
+var child1 = new Child('rabbit',6);
+var child2 = new Child('bear',8);
+
+console.log(child1.sayName === child2.sayName) // true
+
+// 在全局作用域中定义的函数实际上只能被某个对象调用，这让全局作用域有点名不副实。
+// 如果对象需要定义很多方法，那么就要定义很多个全局函数，于是这个自定义的引用类型就丝毫没有封装性可言了。
+// 这些问题可以通过使用原型模式来解决。
+
 console.log('\n')
-
-
-// 初学时的两种写法
-var user = new Object();
-user.age = 25;
-
-var user = {};
-user.city = 'Beijing';
 
 /*=====================================================
 Properties
