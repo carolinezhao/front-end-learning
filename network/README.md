@@ -1,6 +1,18 @@
 # Network
 
-在浏览器中打开本地 HTML，当某个属性不支持跨域时，需要开启服务器。
+## index
+
+- 《网络是怎样连接的》 --> _how-networks-work.md_
+
+- 《图解 HTTP》 --> _http-系列_
+
+- session
+
+## 开发环境服务器
+
+在浏览器中打开本地 HTML，当某个属性不支持跨域时，需要开启服务器。<br>
+比如使用 Vue.js DevTools，用此方式打开才能检测到。
+
 ```shell
 $ httpserver
 
