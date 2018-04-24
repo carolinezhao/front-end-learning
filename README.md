@@ -4,6 +4,7 @@
 
 * MDN
 * W3school
+* YouTube
 
 ## HTML &amp; CSS
 
@@ -31,21 +32,32 @@
 * 图解 HTTP
 * 网络是怎样连接的
 
+## Data Structures and Algorithms
+
+* 算法图解
+* 学习 JavaScript 数据结构与算法
+
+## Git
+
+* 精通 Git
+
 ## Linux
 
 * 鸟哥的 Linux 私房菜 之基础学习篇
 
-## Engineering and Algorithm
+## Engineering
 
 * 构建之法
-* 算法图解
 * 黑客与画家
+* 程序员修炼之道
+* 只是为了好玩：Linux 之父林纳斯自传
 
 ## Tools
 
 * Editor: VS Code 用于开发
 * IDE: WebStorm (JavaScript IDE by JetBrains) 用于梳理代码逻辑、看源码
-* Chrome DevTools 用于调试
+* Debug: Chrome DevTools
+* Source Code Control: GitHub
 
 ## .gitignore
 
