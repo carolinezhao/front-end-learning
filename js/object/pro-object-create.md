@@ -72,6 +72,8 @@ js 有两种**属性**：数据属性和访问器属性。它们各有4个用于
 
 构造函数的问题及改进，见 js 文件。
 
-### 6.2.3 原型模式 
+### 6.2.3 原型模式 prototype pattern
 
---> _prof-prototype.js_
+--> _prof-prototype.js_ 和 _prof-prototype2.js_
+
+### 6.2.4 组合使用构造函数模式和原型模式

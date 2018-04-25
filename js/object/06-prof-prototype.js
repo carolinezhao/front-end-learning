@@ -13,7 +13,7 @@ console.log('指向原型对象: ', Person.prototype)
 
 // 【构造函数的原型对象】
 // 原型对象最初只包含 constructor 属性 (指针)，指向构造函数。
-console.log('指向构造函数: ', Person.prototype.constructor)
+console.log('指向构造函数: ', Person.prototype.constructor) // function Person() {}
 // 添加更多属性和方法
 Person.prototype.name = 'rabbit'
 Person.prototype.age = 25
