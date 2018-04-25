@@ -77,3 +77,5 @@ js 有两种**属性**：数据属性和访问器属性。它们各有4个用于
 --> _prof-prototype.js_ 和 _prof-prototype2.js_
 
 ### 6.2.4 组合使用构造函数模式和原型模式
+
+--> _prof-combine.js_

@@ -22,7 +22,7 @@ Person.prototype = {
 // 这种语法本质上完全重写了默认的 prototype 对象，因此 constructor 属性也就变成了新对象的 constructor 属性 (指向 Object 构造函数)，不再指向 Person 函数。
 console.log('不再指向构造函数: ', Person.prototype.constructor) // function Object() {}
 
-console.log(Person.prototype); 
+console.log(Person.prototype);
 // 这个既可以指【新原型】，也可以指【原构造函数的 prototype 属性】
 // => 构造函数中的 prototype 属性指向了新的原型
 
@@ -62,7 +62,7 @@ console.log('')
 function Fruit() {}
 var cherry = new Fruit();
 // 注意！先创建了实例之后，只能以这样的形式修改原型。
-Fruit.prototype.sayHi= function () {
+Fruit.prototype.sayHi = function () {
     console.log('Hi')
 }
 cherry.sayHi();
@@ -85,6 +85,12 @@ console.log('')
 
 
 // ====== 原生对象的原型 ======
+// 原型模式的重要性不仅体现在创建自定义类型方面，所有原生的引用类型也都是用这种模式创建的。
+// 所有原生引用类型 (Object、Array、String，等等) 都在其构造函数的原型上定义了方法。
+console.log(Array.prototype.sort);
+console.log(String.prototype.substring);
+// 通过原生对象的原型，不仅可以取得所有默认方法的引用，而且也可以定义新方法 (但不建议用)。
+console.log('')
 
 
 // ====== 原型对象的问题 ======
@@ -97,8 +103,10 @@ Sport.prototype = {
     constructor: Sport,
     type: 'football',
     number: 11,
-    position:['striker','midfielder','fullback'],
-    sayType: () => {console.log(this.type)}
+    position: ['striker', 'midfielder', 'fullback'],
+    sayType: function () {
+        console.log(this.type)
+    }
 }
 
 var sport1 = new Sport();

@@ -1,3 +1,7 @@
+// 文件内容：
+// 创建对象的方式 from codecademy
+// 对构造函数的深入讲解 from 高程 6.2.2
+
 /*=====================================================
 Object
 Using objects, we can put our information and the functions that use that information (method) in the same place.
