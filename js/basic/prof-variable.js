@@ -1,8 +1,42 @@
+// 文件内容
+// 3.3 变量
 // 4.1 基本类型值和引用类型值
+// * 本书内容为 ES5 之前的知识。
+
+
+// 3.3 变量 (as a review)
+// JS 的变量是松散类型，即可以保存任何类型的数据。
+// 因此变量仅仅是一个用于保存值的占位符。
+
+// 使用 var 操作符 (var 是一个关键字)，后跟变量名 (即一个标识符)。
+var message; // 未经过初始化的变量，会保存一个特殊的值 undefined
+var msg = "hi"; // 可以修改变量值同时修改值的类型，但不推荐。
+
+// 用 var 操作符定义的变量将成为定义该变量的作用域中的局部变量。
+// 如果在函数中使用 var 定义一个变量，那么这个变量在函数退出后就会被销毁。
+function test() {
+    var greeting = 'hello';
+}
+// console.log(greeting); // ReferenceError: greeting is not defined
+
+// 可以使用一条语句定义多个变量，用逗号分隔。
+var language = 'JavaScript',
+    popular = true,
+    number = 1;
+
+
+
+// 数据类型
+// 5 种简单数据类型 (基本数据类型)：Undefined、Null、Boolean、Number 和 String。
+// 1 种复杂数据类型：Object。
+
+
+
+// 4.1 基本类型值和引用类型值 (从操作变量的角度分)
 // JS 变量，在特定时间保存特定值的一个名字。变量的值及其数据类型可以在脚本的生命周期内改变。
 
 // 基本类型值 primitive value
-// 5种基本数据类型：Undefined, Null, Boolean, Number, String.
+// 5种基本数据类型：undefined, null, boolean, number, string. (小写比较合适，与构造形式区分)
 // 按值访问，可以操作保存在变量中实际的值。
 
 // 引用类型值 reference value
@@ -92,8 +126,7 @@ console.log(position.location) // Beijing
 
 
 // =========== 4.1.4 检测类型 ===========
-// typeof 是问句。用于检测基本类型。
-// instanceof 是判断句。用于检测引用类型。
+// (包括 3.4.1 typeof 操作符的内容)
 
 var s = 'hello'
 var b = true
@@ -109,16 +142,30 @@ var f = (num1, num2) => num1 + num2
 var a = [1, 2, 3]
 var r = /\W+/g
 
+// typeof 是问句。用于检测基本类型。
+// instanceof 是判断句。用于检测引用类型。
+
+// typeof 操作符的操作数可以是数值字面量，也可以是变量
+console.log(typeof 'hello')
+
+// 对于除了 null 的基本类型可以准确判断
 console.log(typeof s, typeof b, typeof i, typeof u)
+
 // typeof 无法区分 null 和 object
+// 本书观点：因为特殊值 null 被认为是一个空的对象引用。
+// from 你不知道的js：这是语言本身的 bug，二进制前三位都为 0 会被判断为 object，null 的二进制表示全为 0.
 console.log(typeof n, typeof o) // object, object
-// typeof 检测函数时，返回"function"
+
+// 虽然函数也属于对象，不是一种数据类型，但是由于其具有一些特殊性，typeof 检测函数时，返回"function"。
+// 检测数组，返回 object
 console.log(typeof Person, typeof f, typeof a)
+
 // 对正则表达式，Chrome 返回"function"，Firefox 返回"object"
-console.log(typeof r)
+console.log(typeof r) // node 返回 object
+
 
 // variable instanceof constructor
-// 在检测一个引用类型值和 Object 构造 函数时，instanceof 操作符始终会返回 true
+// 在检测一个引用类型值和 Object 构造函数时，instanceof 操作符始终会返回 true
 console.log(Person instanceof Object)
 console.log(f instanceof Object)
 console.log(f instanceof Function)
