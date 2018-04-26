@@ -13,10 +13,17 @@
 在浏览器中打开本地 HTML，当某个属性不支持跨域时，需要开启服务器。<br>
 比如使用 Vue.js DevTools，用此方式打开才能检测到。
 
-```shell
-$ httpserver
+安装
+
+    $ npm install -g httpserver
+
+启动
+
+    $ httpserver
 
 返回
+
+```shell
 lo0: 127.0.0.1
 en0: 192.168.x.x
 awdl0: null
