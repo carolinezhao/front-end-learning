@@ -54,14 +54,35 @@ let num2 = 0x1f; // 十六进制 31
 // 进行算术计算时，所有进制表示的数值都会被转换为十进制。
 
 
-// 浮点数
+// 浮点数 floating-point values
+// 数值中必须包含一个小数点，且小数点后必须至少有一位数字。
+// 由于保存浮点数值需要的内存空间是保存整数值的两倍，因此 js 会尽可能将浮点数值转换为整数值。
+// 小数点后没有数字或为 0，都会被解析为整数。
+let float1 = 10.0;
+console.log(float1);
+// e 表示法/科学计数法，10 的指数次幂
+let float2 = 3.125e6;
+let float3 = 5e-12;
+console.log(float2, float3);
+// 浮点数值计算会产生舍入误差，因此永远【不要】测试某个特定的浮点数值。
+console.log(0.1 + 0.2 == 0.3); // false
+console.log('')
 
 
-// 数值范围
+// 数值范围 range of values
+console.log(Number.MIN_VALUE); // 最小数值
+console.log(Number.MAX_VALUE); // 最大数值
+// 如果计算结果得到了一个超出数值范围的值，会被自动转换成特殊的 Infinity 值 (正/负)。
+// 如果某次计算返回了正或负的 Infinity 值，将无法继续参与下一次的计算。
+
+// isFinite() 用于判断一个数值是不是有穷的，如果在数值范围内，返回 true。
+console.log(isFinite(2e8), 2e8);
+console.log(isFinite(Number.NEGATIVE_INFINITY), Number.NEGATIVE_INFINITY); // false
+console.log('')
 
 
-// NaN
-// 即非数值 (Not a Number)，用于表示一个本来要返回数值的操作数未返回数值的情况 (避免抛出错误)。
+// NaN (Not a Number)
+// 即非数值，用于表示一个本来要返回数值的操作数未返回数值的情况 (避免抛出错误)。
 console.log(0 / 0); // NaN
 console.log(3 / 0); // Infinity
 
