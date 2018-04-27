@@ -132,6 +132,7 @@ var s = 'hello'
 var b = true
 var i = 10
 var u
+// var un
 var n = null
 var o = new Object()
 
@@ -148,8 +149,9 @@ var r = /\W+/g
 // typeof 操作符的操作数可以是数值字面量，也可以是变量
 console.log(typeof 'hello')
 
-// 对于除了 null 的基本类型可以准确判断
-console.log(typeof s, typeof b, typeof i, typeof u)
+// 可以准确判断 string, boolean, number
+// 但是对于未初始化和未声明变量，都会返回 undefined
+console.log(typeof s, typeof b, typeof i, typeof u, typeof un)
 
 // typeof 无法区分 null 和 object
 // 本书观点：因为特殊值 null 被认为是一个空的对象引用。
