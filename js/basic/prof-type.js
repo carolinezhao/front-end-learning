@@ -47,6 +47,8 @@ console.log(Boolean(lang)); // true
 
 
 // ====== 3.4.5 Number 类型 ======
+// 内容：整数；浮点数；数值范围；NaN；数值转换
+
 // 整数
 // 支持十进制，八进制 (第一位必须是 0)，十六进制 (前两位必须是 0x)
 let num1 = 070; // 八进制 56
@@ -89,10 +91,12 @@ console.log(3 / 0); // Infinity
 // 任何涉及 NaN 的操作 (例如 NaN/10) 都会返回 NaN；
 // NaN 与任何值都不相等，包括 NaN 本身。
 
-// isNaN() 用于判断参数是否 “不是数值”：
+// isNaN() 用于判断参数是否 “不是数值”
 // 尝试将参数转换为数值，如果可以，返回 false；如果不能转换 (如 非数字string 和 NaN)，返回 true。
 console.log(isNaN(10), isNaN('10'), isNaN(true)); // 都是 false
 console.log(isNaN(NaN), isNaN('hello')); // 都是true
+// 虽然“不是数值”，但是用 typeof 操作符返回的是 number
+console.log(typeof NaN); // number
 
 // isNaN() 也适用于对象。
 // 首先调用对象的 valueOf() 方法，确定该方法返回的值是否可以转换为数值。
@@ -104,17 +108,19 @@ console.log('')
 // Number() 转型函数，可以用于任何数据类型。
 // parseInt() 和 parseFloat() 专门用于把字符串转换成数值。
 
-let array1 = [true, false, 8.11, null, undefined, '012', '04.27', '0xf', 'node', ''];
+let array1 = [true, false, 8.11, null, undefined, '012', '04.27', '0xf', 'node', '123node', ''];
 console.log('Number() 的转型结果：')
 array1.forEach(function (para) {
     console.log(`${para} to`, Number(para));
 });
+// null, 空字符串 -> 0; 
+// undefined, string() -> NaN;
 // 一元加操作符 (3.5.1 节将介绍) 的操作与 Number() 函数相同。
 
 // parseInt() 判断字符串是否符合数值模式。
 // 会忽略字符串前面的空格，直至找到第一个非空格字符。
 // 如果第一个是数字字符，继续解析第二个，直到遇到了非数字字符。
-// 如果第一个不是数字字符或者负号，或空字符串，返回 NaN。
+// 如果第一个不是数字字符或者负号，或空字符串 -> NaN
 let array2 = ['8.11', '8.11node', ' 08.11', '-8.11', '04.27', '070.0', '1.2.3', '', 'nodev8.11', 'chrome']
 console.log('\nparseInt() 的转型结果：')
 array2.forEach(function (para) {
@@ -137,13 +143,61 @@ console.log('\nparseFloat() 的转型结果：')
 array2.forEach(function (para) {
     console.log(`${para} to`, parseFloat(para));
 });
+console.log('');
 
 
 // ====== 3.4.6 String 类型 ======
-// 用 "" 或 '' 表示。
+// 字符串用 "" 或 '' 表示。
+
 // 字符字面量
+// 转义序列：特殊的字符字面量，非打印字符。以"\"开头。也作为字符来解析。
+let text1 = "He said, \"hey.\"";
+let text2 = 'This is the letter sigma: \u03a3.'; // 6个字符长的转义序列表示一个字符。
+console.log(text1, text1.length);
+console.log(text2, text2.length);
+
 // 字符串的特点
+// 字符串一旦创建，它们的值就不能变。
+// 改变变量保存的字符串的步骤：首先创建一个新字符串；然后在字符串中填充"Java"和"Script"；最后销毁原来的字符串"Java"和字符串"Script"。这个过程是在后台发生的。
+let language = 'Java';
+language = language + 'Script';
+console.log(language);
+
 // 转换为字符串
+// 方法1：toString() 方法 (第5章讨论特点)。
+
+// 数值、布尔值、对象和字符串值都有 toString() 方法。
+// 字符串的 toString() 方法返回字符串的一个副本。
+// null 和 undefined 没有这个方法 (TypeError)。
+
+// 对于数值，该方法可以接受一个参数：输出数值的基数。
+// 默认以十进制格式返回数值的字符串表示。通过传递基数，可以输出以二进制、八进制、十六进制等格式。
+
+console.log('\n执行 toString() 的结果')
+let array3 = [11, 070, true, '070', 'frontend'];
+array3.forEach(function (para) {
+    console.log(para.toString());
+    if (typeof para === 'number') {
+        console.log(para.toString(2), para.toString(16));
+    }
+})
+
+// 方法2：转型函数 String()
+// 在不知道要转换的值是不是 null 或 undefined 的情况下使用。将任何类型的值转换为字符串。
+// 如果值有 toString() 方法，则调用该方法 (没有参数) 并返回相应的结果。
+// 如果是 null，则返回"null"；如果是 undefined，则返回"undefined"。
+console.log('\n执行 String() 的结果')
+array3.push(null, undefined);
+array3.forEach(function (para) {
+    console.log(String(para));
+})
+
+// 要把某个值转换为字符串，可以使用加号操作符把它与一个字符串 ("") 加在一起。
+let num3 = 123,
+    num4 = true,
+    num3Str = num3 + 'bear',
+    num4Str = num4 + 'earth';
+console.log(num3Str, num4Str);
 
 
 // ====== 3.4.7 Object 类型 ======
