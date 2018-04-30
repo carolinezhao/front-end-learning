@@ -107,8 +107,39 @@ array1.forEach(function (para) {
 // 3.5.4 乘性操作符
 
 // 3.5.5 加性操作符
+console.log('')
 
-// 3.5.6 关系操作符
+
+// 3.5.6 关系操作符 relational operator
+// 小于 (<)、大于 (>)、小于等于 (<=) 和大于等于 (>=) 用于对两个值进行比较，都返回布尔值。
+// 使用非数值时，进行数据转换。
+
+// 比较两个字符串时，实际比较的是两个字符串中对应位置的每个字符的【字符编码值】。
+// 大写字母的字符编码全部小于小写字母的字符编码，因此总是“小于”。
+let result1 = 'Bear' < 'apple'; // true
+// 如果要真正按字母表顺序比较字符串，需要把两个操作数转换为相同的大小写形式 (全部大写或全部小写)。
+let result2 = 'Bear'.toLowerCase() < 'apple'.toLowerCase(); // false
+console.log('比大小的结果');
+console.log(result1, result2);
+
+// 一个操作数是数值，则另一个操作数转换为数值进行比较。
+console.log('23' < '3'); // true，比较字符编码
+console.log('23' < 3); // false，比较数值
+
+// 布尔值转换为数值进行比较。
+console.log(true > false);
+console.log(true >= 1);
+
+// 由于字母"a"不能转换成合理的数值，因此就被转换成了 NaN。
+// 任何数与 NaN 比较，结果都是 false。
+console.log('a' < 3); // false
+console.log(NaN < 3); // false
+
+// 操作数是对象，调用 valueOf() 方法。如果没有，则调用 toString() 方法进行比较。
+let object = {
+    valueOf: () => 'abc'
+}
+console.log(object < 'true');
 console.log('')
 
 
