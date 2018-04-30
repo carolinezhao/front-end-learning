@@ -5,8 +5,10 @@
 // 重要区别！！：
 // ++ 和 -- 作用于对象本身 (前置在执行前变，后置在执行后变)；
 // + 和 - 不改变对象本身；
-let a = true, b = false; c = +b;
-++a; +b;
+let a = true,
+    b = false;
+c = +b;
+++a; + b;
 console.log(a, b, c);
 
 // 1) 递增和递减 (作用对象本身变了)
@@ -107,8 +109,51 @@ array1.forEach(function (para) {
 // 3.5.5 加性操作符
 
 // 3.5.6 关系操作符
+console.log('')
+
 
 // 3.5.7 相等操作符 equality operator
+// 相等和不相等——先转换再比较；
+// 全等和不全等——仅比较而不转换 (推荐使用) 。
+
+// 相等 (==) 和不相等 (!=)
+// 先转换操作数 (通常称为强制转型)，然后再比较它们的相等性。
+// 规则：
+// 如果操作数是...，则在比较相等性之前先将其转换为...
+// 布尔值，false --> 0, true --> 1;
+// 字符串和数值，字符串 --> 数值；
+// 对象和其他，调用对象的 valueOf() 方法，用得到的基本类型值按照前面的规则进行比较；
+let figure = 1;
+let obj5 = {
+    valueOf: () => 1
+}
+let array2 = [true, '1', 'number', obj5];
+console.log('== 的比较结果');
+array2.forEach(function (para) {
+    console.log(figure == para, typeof figure == para);
+})
+
+// 以及一些特殊规则：
+console.log(undefined == null); // true，但不能将 null 和 undefined 转换成其他任何值。
+// 任何操作数与 NaN 比较都返回 false，包括它自己。
+// 如果两个操作数都是对象，则比较它们是不是同一个对象。如果两个操作数都指向同一个对象，则相等操作符返回 true；否则，返回 false。
+let obj6 = obj5,
+    obj7 = {
+        valueOf: () => 1
+    }
+console.log(obj6 == obj5, obj7 == obj5); // true false
+
+
+// 全等 (===) 和不全等 (!==)
+// 不转换操作数，直接比较。
+console.log('=== 的比较结果');
+array2.forEach(function (para) {
+    console.log(figure === para, typeof figure === para);
+})
+console.log(undefined === null); // false，两者是不同类型的值。
+
+// 其他规则同上。
+console.log('');
 
 
 // 3.5.8 条件操作符 conditional operator
