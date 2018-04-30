@@ -104,9 +104,46 @@ array1.forEach(function (para) {
 
 // 3.5.3 布尔操作符 boolean operator
 
-// 3.5.4 乘性操作符
+// 3.5.4 乘性操作符 multiplicative operator
+// 乘法、除法和求模
+// 如果参与乘性计算的操作数不是数值，后台会先使用 Number() 转型函数将其转换为数值。
+console.log('')
 
-// 3.5.5 加性操作符
+// 3.5.5 加性操作符 additive operator
+// 两个都是数值，执行常规加/减法。
+// 有一个操作数是 NaN，则结果是 NaN。
+console.log(5 + NaN, 5 - NaN);
+
+// 加法
+// 字符串 + 字符串 = 字符串
+// 字符串 + 数值/布尔值/null/undefined (调用 toString() 转换为字符串) = 字符串
+// 字符串 + 对象 (先调用 valueOf() 得到的结果转换为字符串，如果没有，则调用 toSrting()) = 字符串
+// 数值 + 非字符串 (布尔值，对象，null) = 数值
+// 布尔，对象，null，任意两个相加 = 数值
+// undefined + 除了字符串的其他 = NaN
+let obje = {
+    valueOf: () => true,
+    toString: () => false
+}
+console.log('5' + '5', '5' + 5, '5' + true, '5' + null, '5' + undefined, '' + 5);
+console.log('5' + obje);
+console.log(5 + true, 5 + obje, 5 + null, 5 + undefined);
+console.log(true + obje, null + obje, null + true);
+
+// 忽视加法操作中的数据类型是 js 编程中最常见的一个错误！
+let num01 = 5,
+    num02 = 10;
+// 从左到右执行加法，都转换为字符串。
+let msg1 = 'The sum of 5 and 10 is ' + num01 + num02;
+// 使用圆括号把两个数值变量括在一起，就会告诉解析器先计算其结果。
+let msg2 = 'The sum of 5 and 10 is ' + (num01 + num02);
+console.log(`${msg1}\n${msg2}`);
+
+// 减法
+// 有一个操作数是字符串、布尔值、null 或 undefined，则先调用 Number() 将其转换为数值。
+// 有一个操作数是对象，调用 valueOf() 取得数值。没有则调用 toString()。
+// 有 undefined，结果均为 NaN。
+console.log('5' - '5', '5' - 5, 5 - null, '5' - null, '5' - obje, 5 - obje);
 console.log('')
 
 
