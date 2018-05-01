@@ -100,14 +100,78 @@ array1.forEach(function (para) {
 // 5) 左移
 // 6) 有符号的右移
 // 7) 无符号右移
+console.log('')
 
 
 // 3.5.3 布尔操作符 boolean operator
+// 非/NOT (!)，与/AND (&&)，或/OR (||)
+
+// 逻辑非 (!)
+// 先将操作数转换为布尔值，然后再对其求反。
+console.log('逻辑非')
+console.log(!'', !NaN, !0, !null, !undefined);
+// 其他有实际内容的值，都返回 false。
+
+// 将一个值转换为与其对应的布尔值：同时使用两个逻辑非操作符，实际上就会模拟 Boolean() 转型函数的行为。
+console.log(!!123, !!null);
+
+
+// 逻辑与 (&&)
+console.log('逻辑与')
+console.log(true && true, true && false, false && false);
+
+// 有一个操作数不是布尔值时，不一定返回布尔值。
+
+// 如果有一个操作数是 null/NaN/undefined，则返回这些值。
+console.log(null && true); // null
+
+// 第一个操作数是对象，返回第二个操作数;
+// 第二个操作数是对象，只有在第一个操作数的求值结果为 true 的情况下才会返回该对象;
+// 两个操作数都是对象，则返回第二个操作数;
+let object2 = {
+        a: 1
+    },
+    object3 = {
+        b: 2
+    };
+console.log(object2 && null, 'a' && object2, object2 && object3);
+
+// 逻辑与操作属于短路操作，即如果第一个操作数能够决定结果，那么就不会再对第二个操作数求值。
+// 如果第一个操作数是 false，则无论第二个操作数是什么值，结果都不再可能是 true 了。
+let found1 = false;
+let result11 = found1 && undeclared; // 如果 found 为 true，这里未声明的变量会报错。
+console.log(result11); // false
+
+
+// 逻辑或 (||)
+console.log('逻辑或')
+console.log(true || false);
+
+// 有一个操作数不是布尔值时，逻辑或也不一定返回布尔值。
+
+// 两个操作数都是 null/NaN/undefined，则返回这些值。
+console.log(null || false, null || null);
+
+// 第一个操作数是对象，返回第一个操作数;
+// 第一个操作数的求值结果为 false，则返回第二个操作数; 
+// 两个操作数都是对象，则返回第一个操作数;
+// (与 && 的结果对比)
+console.log(object2 || null, null || object2, object2 || object3);
+
+// 逻辑或也是短路操作符。如果第一个操作数的求值结果为 true，就不会对第二个操作数求值了。
+let found2 = true;
+let result22 = found2 || undeclared; // 如果 found 为 false，这里未声明的变量会报错。
+console.log(result22); // true
+
+// 【常用】利用逻辑或的这一行为来避免为变量赋 null 或 undefined 值。
+// let myObject = preferredObject || backupObject;
+
 
 // 3.5.4 乘性操作符 multiplicative operator
 // 乘法、除法和求模
 // 如果参与乘性计算的操作数不是数值，后台会先使用 Number() 转型函数将其转换为数值。
 console.log('')
+
 
 // 3.5.5 加性操作符 additive operator
 // 两个都是数值，执行常规加/减法。
@@ -143,7 +207,7 @@ console.log(`${msg1}\n${msg2}`);
 // 有一个操作数是字符串、布尔值、null 或 undefined，则先调用 Number() 将其转换为数值。
 // 有一个操作数是对象，调用 valueOf() 取得数值。没有则调用 toString()。
 // 有 undefined，结果均为 NaN。
-console.log('5' - '5', '5' - 5, 5 - null, '5' - null, '5' - obje, 5 - obje);
+console.log('5' - '5', '5' - 5, 5 - null, '5' - null, '5' - obje, 5 - obje, 5 - 'aaa');
 console.log('')
 
 
