@@ -13,7 +13,7 @@ console.log(length1)
 // 注意！push() 返回的数组长度不会被 pop() 影响。
 var item1 = colors.pop()
 console.log(item1)
-console.log(colors.length)
+console.log(colors.length, length1)
 // 以上代码中的数组可以看成（使用这两种方法的原理）是栈。
 console.log('')
 
@@ -50,23 +50,30 @@ console.log(values)
 // sort() 默认情况下升序排列，返回【经过排序后的数组】
 // 调用每个数组项的 toString()，然后比较得到的字符串，以确定如何排序。
 // 即使数组中的每一项都是数值，sort() 方法比较的也是字符串。
+// 字符串之间比较的是对应位置字符的编码值 (3.5.6 关系操作符)
 
 // 验证对 toString() 的默认调用
 var Caroline = {
     type: 'rabbit',
-    toString: () => console.log('caroline to string')
+    toString: () => {
+        console.log('caroline to string');
+        return 'caroline';
+    }
 }
 var Bernie = {
     type: 'bear',
-    toString: () => console.log('bernie to string')
+    toString: () => {
+        console.log('bernie to string');
+        return 'bear';
+    }
 }
-var people = [Caroline, Bernie]
-console.log(people.sort())
-// 打印内容：先对数组内的两项分别调用 toString，打印 console.log 中定义的内容；然后打印数组。
+var people = [Caroline, Bernie];
+console.log(people.sort());
+// 先对数组内的两项分别调用 toString；然后根据返回值排序并打印数组。
 
-var months = ['Dec', 'April', 'June', 'May']
+var months = ['Dec', 'april', 'june', 'May']
 console.log(months.sort())
-// 根据首字母升序排列。
+// 大写字母的编码值靠前。
 
 var id = [56, 23, 7, 18, 0]
 console.log(id.sort()) // [0,18,23,56,7]

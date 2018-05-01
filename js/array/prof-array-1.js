@@ -7,7 +7,7 @@ var colors = new Array()
 var people = new Array(5) // 包含5项
 var food = new Array('Bread') // 包含1项
 var cities = Array('BJ', 'SH', 'GZ') // new 可以省略
-// 2）数组字面量
+// 2）数组字面量 (常用)
 var devices = ['mac', 'iPhone', 'iPad']
 var auto = []
 
@@ -27,7 +27,7 @@ console.log(cities[4]) // 新增项都为 undefined
 food[food.length] = 'Rice' // 在数组末尾添加新项
 console.log(food)
 food[99] = 'Chicken'
-console.log(food.length) // 根据最后一项重新计算长度，中间的项均为 undefine
+console.log(food.length) // 根据最后一项重新计算长度，中间的项均为 undefined
 console.log('')
 
 
@@ -47,19 +47,21 @@ console.log('')
 
 // 5.2.2 转换方法 Conversion Methods
 // toLocaleString()
-// 返回字符串，调用每一项的 toLocaleString()
+// 调用每一项的 toLocaleString()，返回字符串。
 // toString()
-// 返回字符串，由每个值的字符串并以逗号分隔拼接而成。调用每一项的 toString()
+// 调用每一项的 toString()，返回字符串。
 // join()
-// 返回字符串。参数：用作分隔符的字符串，如果没有则使用逗号。调用每一项的 toString()
+// 调用每一项的 toString()，返回字符串。
+// 如果没有参数默认使用逗号。参数：用作分隔符的字符串，空字符串表示没有分隔符。
 // valueOf()
 // 返回数组。
 
-var animals = ['rabbit', 'bear', 'cat', 'dog', null, undefined]
-// null 和 undefined 以空字符串表示
+var animals = ['rabbit', 'bear', 'cat','4u', 20, true, null, undefined]
+// null 和 undefined 以空字符串表示 (注意不是没有)
 console.log(animals.toString())
 console.log(animals.toLocaleString())
 console.log(animals.join())
+console.log(animals.join(''))
 console.log(animals.join('||'))
 // null 和 undefined 正常显示
 console.log(animals.valueOf())

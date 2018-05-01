@@ -2,6 +2,10 @@
 
 各文件对应的内容
 
+## know-array&string.js
+
+字符串借用数组方法，与数组互转
+
 ## prof-array-1.js
 
 创建数组，检测数组，转换为字符串
@@ -24,6 +28,11 @@
 
     length = array.unshift('item') 前边进
     item = array.pop() 后边出
+
+常用方法：获取改变后数组，不拿返回值。
+
+    array.method()
+    callback(array)
     
 ## prof-array-3.js
 

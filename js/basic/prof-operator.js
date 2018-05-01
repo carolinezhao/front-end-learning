@@ -203,6 +203,8 @@ let msg1 = 'The sum of 5 and 10 is ' + num01 + num02;
 let msg2 = 'The sum of 5 and 10 is ' + (num01 + num02);
 console.log(`${msg1}\n${msg2}`);
 
+// 【常用】用加号把某个值与字符串加在一起，从而转换为字符串。
+
 // 减法
 // 有一个操作数是字符串、布尔值、null 或 undefined，则先调用 Number() 将其转换为数值。
 // 有一个操作数是对象，调用 valueOf() 取得数值。没有则调用 toString()。

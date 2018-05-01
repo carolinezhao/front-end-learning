@@ -147,6 +147,8 @@ console.log('');
 
 
 // ====== 3.4.6 String 类型 ======
+// 相关内容 array/know-array&string.js
+
 // 字符串用 "" 或 '' 表示。
 
 // 字符字面量
