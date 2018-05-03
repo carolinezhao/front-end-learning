@@ -1,3 +1,5 @@
+// 正则表达式 Regular Expression
+
 // example-1
 function checkPhone() {
     var phone = document.getElementById('phone').value;
