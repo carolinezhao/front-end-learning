@@ -1,7 +1,7 @@
 // 文件内容
+// js 高程 (本书为 ES5 之前的内容)
 // 3.3 变量
 // 4.1 基本类型值和引用类型值
-// * 本书内容为 ES5 之前的知识。
 
 
 // 3.3 变量 (as a review)
@@ -52,31 +52,16 @@ var language = 'JavaScript',
 // 基本类型值：不能添加属性。
 
 
-// =========== 4.1.2 复制变量值 Copying Values ===========
-// 基本类型值：
-// 1）把值复制到为新变量分配的位置上。
-// 2）复制到新变量上的值与原来的值完全独立，互不影响。
-var num1 = 5
-var num2 = num1
-num1 = 20
-console.log(num1, num2)
-
-// 引用类型值：
-// 1）把值复制一份放到为新变量分配的空间中。
-// 2）值的副本是一个指针，指向存储在堆中的一个对象。两个变量引用同一个对象，改变其中一个会影响另一个。
-var obj1 = new Object()
-var obj2 = obj1
-obj1.name = 'rabbit'
-obj2.age = 25
-console.log(obj1, obj2)
-console.log('')
+// 4.1.2 复制变量值 Copying Values
+// 见 know-variable.js
 
 
+// ？？？
 // =========== 4.1.3 传递参数 Argument Passing ===========
 // 可以认为函数的参数是局部变量。
 // 函数的参数都是按值传递的。
 // 函数外的值复制给函数内的参数 = 复制变量值
-// 访问变量有按值和按引用两种方式，而参数只能按值传递。
+// 访问变量有按值和按引用两种方式，而参数只能按值传递。？？？
 
 // 向参数传递基本类型的值时，被传递的值会被复制给一个局部变量 (即命名参数，arguments 对象中的一个元素)。
 // 向参数传递引用类型的值时，会把这个值在内存中的地址复制给一个局部变量，因此这个局部变量的变化会反映在函数的外部。
@@ -96,7 +81,7 @@ console.log(count, result)
 // 在函数内部，参数 num 的值被加上了 10，但这一变化不会影响函数外部的 count 变量。
 
 
-// 引用类型值：按值传递，按引用访问
+// 引用类型值：按值传递，按引用访问 ？？？
 function setName(obj) {
     obj.name = 'Caroline'
 }
@@ -123,6 +108,7 @@ function setLocation(obj) {
 var position = new Object()
 setLocation(position)
 console.log(position.location) // Beijing
+console.log('')
 
 
 // =========== 4.1.4 检测类型 ===========
@@ -146,12 +132,13 @@ var r = /\W+/g
 // typeof 是问句。用于检测基本类型。
 // instanceof 是判断句。用于检测引用类型。
 
-// typeof 操作符的操作数可以是数值字面量，也可以是变量
-console.log(typeof 'hello')
+// typeof 操作符的操作数可以是数值字面量，也可以是变量。返回值是表示类型的【字符串】。
+console.log(typeof 'hello') // 类型是 "string"
+console.log(typeof typeof 'hello') // 返回的 "string" 是一个字符串
 
-// 可以准确判断 string, boolean, number
+// 可以准确判断 string, boolean, number (NaN 也属于 number)
 // 但是对于未初始化和未声明变量，都会返回 undefined
-console.log(typeof s, typeof b, typeof i, typeof u, typeof un)
+console.log(typeof s, typeof b, typeof i, typeof NaN, typeof u, typeof un)
 
 // typeof 无法区分 null 和 object
 // 本书观点：因为特殊值 null 被认为是一个空的对象引用。
