@@ -8,7 +8,7 @@ for (let i = 0; i < 6; i++) {
 let len = array.length;
 console.log(array);
 for (let i = 0; i < len; i++) {
-    console.log(array, i); // 外层对内层没有实质影响，只是用于减少重复的比较。
+    console.log(`----- i = ${i} -----`); // 外层对内层没有实质影响，只是用于减少重复的比较。
     
     for (let j = 0; j < len - 1 - i; j++) {
         console.log(array[j], array[j + 1]);
