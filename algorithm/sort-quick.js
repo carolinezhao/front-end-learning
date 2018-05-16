@@ -59,3 +59,10 @@ function partition(array, left, right) {
     }
     return i;
 }
+
+// 如果不支持数组元素直接交换，应另写一个交换函数
+function swap(array, i, j) {
+    var temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
+}
