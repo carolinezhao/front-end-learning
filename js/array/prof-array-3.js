@@ -2,6 +2,7 @@
 // concat(), slice() 返回新数组，不会影响原始数组；
 // splice() 返回被删除的元素组成的数组，影响原始数组。
 
+console.log('操作方法')
 // concat() 基于当前数组中的所有项创建一个新数组。
 // 先创建当前数组一个副本，然后将接收到的参数添加到这个副本的末尾，最后返回【新构建的数组】。
 // 参数可以是值，一个数组，多个数组。
@@ -9,6 +10,7 @@ var colors1 = ['white', 'green', 'orange']
 var colors2 = colors1.concat('red', ['grown', 'black'], 'yellow')
 console.log(colors1)
 console.log(colors2)
+console.log('')
 
 // slice() 基于当前数组中的一项或多项创建一个【新数组】。
 // 接受一或两个参数，即要返回项的起始和结束位置。splice(index1,index2)
@@ -53,6 +55,7 @@ console.log('')
 // 都接收两个参数：要查找的项 (必选) 和表示查找起点位置的索引 (可选)。
 // 都返回要查找的项在数组中的位置，如果没找到则返回-1。
 // 比较参数与数组中的每一项时，使用全等操作符===，即要求严格相等。
+console.log('位置方法')
 var numbers = [12, 5, 66, 82, 73, 29, 66, 1]
 var index1 = numbers.indexOf(66)
 var index2 = numbers.lastIndexOf(66) // 从末尾向前查找，遇到的第一个目标值在位置6
@@ -98,8 +101,12 @@ console.log('')
 // forEach() 没有返回值。
 // --只是对数组中的每一项运行传入的函数。本质上与使用 for 循环迭代数组一样。
 
+// forEach() 和 map() 对比解析
+// https://juejin.im/post/5ad9db1251882567161a2070?utm_medium=hao.caibaojian.com&utm_source=hao.caibaojian.com
+
 // ---以上方法都不会修改数组中的包含的值。
 
+console.log('迭代方法')
 // 遇到不符合的项就返回 false
 var figure = [1, 20, 16, 5, 9]
 var everyResult = figure.every(function (item, index, array) {
@@ -108,6 +115,7 @@ var everyResult = figure.every(function (item, index, array) {
 })
 console.log(everyResult)
 console.log('')
+
 // 遇到符合的项就返回 true
 var someResult = figure.some(function (item, index, array) {
     console.log(item, index) // 第2项符合，就返回 true
@@ -115,6 +123,7 @@ var someResult = figure.some(function (item, index, array) {
 })
 console.log(someResult)
 console.log('')
+
 // 遍历所有项，符合的项组成数组返回
 var filterResult = figure.filter(function (item, index, array) {
     console.log(item, index)
@@ -122,25 +131,27 @@ var filterResult = figure.filter(function (item, index, array) {
 })
 console.log(filterResult)
 console.log('')
-// 遍历所有项，返回所有运行结果
+
+// 遍历所有项，返回所有运行结果组成的数组
 var mapResult1 = figure.map(function (item, index, array) {
     console.log(item, index)
     return (item > 10)
 })
 console.log(mapResult1)
 console.log('')
-var mapResult2 = figure.map(function (item, index, array) {
+var mapResult2 = figure.map((item, index, array) => {
     console.log(item, index)
     return (item * 2)
 })
 console.log(mapResult2)
 console.log('')
+
 // 运行函数，但是没有返回值
 var arrayResult = []
-var forEachResult = figure.forEach(function (item, index, array) {
+var forEachResult = figure.forEach((item, index, array) => {
     console.log(item, index)
     arrayResult[index] = item * 2
-    return (item * 2)
+    return (item * 2) // 没有执行
 })
 console.log(arrayResult) // 证明函数运行
 console.log(forEachResult) // 没有返回值
@@ -154,7 +165,7 @@ console.log('')
 // 都接收两个参数：一个在每一项上调用的函数和作为归并基础的初始值 (可选)。
 // 函数接收 4 个参数：前一个值、当前值、项的索引和数组对象。
 // 这个函数返回的任何值都会作为第一个参数自动传给下一项。第一次迭代发生在数组的第二项上，因此第一个参数是数组的第一项，第二个参数就是数组的第二项。
-
+console.log('归并方法')
 // 使用 reduce() 求数组中所有值之和。
 var values1 = [1, 3, 2, 6]
 var sum1 = values1.reduce(function (prev, cur, index, array) {
