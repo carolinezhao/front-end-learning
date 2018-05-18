@@ -16,7 +16,7 @@ for-of
 for (const iterator of object) {}
 =========================================== */
 
-// 集合对象迭代器
+// 集合对象的内建迭代器
 // entries() 返回多个 key-value
 // values() 返回集合的 value
 // keys() 返回集合中的 key
