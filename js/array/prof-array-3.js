@@ -45,6 +45,8 @@ console.log(removed2, fruits)
 var removed3 = fruits.splice(0, 3, 'banana', 'orange')
 console.log(removed3, fruits)
 // 以上三次操作的作用结果是累积的
+
+// splice 的实现原理 https://www.jianshu.com/p/483c042cf341
 console.log('')
 
 
