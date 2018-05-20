@@ -1,5 +1,21 @@
 # 第6章 面向对象的程序设计
 
+- [第6章 面向对象的程序设计](#6)
+    - [6.1 理解对象](#61)
+        - [6.1.1 属性类型](#611)
+        - [数据属性 (data property) 的特性](#data-property)
+        - [访问器属性 (accessor property)](#accessor-property)
+        - [6.1.2 定义多个属性](#612)
+        - [6.1.3 读取属性的特征](#613)
+    - [6.2 创建对象](#62)
+        - [6.2.1 工厂模式 factory pattern](#621--factory-pattern)
+        - [6.2.2 构造函数模式 constructor pattern](#622--constructor-pattern)
+        - [6.2.3 原型模式 prototype pattern](#623--prototype-pattern)
+        - [6.2.4 组合使用构造函数模式和原型模式](#624)
+        - [6.2.5](#625)
+    - [6.3 继承 inheritance](#63--inheritance)
+        - [6.3.1 原型链 prototype chaining](#631--prototype-chaining)
+
 ## 6.1 理解对象
 
 面向对象 (Object-Oriented, OO) 的语言有一个标志：类。
@@ -79,3 +95,11 @@ js 有两种**属性**：数据属性和访问器属性。它们各有4个用于
 ### 6.2.4 组合使用构造函数模式和原型模式
 
 --> _prof-combine.js_
+
+### 6.2.5
+
+<br>
+
+## 6.3 继承 inheritance
+
+### 6.3.1 原型链 prototype chaining
