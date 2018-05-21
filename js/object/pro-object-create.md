@@ -15,6 +15,9 @@
         - [6.2.5](#625)
     - [6.3 继承 inheritance](#63--inheritance)
         - [6.3.1 原型链 prototype chaining](#631--prototype-chaining)
+        - [6.3.2 借用构造函数 constructor stealing](#632--constructor-stealing)
+        - [6.3.3 组合继承 combination inheritance](#633--combination-inheritance)
+        - [6.3.4 原型式继承 prototypal inheritance](#634--prototypal-inheritance)
 
 ## 6.1 理解对象
 
@@ -102,4 +105,12 @@ js 有两种**属性**：数据属性和访问器属性。它们各有4个用于
 
 ## 6.3 继承 inheritance
 
+--> _prof-prototype-chain.js_
+
 ### 6.3.1 原型链 prototype chaining
+
+### 6.3.2 借用构造函数 constructor stealing
+
+### 6.3.3 组合继承 combination inheritance
+
+### 6.3.4 原型式继承 prototypal inheritance

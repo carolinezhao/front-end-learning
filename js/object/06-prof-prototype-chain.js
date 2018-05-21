@@ -1,4 +1,6 @@
-// 原型链
+// 6.3 继承
+
+// 6.3.1 原型链
 
 function SuperType() {
     this.property = true;
@@ -58,6 +60,7 @@ SubType.prototype.getSuperValue = function () {
 console.log(instanceSub.getSubValue()); // 通过 SubType 的实例调用重写的方法
 var instanceSuper = new SuperType();
 console.log(instanceSuper.getSuperValue()); // 通过 SuperType 的实例调用原来的方法
+console.log('');
 
 // 通过原型链实现继承时，不能使用对象字面量创建原型方法，因为这样会导致重写原型链。(见 prof-prototype2 讨论的)
 
@@ -69,3 +72,81 @@ console.log(instanceSuper.getSuperValue()); // 通过 SuperType 的实例调用�
 // 结果是 SubType 的所有实例都会共享这一个 colors 属性。
 // 2) 在创建子类型的实例时，不能向超类型的构造函数中传递参数。
 // 因此实际中很少单独使用原型链。
+
+
+
+// 6.3.2 借用构造函数
+// 可以在子类型构造函数中向超类型构造函数传递参数。
+
+
+
+// 6.3.3 组合继承 (js 中最常用的继承模式)
+// 思路是使用原型链实现对原型属性和方法的继承，而通过借用构造函数来实现对实例属性的继承。
+function SuperType1 (name) {
+    this.name = name;
+    this.colors = ['red', 'green', 'blue'];
+}
+
+SuperType1.prototype.sayName = function() {
+    console.log(this.name);
+}
+
+function SubType1 (name, age) {
+    // 继承属性
+    SuperType1.call(this, name);
+    // 自己的属性
+    this.age = age;
+}
+
+// 继承方法
+SubType1.prototype = new SuperType1();
+SubType1.prototype.constructor = SubType1;
+SubType1.prototype.sayAge = function() {
+    console.log(this.age);
+}
+
+// 让两个不同的 SubType 实例既分别拥有自己属性——包括 colors 属性，又可以使用相同的方法。
+var instance1 = new SubType1('Caroline', 25);
+instance1.colors.push('white');
+console.log(instance1.colors);
+instance1.sayName();
+instance1.sayAge();
+
+var instance2 = new SubType1('Bernie', 27);
+console.log(instance2.colors);
+instance2.sayName();
+instance2.sayAge();
+console.log('');
+
+
+
+// 6.3.4 原型式继承
+// 使用 Obejct.create()，接收两个参数：
+// 一个用作新对象原型的对象;
+// (可选的)一个为新对象定义额外属性的对象 (会覆盖原型对象上的同名属性)。
+
+var person ={
+    name:'rabbit',
+    friends:['bear','helen','madell']
+}
+var person1 = Object.create(person);
+person1.name = 'caroline';
+person1.friends.push('alicia');
+
+var person2 = Object.create(person);
+person2.name = 'bernie';
+person2.friends.push('alex');
+
+console.log(person);
+console.log(person1.friends);
+console.log(person2); // 为什么对象不直接打印 friends？不可枚举属性？
+
+var person3 = Object.create(person, {
+    name: {
+        value: 'melon'
+    }
+})
+console.log(person3.name); // 变成不可枚举属性？？
+
+// 如果只想让一个对象与另一个对象保持类似的情况下，原型式继承是可以胜任的。
+// 但包含引用类型值的属性始终都会共享相应的值，就像使用原型模式一样。
