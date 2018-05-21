@@ -11,7 +11,7 @@
 | Alt + C | Check/Uncheck task list item |
 
 ## Available Commands
-先 cmd + P 打开 command palette
+先 cmd + P 打开 command palette，以 `>` 开头输入命令
 * Markdown: Create Table of Contents 生成文件目录
 * Markdown: Update Table of Contents
 * Markdown: Print current document to HTML

@@ -22,6 +22,7 @@ Auto-Completion <code>tab</code>
 Extension
 * Code Runner
 * ESLint
+* JavaScript Snippet Pack
 * Auto Close Tag (for HTML)
 * Git History
 * Monokai Pro (theme)

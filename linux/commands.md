@@ -5,6 +5,14 @@
 
     $ open path
 
+创建文件夹
+
+    $ mkdir folder
+
+移动文件
+
+    $ mv file targetfolder
+
 删除一般文件
 
     $ rm -r file
