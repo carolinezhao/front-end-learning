@@ -11,8 +11,8 @@
         - [6.2.1 工厂模式 factory pattern](#621--factory-pattern)
         - [6.2.2 构造函数模式 constructor pattern](#622--constructor-pattern)
         - [6.2.3 原型模式 prototype pattern](#623--prototype-pattern)
-        - [6.2.4 组合使用构造函数模式和原型模式](#624)
-        - [6.2.5](#625)
+        - [6.2.4 组合使用构造函数模式和原型模式 combination](#624--combination)
+        - [6.2.5 动态原型模式 dynamic protocol pattern](#625--dynamic-protocol-pattern)
     - [6.3 继承 inheritance](#63--inheritance)
         - [6.3.1 原型链 prototype chaining](#631--prototype-chaining)
         - [6.3.2 借用构造函数 constructor stealing](#632--constructor-stealing)
@@ -78,7 +78,7 @@ js 有两种**属性**：数据属性和访问器属性。它们各有4个用于
 
 ### 6.2.2 构造函数模式 constructor pattern
 
-见 _01-object-create.js_ 中的 Constructor notation
+见 _01-creation.js_ 中的 Constructor notation
 
 * 构造函数的函数名用大写字母开头是个惯例，借鉴自其他 OO 语言，但其实与普通函数没有区别。
 * 构造函数中使用 this
@@ -93,19 +93,23 @@ js 有两种**属性**：数据属性和访问器属性。它们各有4个用于
 
 ### 6.2.3 原型模式 prototype pattern
 
---> _prof-prototype.js_ 和 _prof-prototype2.js_
+--> _03-prof-prototype1.js_ 和 _03-prof-prototype2.js_
 
-### 6.2.4 组合使用构造函数模式和原型模式
+### 6.2.4 组合使用构造函数模式和原型模式 combination
 
---> _prof-combine.js_
+--> _03-prof-combine.js_
 
-### 6.2.5
+### 6.2.5 动态原型模式 dynamic protocol pattern
+
+--> _03-prof-combine.js_
+
+(寄生模式略)
 
 <br>
 
 ## 6.3 继承 inheritance
 
---> _prof-prototype-chain.js_
+--> _04-prof-inheritance.js_
 
 ### 6.3.1 原型链 prototype chaining
 
@@ -114,3 +118,5 @@ js 有两种**属性**：数据属性和访问器属性。它们各有4个用于
 ### 6.3.3 组合继承 combination inheritance
 
 ### 6.3.4 原型式继承 prototypal inheritance
+
+(寄生模式略)

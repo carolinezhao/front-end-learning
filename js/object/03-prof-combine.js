@@ -31,3 +31,20 @@ console.log(person1.sayName === person2.sayName) // true
 
 
 // 6.2.5 动态原型模式
+// 把所有信息都封装在构造函数中。
+// 通过在构造函数中初始化原型 (仅在必要的情况下)，又保持了同时使用构造函数和原型的优点。
+// 可以通过检查某个应该存在的方法是否有效，来决定是否需要初始化原型。
+
+function Friend(name, gender) {
+    this.name = name;
+    this.gender = gender;
+
+    if (typeof this.sayFriend !== 'function') {
+        Friend.prototype.sayFriend = function() {
+            console.log(this.name);
+        }
+    }
+}
+
+var friend = new Friend('Alicia', 'Female');
+friend.sayFriend();

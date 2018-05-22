@@ -28,7 +28,7 @@ console.log(Person.prototype);
 
 var human1 = new Person();
 human1.sayJob();
-// 实例调与构造函数的关系
+// 实例与构造函数的关系
 // instanceof 操作符还能返回正确的结果 (因为字面上调用了？)，但通过 constructor 已经无法确定对象的类型了。
 // 注意：实例的指针仅指向原型，与构造函数没有关系，constructor 的失效是因为重写了原型。
 console.log(human1 instanceof Person, human1 instanceof Object); // true true
