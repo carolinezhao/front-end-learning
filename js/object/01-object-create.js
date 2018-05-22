@@ -1,5 +1,6 @@
 // 文件内容：
 // 创建对象的方式 from codecademy
+// Object 类型 from 高程 5.1
 // 对构造函数的深入讲解 from 高程 6.2.2
 
 /*=====================================================
@@ -19,8 +20,9 @@ user.age = 25;
 var user = {};
 user.city = 'Beijing';
 
+
 /*=====================================================
-Literal notation
+Literal notation 对象字面量
 * creates a single object;
 * uses curly brackets { };
 * default properties are defined within the brackets using property:value notation.
@@ -32,6 +34,9 @@ var objectName = {
 };
 objectName.property1;
 objectName.methodName();
+
+表达式上下文 (expression context)：能够返回一个值 (表达式)。赋值操作符表示后面是一个值，{ 表示这里是一个表达式的开始。
+语句上下文 (statement context)，比如跟在 if 语句条件的后面，{ 表达一个语句块的开始。
 =====================================================*/
 var user = {
     job: 'scientist',
@@ -43,10 +48,33 @@ var user = {
 user.say();
 user.job = 'dentist';
 user.say();
-console.log('\n')
+console.log('')
+
+// 需要向函数传递【大量可选参数】时，使用对象字面量是首选方式。比传递多个命名参数要灵活。
+function displayInfo(args) {
+    var output = '';
+    // 无论属性是否存在，都保证函数正常执行。
+    if (typeof args.name === 'string') {
+        output += `Name: ${args.name}\n`;
+    }
+    if (typeof args.age === 'number') {
+        output += `Age: ${args.age}\n`;
+    }
+    console.log(output);
+}
+
+displayInfo({
+    name: 'caroline',
+    age: 25
+});
+
+displayInfo({
+    name: 'bernie'
+});
+
 
 /*=====================================================
-Constructor notation
+Constructor notation 构造函数
 * involves defining an object constructor;
 * like defining a function, we use the function keyword;
 * think of this constructor as a "template" from which you can create multiple objects;
@@ -83,7 +111,7 @@ Person('manager', true); // 添加到 window
 
 // 在另一个对象的作用域中调用
 var obj = {};
-Person.call(obj,'artist', false); // 把构造函数的 this 绑定到 obj
+Person.call(obj, 'artist', false); // 把构造函数的 this 绑定到 obj
 obj.speak();
 
 // 实例中虽然都有名为 speak 的方法，但它们不是同一个 Function 实例。
@@ -106,16 +134,16 @@ function sayName() {
     console.log(this.name);
 }
 
-var child1 = new Child('rabbit',6);
-var child2 = new Child('bear',8);
+var child1 = new Child('rabbit', 6);
+var child2 = new Child('bear', 8);
 
 console.log(child1.sayName === child2.sayName) // true
+console.log('')
 
 // 在全局作用域中定义的函数实际上只能被某个对象调用，这让全局作用域有点名不副实。
 // 如果对象需要定义很多方法，那么就要定义很多个全局函数，于是这个自定义的引用类型就丝毫没有封装性可言了。
 // 这些问题可以通过使用原型模式来解决。
 
-console.log('\n')
 
 /*=====================================================
 Properties
