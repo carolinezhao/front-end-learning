@@ -38,8 +38,9 @@ var name1 = {
     'first name': 'Silvia'
 }
 console.log(name1['first name']);
-console.log('\n');
-// 以上的模式适用于属性名提前已知或可被字符串字面量表示的情况。如果需要通过计算才能得到变量的值，则ES5中无法为对象字面量定义该属性。
+console.log('');
+// 以上的模式适用于属性名提前已知或可被字符串字面量表示的情况。
+// 如果需要通过计算才能得到变量的值，则ES5中无法为对象字面量定义该属性。
 
 // ES6中，可以在对象字面量中使用可计算属性名称，用方括号表示。它的内容会被求值并最终转化为一个字符串。
 let surname = 'last name';
@@ -55,5 +56,6 @@ var person2 = {
     ['last' + suffix]: 'liu'
 }
 console.log(person2);
-// 如果为' name'，则属性值为字符串 'first name';
-// 如果为'name'，则属性值为变量 firstname。
+// node 下运行
+// 如果为' name'，显示为 'first name'；如果为'name'，显示为 firstname。
+// 打印结果不同，但都是字符串。
