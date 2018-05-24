@@ -2,6 +2,22 @@
 
 # 第3章 对象
 
+- [第3章 对象](#3)
+    - [3.1 语法](#31)
+    - [3.2 类型](#32)
+    - [3.3 内容](#33)
+        - [3.3.1 可计算属性名](#331)
+        - [3.3.2 属性与方法](#332)
+        - [3.3.3 数组](#333)
+        - [3.3.4 复制对象](#334)
+        - [3.3.5 属性描述符](#335)
+        - [3.3.6 不变性](#336)
+        - [3.3.7 [[Get]]](#337-get)
+        - [3.3.8 [[Put]]](#338-put)
+        - [3.3.9 Getter 和 Setter](#339-getter--setter)
+        - [3.3.10 存在性](#3310)
+    - [3.4 遍历](#34)
+
 ## 3.1 语法
 
 ## 3.2 类型
@@ -10,7 +26,7 @@
 
 String, Number, Boolean, Object, Function, Array, Date, RegExp, Error
 
-* strin, number, boolean 对应的构造形式；
+* string, number, boolean 对应的构造形式；
 * null 和 undefined 没有构造形式；
 * Date 只有构造形式；
 * Object, Function, Array, RegExp -- 都是对象；
@@ -38,11 +54,15 @@ object["a"] 键访问。
 
 如果属性访问返回的是一个函数，那它也并不是一个“方法”。属性访问返回的函数和其他函数没有任何区别 (除了可能发生的隐式绑定 this，as just said)。最保险的说法是，js 中“函数”和“方法”可以互换。
 
---> _know-object-property.js_
+--> _02-know-object-property.js_
 
 ### 3.3.3 数组
 
+内容很少，更多见 中卷
+
 ### 3.3.4 复制对象
+
+--> _02-know-object-copy.js_
 
 ### 3.3.5 属性描述符
 
@@ -55,3 +75,7 @@ object["a"] 键访问。
 ### 3.3.9 Getter 和 Setter
 
 ### 3.3.10 存在性
+
+## 3.4 遍历
+
+结合 es6/iterator
