@@ -109,6 +109,14 @@ myObject.b; // undefined
 
 ### 3.3.9 Getter 和 Setter
 
+对象默认的 [[Put]] 和 [[Get]] 操作分别控制属性值的设置和获取。
+
+ES5 中使用 getter 和 setter 部分改写默认操作，但是只能用在单个属性上，无法应用在整个对象上。两者都是隐藏函数，分别在获取和设置属性值时调用。
+
+当给一个属性定义 getter 和 setter 时，这个属性会被定义为“访问描述符”。 --> 相关特性见 0-prof-object.md 中的 6.1.1
+
+--> _02-know-object-getter.js_
+
 ### 3.3.10 存在性
 
 ## 3.4 遍历
