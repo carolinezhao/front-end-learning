@@ -3,6 +3,7 @@
 let fs = require('fs');
 
 function readFile(filename) {
+    // Promise 构造函数，参数是执行器函数
     return new Promise(function (resolve, reject) {
         // 触发异步操作
         fs.readFile(filename, {
