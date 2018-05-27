@@ -7,11 +7,14 @@
 
 ## Promise Basics
 
+Promise 相当于异步操作结果的占位符。
+
 ### The Promise Life Cycle
 
-- pending
-- fulfilled
-- rejected
+- unsettled: "pending" (返回 Promise 对象时)
+- settled: 
+    - "fulfilled" (Promise 异步操作完成)
+    - "rejected" (出错，异步操作未完成)
 
 状态改变时，通过 then() 方法采取特定行动。
 
@@ -32,6 +35,8 @@ catch() 方法：相当于只传入拒绝函数的 then() 方法。
 - 构造函数接受1个参数：包含初始化 Promise 代码的执行器 (executor) 函数。
 - 执行器接受2个参数：resolve() 和 reject()，分别用于成功时和失败时调用。
 
+创建未处理 Promise 的最好方法是使用 Promise 构造函数，因为 Promise 执行器具有动态性。？？
+
 用 Promise 包裹原生 Node.js 的 fs.readFile() 异步调用。 
 
 --> _promise-readFile.js_
@@ -41,6 +46,18 @@ catch() 方法：相当于只传入拒绝函数的 then() 方法。
 和 setTimeout() 类似。 --> _promise-then.js_
 
 ### Creating Settled Promises
+
+如果想用 Promise 表示一个已知值，编排一个简单给 resolve() 传值的任务并无实际意义。？？
+
+可以通过以下两种方法根据特定的值来创建已解决 Promise。？？
+
+Promise.resolve()
+
+Promise.reject()
+
+--> _promise-settled.js_
+
+非 Promise 的 Thenable 对象
 
 ### Executor Errors
 
