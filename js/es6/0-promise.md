@@ -27,7 +27,7 @@ then() 两个参数都是可选的
 
 catch() 方法：相当于只传入拒绝函数的 then() 方法。
 
---> _promise-then.js_
+--> _01-promise-then.js_
 
 ### Creating Unsettled Promises
 
@@ -39,11 +39,11 @@ catch() 方法：相当于只传入拒绝函数的 then() 方法。
 
 用 Promise 包裹原生 Node.js 的 fs.readFile() 异步调用。 
 
---> _promise-readFile.js_
+--> _02-promise-readFile.js_
 
 任务编排 (job scheduling)：向任务队列中添加一个新任务，并明确指定将任务延后执行。
 
-和 setTimeout() 类似。 --> _promise-then.js_
+和 setTimeout() 类似。 --> _03-promise-asyn.js_
 
 ### Creating Settled Promises
 
@@ -55,7 +55,7 @@ Promise.resolve()
 
 Promise.reject()
 
---> _promise-settled.js_
+--> _04-promise-settled.js_
 
 非 Promise 的 Thenable 对象
 
@@ -64,6 +64,13 @@ Promise.reject()
 ## Global Promise Rejection Handling
 
 ## Chaining Promises
+
+- 按顺序调用 then()
+- 捕获错误
+- Promise 链的返回值：给下游 Promise 传递数据
+- 在 Promise 链中返回 Promise
+
+--> _promise-chaining.js_
 
 ## Responding to Multiple Promises
 
