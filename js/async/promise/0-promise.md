@@ -3,7 +3,6 @@
 ## Reference
 
 - 深入理解 ES6 第11章
-- 你不知道的 js 中卷 第二部分 第4章
 
 ## Promise Basics
 
