@@ -73,6 +73,12 @@ Promise.reject()
 
 ## Responding to Multiple Promises
 
+Promise.all()
+
+Promise.race()
+
+--> _promise-multiple.js_
+
 ## Inheriting from Promises
 
 ## Asynchronous Task Running
