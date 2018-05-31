@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>事件</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+        }
+
+        /* .container {
+            width: 500px;
+            height: 300px;
+            border: 2px solid lightcoral;
+        } */
+
+        input[type='button'] {
+            border-radius: 5px;
+            height: 50px;
+            width: 100px;
+            font-size: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <input type="button" id="myBtn" value="点击查看">
+        <input type="button" id="display" value="显示">
+    </div>
+    <script>
+        var btn = document.getElementById('myBtn');
+        // DOM0级
+        btn.onclick = function (event) {
+            alert(event.type);
+        };
+        // DOM2级
+        btn.addEventListener('click', function (event) {
+            alert(event.target);
+        }, false);
+        btn.addEventListener('click', function () {
+            alert('Hello June!');
+        }, false);
+        // 通过一个函数处理多个事件，使用 event.type
+        var btn1 = document.getElementById('display');
+        var handler = function (event) {
+            switch (event.type) {
+                case 'click':
+                    alert('Clicked.');
+                    break;
+                case 'mouseover':
+                    event.target.style.backgroundColor = 'yellow';
+                    break;
+                case 'mouseout':
+                    event.target.style.backgroundColor = '';
+                    break;
+            }
+        };
+        btn1.addEventListener('click', handler, false);
+        btn1.addEventListener('mouseover', handler, false);
+        btn1.addEventListener('mouseout', handler, false);
+    </script>
+</body>
+
+</html>
