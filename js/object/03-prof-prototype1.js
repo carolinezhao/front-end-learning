@@ -66,6 +66,8 @@ console.log('')
 
 
 // 判断属性的归属
+// --> 总结的表格参考 0-know-object.md 中的 3.3.10
+
 // hasOwnProperty (继承自Object) 
 // 检测属性是否来自对象实例，对于原型中的属性返回 false。
 

@@ -119,6 +119,32 @@ ES5 中使用 getter 和 setter 部分改写默认操作，但是只能用在单
 
 ### 3.3.10 存在性
 
+| 方法 | 查找范围 | 操作 |
+| --- | --- | --- |
+| property in object | 对象及其原型链 | true/false |
+| object.hasOwnProperty(property) | 对象 | true/false |
+| for (var prop in object) | 对象及其原型链 | 遍历可枚举属性 (不推荐在数组上使用) |
+| propertyIsEnumerable() | 对象 | true/false |
+| Object.keys() | 对象* | 返回一个数组，包含所有可枚举属性 |
+| Object.getOwnPropertyNames() | 对象* | 返回一个数组，包含所有属性，无论是否可枚举 |
+
+*不检查对象的原型链，但是如果传入的参数是原型对象，则可返回相应结果。
+
+--> 具体用法参考 _03-prof-prototype1.js_
+
 ## 3.4 遍历
 
-结合 es6/iterator
+遍历对象的可枚举属性：for-in
+
+遍历属性的值：
+
+1)对于数组 (数值索引)
+- 使用 for 循环，通过遍历下标来指向值 array[i]
+- 迭代器：forEach(), map() 等 --> 见 _../array/prof-array-3.js_
+
+2)遍历对象属性时的顺序是不确定的，不同 js 引擎中可能不一样，观察到的顺序不能作为依据。
+
+3)直接遍历属性值 (数组值/对象属性值)
+- ES6 增加 for-of 循环 --> 见 _../es6/iterator.js_
+
+for-of 首先会向被访问对象请求一个迭代器对象，然后通过调用迭代器对象的 next() 方法来遍历所有返回值。
