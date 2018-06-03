@@ -10,6 +10,7 @@
 
 - 块级作用域, let, const --> _`../function/`_
 - 字符串
+    - 字符串中的子串识别 和 repeat()
     - 模板字面量
 - 函数 --> _`../function/`_
     - 箭头函数 arrow function
