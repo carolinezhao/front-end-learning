@@ -1,5 +1,7 @@
 # Background
 
+## 背景图片
+
 --> _background.html_
 
 background: url(path/filename) 是否重复 x y 是否固定, #color;
@@ -50,3 +52,37 @@ background: url(path/filename) 是否重复 x y 是否固定, #color;
 * no-repeat 不重复。✅
 * repeat-x 横向重复，默认值。
 * repeat-x 纵向重复。
+
+--
+
+## 背景渐变
+
+--> _gradient.html_
+
+### 线性渐变
+
+方向
+
+`background: linear-gradient(to bottom, color1, color2);`
+- to bottom 顶->底
+- to right 左->右
+- to bottom right 左上角->右下角
+
+角度
+
+`background: linear-gradient(45deg, color1, color2);`
+- 0 底->顶
+- 90deg 左->右
+- 180deg 顶->底
+
+色标
+
+`background: linear-gradient(to bottom, blue, white 80%, orange);`
+- 颜色后面的百分数表示位置。
+- 没有指定位置时，色标均匀隔开。
+
+透明度
+
+`background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,1)), url(imagepath);`
+
+[reference](https://developer.mozilla.org/zh-CN/docs/Web/Guide/CSS/Using_CSS_gradients)
