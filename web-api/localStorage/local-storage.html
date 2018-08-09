@@ -5,6 +5,10 @@
     <meta charset="UTF-8">
     <title>localStorage</title>
     <style>
+        body {
+            font-family: Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
         .photo-area {
             width: 30%;
             overflow: hidden;
@@ -17,12 +21,12 @@
 </head>
 
 <body>
-    <span>You have been here </span>
-    <span id="visit-times">##NOT LOADED##</span>
-    <span> time(s).</span>
+    <div>You have been here
+        <span id="visit-times">##NOT LOADED##</span>
+        time(s).</div>
 
     <p>This example is designed to demonstrate usage of the
-        <a href="http://dev.w3.org/html5/webstorage/">W3C Web Storage API</a>. It should work as far back as IE8. Choose custom background colours, logos and fonts from
+        <a href="http://dev.w3.org/html5/webstorage/" target="_blank">W3C Web Storage API</a>. It should work as far back as IE8. Choose custom background colours, logos and fonts from
         the below drop down menus, then try closing and reopening the page — you will find that your choices are remembered,
         as they are stored using Web Storage. You can also visit the
         <a href="local-storage-listener.html" target="_blank">storage event output</a> (opens in new tab). Open this, change some values in the index page, then look at the events
@@ -32,7 +36,7 @@
         <div>
             <label for="font">Choose font style:</label>
             <select id="font">
-                <option value="'Open Sans Condensed', sans-serif" selected>Sans-serif</option>
+                <option value="'Roboto', sans-serif" selected>Sans-serif</option>
                 <option value="'Bitter', serif">Serif</option>
                 <option value="'Ubuntu Mono'">Monospace</option>
             </select>
@@ -50,7 +54,6 @@
         <img src="../img/baby.png">
     </div>
 
-    <script src="storage.js"></script>
     <script src="local-storage.js"></script>
 </body>
 

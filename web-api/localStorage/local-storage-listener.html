@@ -3,8 +3,13 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Output</title>
+    <title>output</title>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Bitter|Ubuntu+Mono' rel='stylesheet' type='text/css'>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+    </style>
 </head>
 
 <body>
@@ -31,6 +36,7 @@
         // 无论何时，Storage 对象发生变化时（即创建/更新/删除数据项时，重复设置相同的键值不会触发该事件，Storage.clear() 方法至多触发一次该事件），StorageEvent 事件会触发。
         // 在同一个页面内发生的改变不会起作用——在相同域名下的其他页面（如一个新标签或 iframe）发生的改变才会起作用。在其他域名下的页面不能访问相同的 Storage 对象。
         window.addEventListener('storage', function (e) {
+            // console.log(e); // StorageEvent {}
             document.querySelector('.my-key').textContent = e.key;
             document.querySelector('.my-old').textContent = e.oldValue;
             document.querySelector('.my-new').textContent = e.newValue;
