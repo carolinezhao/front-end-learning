@@ -28,13 +28,14 @@ function myFunction() {
 }
 
 // 服务器在向 XMLHttpRequest 对象发回响应时，该对象有许多属性可用。
-// readyState 属性存有 XMLHttpRequest 的状态信息，浏览器会在不同阶段更新 readyState 的值，有5个可能得值：
-// 0: 请求未初始化
-// 1: 服务器连接已建立
-// 2: 请求已接收
-// 3: 请求处理中
-// 4: 请求已完成， 且响应已就绪
-// status
+// readyState 属性存有 XMLHttpRequest 的状态信息，浏览器会在不同阶段更新 readyState 的值，有5个可能值：
+// 0: 请求未初始化 / 代理被创建，但尚未调用 open() 方法。
+// 1: 服务器连接已建立 / open() 方法已经被调用。
+// 2: 请求已接收 / send() 方法已经被调用，并且头部和状态已经可获得。
+// 3: 请求处理中 / 下载中，responseText 属性已经包含部分数据。
+// 4: 请求已完成，且响应已就绪 / 下载操作已完成。
+
+// status 是 HTTP 状态码
 // 200: "OK"
 // 404: 未找到页面
 
@@ -45,7 +46,7 @@ function myFunction() {
 
 
 // comment-2
-// open(method,url,async); 前两个参数是字符串
+// open(method, url, async); 前两个参数是字符串
 //      method：请求的类型，GET 或 POST；
 //      url：文件在服务器上的位置；
 //      async：true（异步）或 false（同步）。
@@ -58,27 +59,27 @@ function myFunction() {
 // 有些字符会被转译，比如中文，标点，空格
 
 // ＊＊＊ GET请求 ＊＊＊
-//      xmlhttp.open("GET","demo_get2.asp?fname=Bill&lname=Gates",true);
+//      xmlhttp.open("GET", "demo_get2.asp?fname=Bill&lname=Gates", true);
 //      xmlhttp.send();
 
 // ＊＊＊ POST请求 ＊＊＊
-//      xmlhttp.open("POST","demo_post.asp",true);
+//      xmlhttp.open("POST", "demo_post.asp", true);
 //      xmlhttp.send();
 // 如果需要像 HTML 表单那样 POST 数据，使用 setRequestHeader() 来添加 HTTP 头。
 // 然后在 send() 方法中规定希望发送的数据：
-//      xmlhttp.open("POST","/ajax/demo_post2.asp",true);            
-//      xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+//      xmlhttp.open("POST", "/ajax/demo_post2.asp", true);            
+//      xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 //      xmlhttp.send("fname=Bill&lname=Gates");
 // POST传给后台的数据可以写在链接中 或者 send中（更常用）
 
 // ＊＊＊ 关于请求头 ＊＊＊ 
-// setRequestHeader(header,value)
+// setRequestHeader(header, value)
 // 例，页面中输入：二手房 100平，会被自动处理后传给后台
-// xmlhttp.setRequestHeader("Location","Beijing");
+// xmlhttp.setRequestHeader("Location", "Beijing");
 // xmlhttp.send("type=second&area=100");
 
-// xmlhttp.setRequestHeader("Content-type","x");
-// xmlhttp.send里的内容取决于x是啥，如果x是application/json,则send中必须是下面的数据格式，即json格式（很严格）。
+// xmlhttp.setRequestHeader("Content-type", "x");
+// xmlhttp.send 里的内容取决于 x 是啥，如果 x 是 application/json，则 send 中必须是下面的数据格式，即 json 格式（很严格）。
 // "{"posts":[{"id":1,"title":"json-server","author":"typicode"}],"comments":[{"id":1,"body":"some comment","postId":1}],"profile":{"name":"typicode"}}"
 
 // 在开发者工具 network 中可以看到很多 key:value 其他示例

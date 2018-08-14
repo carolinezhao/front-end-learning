@@ -1,7 +1,8 @@
-### 向服务器发送异步请求
-### send asynchronous requests to server
+### 向服务器发送异步请求 send asynchronous requests to server
 
-* 终端中－ cd 到该文件所处目录下－输入以下语句－进入服务器
+使用 [json-server](https://github.com/typicode/json-server) 模拟服务器
+
+* 在 db.json 所在目录下，开启服务器。db.json 作为模拟后端的数据。
 	
 		json-server --watch db.json
 

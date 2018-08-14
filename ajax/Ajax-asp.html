@@ -1,6 +1,23 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <title>Ajax</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <p>请在下面的输入框中键入字母 (A - Z)：</p>
+    <form action="">
+        姓氏：<input type="text" id="txt1" onkeyup="showHint(this.value)" />
+    </form>
+    <p>建议：<span id="txtHint"></span></p>
+
     <script type="text/javascript">
         function showHint(str) {
             var xmlhttp;
@@ -20,21 +37,11 @@
                     document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
                 }
             }
-            // 调用 ASP 文件，名为 "ajax-asp.asp"，向 URL 添加了一个参数 q （带有输入框的内容）
-            xmlhttp.open("GET", "/ajax/ajax-asp.asp?q=" + str, true);
+            // 调用 ASP 文件，向 URL 添加了一个参数 q（带有输入框的内容）
+            xmlhttp.open("GET", "./Ajax-asp.asp?q=" + str, true);
             xmlhttp.send();
         }
     </script>
-</head>
-
-<body>
-
-    <h3>请在下面的输入框中键入字母（A - Z）：</h3>
-    <form action="">
-        姓氏：<input type="text" id="txt1" onkeyup="showHint(this.value)" />
-    </form>
-    <p>建议：<span id="txtHint"></span></p>
-
 </body>
 
 </html>
