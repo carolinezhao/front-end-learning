@@ -1,6 +1,13 @@
-### 向服务器发送异步请求 send asynchronous requests to server
+# Ajax
 
-使用 [json-server](https://github.com/typicode/json-server) 模拟服务器
+## 基本方法
+
+- XMLHttpRequest
+- [Fetch API](https://developer.mozilla.org/zh-CN/docs/Web/API/Fetch_API/Using_Fetch)
+
+## 使用 [json-server](https://github.com/typicode/json-server) 模拟服务器
+
+向服务器发送异步请求 send asynchronous requests to server
 
 * 在 db.json 所在目录下，开启服务器。db.json 作为模拟后端的数据。
 	
