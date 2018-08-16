@@ -45,7 +45,7 @@ let obj = createObject(class {
 obj.sayHi();
 
 // 通过 IIFE 创建单例
-let obj1 = new class{
+let obj1 = new class {
     constructor(name) {
         this.name = name;
     }
@@ -55,10 +55,34 @@ let obj1 = new class{
 }('rabbit');
 obj1.sayName();
 
+// 继承与派生类
+class Rectangle {
+    constructor(length, width) {
+        this.length = length;
+        this.width = width;
+    }
+    getArea() {
+        return this.length * this.width;
+    }
+}
 
+// 用 extends 关键字指定类继承的函数
+class Square extends Rectangle {
+    constructor(length) {
+        // 用 super() 访问基类的构造函数
+        // 等价于 Rectangle.call(this, length, width)
+        super(length, length);
+    }
+}
+// 继承自其他类的类称为派生类。
+// 如果在派生类中指定了构造函数则必须调用 super()，否则会报错。
+// 如果不使用构造函数，创建新的类实例时会自动调用 super() 并传入所有参数。(可能会与预期功能不符，因此要手动传入)
 
+// 关于 super 的使用
+// super() 只能在派生类中使用；
+// 构造函数访问 this 之前一定要调用 super()，它负责初始化 this；
+// 如果不想调用 super()，唯一方法是让类的构造函数返回一个对象。
 
-
-
-
-
+let square = new Square(6)
+console.log(square.getArea());
+console.log(square instanceof Rectangle);

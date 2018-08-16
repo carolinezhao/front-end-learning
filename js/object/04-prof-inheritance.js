@@ -17,6 +17,7 @@ function SubType() {
 // 继承：通过将原型赋值为 SuperType 的实例。本质是重写原型对象。
 // SubType 原型中现在包含了 SuperType 构造函数中的属性和原型中的方法，而且其内部还有一个“指针”，指向了 SuperType 的原型。
 SubType.prototype = new SuperType();
+// 对于这种写法，《你不知道的 js》书中认为会产生一些副作用，具体见 0-know-prototype.md 5.3
 
 SubType.prototype.getSubValue = function () {
     return this.subproperty;
@@ -52,7 +53,7 @@ console.log(SubType.prototype.isPrototypeOf(instanceSub));
 // 有时子类型需要重写超类型中的方法，或者添加超类型中不存在的方法。
 // 给原型添加方法的代码一定要放在替换原型的语句之后。
 
-// line 17 用 SuperType 实例替换了原型
+// line 19 用 SuperType 实例替换了原型
 // 这里重写方法
 SubType.prototype.getSuperValue = function () {
     return this.subproperty;
@@ -82,16 +83,16 @@ console.log('');
 
 // 6.3.3 组合继承 (js 中最常用的继承模式)
 // 思路是使用原型链实现对原型属性和方法的继承，而通过借用构造函数来实现对实例属性的继承。
-function SuperType1 (name) {
+function SuperType1(name) {
     this.name = name;
     this.colors = ['red', 'green', 'blue'];
 }
 
-SuperType1.prototype.sayName = function() {
+SuperType1.prototype.sayName = function () {
     console.log(this.name);
 }
 
-function SubType1 (name, age) {
+function SubType1(name, age) {
     // 继承属性
     SuperType1.call(this, name);
     // 自己的属性
@@ -101,7 +102,7 @@ function SubType1 (name, age) {
 // 继承方法
 SubType1.prototype = new SuperType1();
 SubType1.prototype.constructor = SubType1;
-SubType1.prototype.sayAge = function() {
+SubType1.prototype.sayAge = function () {
     console.log(this.age);
 }
 
@@ -125,9 +126,9 @@ console.log('');
 // 一个用作新对象原型的对象;
 // (可选的)一个为新对象定义额外属性的对象 (会覆盖原型对象上的同名属性)。
 
-var person ={
-    name:'rabbit',
-    friends:['bear','helen','madell']
+var person = {
+    name: 'rabbit',
+    friends: ['bear', 'helen', 'madell']
 }
 var person1 = Object.create(person);
 person1.name = 'caroline';
