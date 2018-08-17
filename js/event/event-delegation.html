@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>event</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+        }
+
+        .container div {
+            border: 1px dotted seagreen;
+            margin: 20px 0;
+        }
+
+        .container div:hover {
+            background-color: antiquewhite;
+        }
+
+        button {
+            border: 1px solid seagreen;
+            color: seagreen;
+            border-radius: 5px;
+            height: 35px;
+            font-size: 15px;
+            outline: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <button id="myBtn">点击查看</button>
+
+        <div id="div1">
+            <p id="p1">激活</p>
+            <p id="p2">取消</p>
+            <p id="p3">取消</p>
+        </div>
+
+        <div id="div2">
+            <a href="#">a1</a>
+            <a href="#">a2</a>
+            <a href="#">a3</a>
+        </div>
+        <button id="addA">点击增加一个 a 标签</button>
+    </div>
+
+    <script>
+        // 通用的事件绑定函数
+        function bindEvent(elem, type, func) {
+            // elem.addEventListener(type, func)
+            elem.addEventListener(type, function (e) {
+                console.log('nodeName: ' + e.target.nodeName) // nodeName 都是大写
+                func(e)
+            })
+        }
+
+        // 最简单的事件
+        let myBtn = document.querySelector('#myBtn')
+        bindEvent(myBtn, 'click', function (e) {
+            // e.preventDefault() // 阻止默认行为
+            alert('clicked.')
+        })
+
+
+        // 要求点击 p1 时进入激活状态，点击其他任何 p 都取消激活状态
+        // let body = document.body
+        // 所有 p 的点击都会冒泡到 body 上，因为 DOM 结构中 body 是 p 的上级节点，事件会沿着 DOM 树向上冒泡
+        // e.path 是按照冒泡顺序排列的节点
+        let div1 = document.querySelector('#div1')
+        bindEvent(div1, 'click', function (e) {
+            alert('cancel.')
+        })
+        let p1 = document.querySelector('#p1')
+        bindEvent(p1, 'click', function (e) {
+            e.stopPropagation() // 阻止冒泡
+            alert('active!')
+        })
+
+
+        // 事件代理
+        // 一个 <div> 中包含了若干个 <a>，而且还可能继续增加。如何快捷方便地为所有 <a> 绑定事件呢？
+        let div2 = document.querySelector('#div2')
+
+        // 点击按钮添加 a 标签
+        let btn = document.querySelector('#addA')
+        let num = 3
+        bindEvent(btn, 'click', function () {
+            let tagA = document.createElement('a')
+            div2.appendChild(tagA)
+            tagA.href = '#'
+            tagA.innerHTML = `a${++num}`
+        })
+
+        // 要监听 <a> 的事件，但要把具体的事件绑定到 <div> 上，然后看事件的触发点是不是 <a>。
+        bindEvent(div2, 'click', function (e) {
+            // console.log(typeof e.target); // object
+            if (e.target.nodeName === 'A') { // a 标签的 nodeName 是 A
+                alert(e.target.innerHTML)
+            }
+        })
+
+        // 包含事件代理的通用函数，其中 selector 是被代理的元素名称
+        function bindEventAgency(elem, type, func, seletor) {
+            elem.addEventListener(type, function (e) {
+                if (seletor && e.target.nodeName.toLowerCase() === seletor) {
+                    func.call(e.target, e)
+                // } else {
+                //     func(e)
+                }
+            })
+        }
+
+        bindEventAgency(div2, 'click', function (e) {
+            alert(e.target.nodeName)
+        }, 'a')
+    </script>
+</body>
+
+</html>
