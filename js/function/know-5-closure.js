@@ -62,9 +62,9 @@ bar2() // 2
 // 总结：无论通过何种手段将内部函数传递到所在的词法作用域以外，它都会持有对原始定义作用域的引用，无论在何处执行这个函数都会使用闭包。
 
 
-// 5.3 实际应用中的闭包 (本节不太理解)
+// 5.3 实际应用中的闭包
 // wait() 执行 1s 后，内部函数 timer 依然保有 wait() 作用域的闭包。
-// ？？？深入到引擎内部原理，内置的工具函数 setTimeout() 持有对一个参数的引用，引擎会调用这个函数 (此例中是 timer)，词法作用域在这个过程中保持完整。这就是闭包。
+// 内置的工具函数 setTimeout() 持有对一个参数的引用，引擎会调用这个函数 (此例中是 timer)，词法作用域在这个过程中保持完整。这就是闭包。
 function wait(msg) {
     setTimeout(function timer() {
         console.log(msg)
@@ -82,12 +82,12 @@ console.log('')
 // setupBot('Closure Bot 1','#bot_1')
 // setupBot('Closure Bot 2','#bot_2')
 
-// ？？？总结：无论何时何地，如果将函数(访问它们各自的词法作用域)当作第一级的值类型并到处传递，就会看到闭包在这些函数中的应用。
-// ？？？在定时器，事件监听器，Ajax请求，跨窗口通信，Web Workders或者任何其他的异步（或同步）任务中，只要使用了回调函数，实际上就是在使用闭包。
+// 总结：无论何时何地，如果将函数 (访问它们各自的词法作用域) 当作第一级的值类型并到处传递，就会看到闭包在这些函数中的应用。
+// 在定时器，事件监听器，Ajax请求，跨窗口通信，Web Workders或者任何其他的异步（或同步）任务中，只要使用了回调函数，实际上就是在使用闭包。
 
 // IIFE 与闭包
 // 通常认为 IIFE 是典型的闭包例子，但是根据对闭包的定义，IIFE 并不是观察闭包的恰当例子（见下面的例子）。
-// ？？？尽管如此，但它的确创建了闭包，并且也是最常用来创建可以被封闭起来的闭包的工具。
+// 尽管如此，但它的确创建了闭包，并且也是最常用来创建可以被封闭起来的闭包的工具。
 
 // 下面的 IIFE 并不是在它本身的词法作用域以外执行的。它在定义时所在的作用域执行。
 // 外部作用域 (也就是全局作用域) 也持有 c，因此 c 是通过普通的词法作用域查找而非闭包被发现的。
@@ -114,7 +114,7 @@ for (var i = 1; i <= 5; i++) {
 for (var i = 1; i <= 5; i++) {
     (function () {
         setTimeout(function timer() {
-            console.log('2nd ' +i)
+            console.log('2nd ' + i)
         }, i * 1000)
     })();
 }
@@ -124,7 +124,7 @@ for (var i = 1; i <= 5; i++) {
     (function () {
         var j = i
         setTimeout(function timer() {
-            console.log('3rd ' +j)
+            console.log('3rd ' + j)
         }, j * 1000)
     })();
 }
@@ -133,7 +133,7 @@ for (var i = 1; i <= 5; i++) {
 for (var i = 1; i <= 5; i++) {
     (function (j) {
         setTimeout(function timer() {
-            console.log('4th ' +j)
+            console.log('4th ' + j)
         }, j * 1000)
     })(i);
 }
@@ -143,22 +143,49 @@ for (var i = 1; i <= 5; i++) {
 // 每个迭代中都会含有一个具有正确值的变量供访问。
 
 // 每次迭代都需要一个块作用域 --> let
-// ？？？本质上这是将一个块转换成一个可以被关闭的作用域。
+// 本质上这是将一个块转换成一个可以被关闭的作用域。
 for (var i = 1; i <= 5; i++) {
     let j = i // 闭包的块作用域
     setTimeout(function timer() {
-        console.log('5th ' +j)
+        console.log('5th ' + j)
     }, j * 1000)
 }
 
-// for 循环头部的 let 声明，每次迭代都会使用上一个迭代结束时的值来初始化变量。
+// for 循环头部的 let 声明有个特殊行为：循环中每次迭代都会声明一次变量。
+// 因此随后的每次迭代都会使用上一个迭代结束时的值来初始化变量。
 // --> 参考 3.4.3 let 循环
 for (let i = 1; i <= 5; i++) {
     setTimeout(function timer() {
-        console.log('6th ' +i)
+        console.log('6th ' + i)
     }, i * 1000)
 }
 // 块作用域和闭包联手。
 
 
 // 5.5 模块
+// 模块也要用到闭包。模块模式的方法称为模块暴露，下例是其变体。
+function CoolModule() {
+    var something = 'cool'
+    var another = [1, 2, 3]
+
+    function doSomething() {
+        console.log(something);
+    }
+
+    function doAnother() {
+        console.log(another.join('!'));
+    }
+
+    return {
+        doSomething: doSomething,
+        doAnother: doAnother
+    }
+}
+// 返回的对象中含有对内部函数而不是内部数据变量的引用。
+// 可以将这个对象类型的返回值看作本质上是模块的公共 API。
+// 当通过返回一个含有属性引用的对象的方式将函数传递到词法作用域之外时，就创造了闭包的条件。
+
+// 这个返回值被赋值给外部变量，然后通过它访问 API 中的属性方法。
+var foo = CoolModule()
+foo.doSomething()
+foo.doAnother()
