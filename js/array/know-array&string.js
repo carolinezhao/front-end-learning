@@ -6,17 +6,20 @@ let a = 'foo', // 字符串
 // 都有 length 属性，indexOf() 和 concat() 方法
 console.log(a.length, b.length);
 console.log(a.indexOf('o'), b.indexOf('o'));
-let c = a.concat('bar'),
-    d = b.concat(['b', 'a', 'r']),
-    e = b.concat('bar');
-console.log(c, d, e);
+let c = a.concat('bar'), // str str -> str
+    d = b.concat(['b', 'a', 'r']), // arr arr -> 所有元素合并到一个 arr
+    e = b.concat('bar'), // arr str -> str 整体作为 arr 的一项
+    f = a.concat(['b', 'a', 'r']); // str arr -> str
+console.log(c, d, e, f);
 
 // 尽管有很多相似之处，but 字符串 !== 字符数组
 
 // 字符串是不可变的，数组是可变的。
 // 字符串的成员函数不会改变其原始值，而是创建并返回一个新的字符串。
 // 数组的成员函数是在其原始值上操作。
-a[1] = '0', b[1] = '0'; // a.charAt(1) ?
+a[1] = '0';
+b[1] = '0';
+console.log(a.charAt(1));
 console.log(a, b);
 f = a.toUpperCase();
 b.push('!');
@@ -28,8 +31,6 @@ let h = Array.prototype.map.call(a, function (v) {
     return v.toUpperCase() + '.';
 }).join('');
 console.log(g, h);
-// todo：这些方法还没学过
-// todo：数组函数 vs 成员函数
 
 // 数组有一个字符串没有的可变更成员函数 reverse()，但是无法借用。
 // 【常用】一个变通方法是先把字符串转为数组，处理后再转回字符串。
