@@ -1,3 +1,66 @@
+// 创建数组
+
+// 为了避免使用 Array 构造函数。
+// Array.of()
+let arr1 = Array.of(2)
+console.log(arr1.length, arr1[0]);
+let arr2 = Array.of('2')
+console.log(arr2.length, arr2[0]);
+
+
+// 将类数组对象转换为真实数组。
+// 方法1 利用 for 循环，将每个元素添加到数组中。
+// 方法2 使用原生的 slice 方法：Array.prototype.slice.call(arrayLike) (将执行时的 this 值设置为类数组对象)
+
+// 方法3 Array.from()
+// 也通过 this 确定返回数组的类型。
+// 参数1 类数组对象或可迭代对象
+function doSomething() {
+    let argsArr = Array.from(arguments);
+    console.log(Array.isArray(arguments), Array.isArray(argsArr));
+}
+doSomething(1, 2, 3);
+
+let set = new Set([1, 2, 3, 1])
+let arr3 = Array.from(set)
+console.log(Array.isArray(set), Array.isArray(arr3), arr3);
+
+// 参数2 (optional) 映射函数，进一步转化数组
+function translate1() {
+    return Array.from(arguments, (value) => value + 1);
+}
+let arr4 = translate1(6, 7, 8);
+console.log(arr4);
+
+let iter = {
+    * [Symbol.iterator]() {
+        yield 1;
+        yield 2;
+        yield 3;
+    }
+}
+
+let arr5 = Array.from(iter, (value) => ++value)
+console.log(arr5);
+
+// 参数3 (optional) 映射函数的 this 值
+let helper = {
+    diff: 2,
+    add(value) {
+        return value * this.diff
+    }
+}
+
+function translate2() {
+    return Array.from(arguments, helper.add, helper);
+}
+
+let arr6 = translate2(2, 3, 4)
+console.log(arr6);
+console.log('');
+
+
+
 // ES5
 // indexOf() 和 lastIndexOf() 查找与【某个值】匹配的元素
 // 局限：每次只能查找一个特定值。
