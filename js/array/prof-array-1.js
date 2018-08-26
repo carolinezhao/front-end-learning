@@ -2,7 +2,7 @@
 // 数组：数据的有序列表，每一项可以保存任何类型的数据(与其他语言不同)，大小可以动态调整。
 
 // 创建数组
-// 1）Array 构造函数
+// 1）Array 构造函数 (行为怪异，尽量不用)
 var colors = new Array()
 var people = new Array(5) // 包含5项
 var food = new Array('Bread') // 包含1项
@@ -10,6 +10,8 @@ var cities = Array('BJ', 'SH', 'GZ') // new 可以省略
 // 2）数组字面量 (常用)
 var devices = ['mac', 'iPhone', 'iPad']
 var auto = []
+// 3）Array.of()
+// 见 es6-array.js
 
 // 读取和设置数组的值，使用方括号，基于0的数字索引
 console.log(devices[2])
@@ -42,6 +44,9 @@ if (devices instanceof Array) {
 if (Array.isArray(people)) {
     console.log(people.length)
 }
+
+// 利用 toString 方法
+console.log(Object.prototype.toString.call(devices) === '[object Array]');
 console.log('')
 
 
@@ -56,7 +61,7 @@ console.log('')
 // valueOf()
 // 返回数组。
 
-var animals = ['rabbit', 'bear', 'cat','4u', 20, true, null, undefined]
+var animals = ['rabbit', 'bear', 'cat', '4u', 20, true, null, undefined]
 // null 和 undefined 以空字符串表示 (注意不是没有)
 console.log(animals.toString())
 console.log(animals.toLocaleString())

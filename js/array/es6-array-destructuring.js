@@ -53,3 +53,7 @@ console.log(cloned);
 // ES6 可以通过不定元素实现数组复制。
 let [...clonedColors] = colors;
 console.log(clonedColors);
+
+// 字符串解构
+let [e, f, g] = 'ES6';
+console.log(e, f, g);

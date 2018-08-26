@@ -10,6 +10,9 @@ var colors1 = ['white', 'green', 'orange']
 var colors2 = colors1.concat('red', ['grown', 'black'], 'yellow')
 console.log(colors1)
 console.log(colors2)
+// 不传参数相当于复制数组 (与原数组无关)。
+console.log(colors1.concat())
+// concat() 也可用于字符串。
 console.log('')
 
 // slice() 基于当前数组中的一项或多项创建一个【新数组】。
@@ -28,12 +31,15 @@ console.log(colors6)
 // 如果结束位置小于起始位置，则返回空数组。
 var colors7 = colors2.slice(3, 1)
 console.log(colors7)
+// 复制数组 (与原数组无关)
+var colors8 = colors1.slice(0)
+console.log(colors8)
 console.log('')
 
-// splice() 向数组的中部插入项。
+// splice() 向数组的中部插入/删除/替换项。
 // splice(index,num,'item1','item2', ...) 起始位置，要删除的个数，要添加的项
-// 1）删除 只有前2个参数；
-// 2）插入 num=0；
+// 1）删除 只有第1个或前2个参数 (删除所有项 splice(0))
+// 2）插入 num=0 (注意插入的第一项就在 index 处)
 // 3）替换 全部参数
 // splice() 始终都会返回一个数组，该数组中包含【从原始数组中删除的项】 (如果没有删除任何项，则返回一个空数组)。
 var fruits = ['apple', 'cherry', 'strawberry', 'pear']
@@ -44,7 +50,9 @@ var removed2 = fruits.splice(1, 0, 'avocado', 'melon')
 console.log(removed2, fruits)
 var removed3 = fruits.splice(0, 3, 'banana', 'orange')
 console.log(removed3, fruits)
-// 以上三次操作的作用结果是累积的
+fruits.splice(0)
+console.log(fruits)
+// 以上操作的作用结果是累积的
 
 // splice 的实现原理 https://www.jianshu.com/p/483c042cf341
 console.log('')
@@ -57,6 +65,7 @@ console.log('')
 // 都接收两个参数：要查找的项 (必选) 和表示查找起点位置的索引 (可选)。
 // 都返回要查找的项在数组中的位置，如果没找到则返回-1。
 // 比较参数与数组中的每一项时，使用全等操作符===，即要求严格相等。
+// 遇到第一个符合的值就返回结果。
 console.log('位置方法')
 var numbers = [12, 5, 66, 82, 73, 29, 66, 1]
 var index1 = numbers.indexOf(66)
@@ -85,8 +94,9 @@ console.log('')
 
 
 // 5.2.8 迭代方法 Iterative Methods
-// 都接收两个参数：要在每一项上运行的函数和运行该函数的作用域对象 (可选) ——影响 this 的值。
-// 函数会接收三个参数：数组项的值，该项在数组中的位置和数组对象本身。
+// 参数1 要在每一项上运行的函数，3个参数：数组项的值，该项在数组中的位置和数组对象本身。
+// 参数2(可选) 运行该函数的作用域对象——影响 this 的值。
+// 注意：如果有参数2，参数1不能为箭头函数。
 
 // 对数组中的每一项运行给定函数
 // every() 如果该函数对【每一项】都返回 true，则返回 true。
@@ -101,7 +111,8 @@ console.log('')
 // --适合创建包含的项与另一个数组一一对应的数组。
 
 // forEach() 没有返回值。
-// --只是对数组中的每一项运行传入的函数。本质上与使用 for 循环迭代数组一样。
+// --只是对数组中的每一项运行传入的函数。
+// --本质上与使用 for 循环迭代数组一样，但无法像 for 循环一样提前终止循环。
 
 // forEach() 和 map() 对比解析
 // https://juejin.im/post/5ad9db1251882567161a2070?utm_medium=hao.caibaojian.com&utm_source=hao.caibaojian.com
@@ -111,11 +122,18 @@ console.log('')
 console.log('迭代方法')
 // 遇到不符合的项就返回 false
 var figure = [1, 20, 16, 5, 9]
-var everyResult = figure.every(function (item, index, array) {
+var everyResult1 = figure.every(item => {
     console.log(item) // 第1项不符合，就返回 false
     return (item > 10)
 })
-console.log(everyResult)
+console.log(everyResult1)
+var everyResult2 = figure.every(function (item) {
+    console.log(item)
+    return (item < this.limit)
+}, {
+    limit: 10
+})
+console.log(everyResult2)
 console.log('')
 
 // 遇到符合的项就返回 true
@@ -172,7 +190,6 @@ console.log('归并方法')
 var values1 = [1, 3, 2, 6]
 var sum1 = values1.reduce(function (prev, cur, index, array) {
     console.log(prev, cur)
-    console.log(index, array)
     return prev + cur
 })
 console.log(sum1)
@@ -182,5 +199,5 @@ var values2 = [1, 3, 2, 6]
 var sum2 = values2.reduceRight(function (prev, cur, index, array) {
     console.log(prev, cur)
     return prev + cur
-})
+}, 10)
 console.log(sum2)
