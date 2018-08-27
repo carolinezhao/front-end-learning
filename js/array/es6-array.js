@@ -6,6 +6,9 @@ let arr1 = Array.of(2)
 console.log(arr1.length, arr1[0]);
 let arr2 = Array.of('2')
 console.log(arr2.length, arr2[0]);
+// 也可以用于复制数组
+let copy = Array.of(...[2, 4, 6])
+console.log(copy);
 
 
 // 将类数组对象转换为真实数组。
@@ -28,6 +31,12 @@ console.log(Array.isArray(set), Array.isArray(arr3), arr3);
 let str = 'ES6'
 console.log(Array.from(str));
 
+// 也可以用于复制数组
+let oldArr = ['a', 'b', 'c']
+let newArr = Array.from(oldArr)
+newArr.push('d')
+console.log(oldArr, newArr);
+
 // 参数2 (optional) 映射函数，进一步转化数组
 function translate1() {
     return Array.from(arguments, (value) => value + 1);
@@ -45,7 +54,9 @@ let iter = {
     }
 }
 
-let arr5 = Array.from(iter, (value) => ++value)
+let arr5 = Array.from(iter, (value) => {
+    return (value % 2 === 0) ? value : ''
+})
 console.log(arr5);
 
 // 参数3 (optional) 映射函数的 this 值
@@ -75,7 +86,7 @@ console.log('');
 // 都接受两个参数：回调函数，用于指定回调函数中 this 的值 (可选)。
 // 传入函数的参数：数组中的元素 item，元素索引 index，数组本身 array。
 // 给定值满足标准时返回 true，此时停止搜索剩余部分。
-// 区别：find 返回查找的值，findIndex 返回值的索引 (没找到返回 -1)。
+// 区别：find 返回查找的值 (没有则返回 undefined)，findIndex 返回值的索引 (没找到返回 -1)。
 var numbers = [12, 5, 66, 82, 73, 29, 66, 1]
 var findResult1 = numbers.find(function (item, index, array) {
     return (item === 66)
@@ -104,8 +115,13 @@ values.fill(1, 2) // 从索引2开始填充元素
 console.log(values)
 values.fill(0, 1, 3) // 从位置1开始填充，不包括位置3的元素
 console.log(values)
-values.fill(6) // 只传入一个值，则重写所有值
+values.fill(6) // 只传入一个参数，则重写所有值
 console.log(values)
+// 可用于初始化数组的值
+let initial = []
+initial.length = 8
+initial.fill(1)
+console.log(initial);
 console.log('')
 
 // copyWithin()

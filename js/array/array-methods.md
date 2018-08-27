@@ -11,6 +11,11 @@
 - array.join('') (调用每一项的 toString())
 - array.toString()
 
+## 数组方法之构造函数方法
+
+- Array.of()
+- Array.from()
+
 ## 数组方法之直接改变原数组
 > [] 是对原数组的影响，() 中是返回值。
 
@@ -50,6 +55,36 @@
 位置方法
 - indexOf (index)
 - lastIndexOf (index)
-- find (item)
-- findIndex (index)
+- find (item) callback
+- findIndex (index) callback
 - includes (boolean)
+
+## 常用操作
+
+在数组的末尾添加元素
+```js
+array[array.length] = value
+array.push(value)
+```
+
+拼接多个数组，即拿出所有元素组成一个数组
+```js
+array1.concat(array2)
+[...array1, ...array2]
+```
+
+复制数组，与原数组不指向同一个引用 (这些方法的主要功能不是这个)
+```js
+array.concat()
+array.slice(0)
+Array.from(array)
+Array.of(...array)
+```
+
+迭代数组中的所有元素
+```js
+array.map((item) => {})
+Array.from(array, (value) => {})
+```
+
+函数式编程的基础：map, filter, reduce

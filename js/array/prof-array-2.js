@@ -81,7 +81,7 @@ console.log(id.sort()) // [0,18,23,56,7]
 // array.sort([compareFunction])
 // 返回值大于 0 时调换当前比对项的顺序，否则顺序不变。
 
-// 一种常用的比较函数
+// 一种常用的比较函数，即对于比较结果非数字的情况，需要返回一个数字值。
 function compare(value1, value2) {
     if (value1 < value2) {
         return -1;
@@ -121,3 +121,15 @@ function compareObj(obj1, obj2) {
     return obj1.id - obj2.id
 }
 console.log(objsArr.sort(compareObj));
+
+// 忽略大小写进行排序
+function compareStr(a, b) {
+    if (a.toLowerCase() > b.toLowerCase()) {
+        return 1 // 交换顺序
+    } else if (a.toLowerCase() < b.toLowerCase()) {
+        return -1
+    } else {
+        return 0
+    }
+}
+console.log(['Dec', 'april', 'june', 'May'].sort(compareStr));
