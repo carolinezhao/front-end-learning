@@ -1,4 +1,5 @@
 /*
+Remove Duplicates from Sorted Array
 Given a sorted array nums, remove the duplicates in-place such that each element appear only once and return the new length.
 Do not allocate extra space for another array, you must do this by modifying the input array in-place with O(1) extra memory.
 
@@ -43,14 +44,20 @@ console.log(removeDuplicates1(nums));
 
 
 // 参考答案
+// 赋值比交换效率高。
 var removeDuplicates2 = function (nums) {
-    const len = nums.length;
+    let len = nums.length;
     if (len === 0 || len === 1) return nums;
 
     let i = 0;
     for (let j = 0; j < len; j++) {
-        if (nums[i] !== nums[j]) nums[++i] = nums[j]
+        if (nums[i] !== nums[j]) {
+            i++;
+            nums[i] = nums[j];
+        }
+        console.log(nums);
     }
-
     return i + 1;
 };
+
+console.log(removeDuplicates2([-1, 0, 0, 0, 0, 3, 3, 5]));

@@ -17,7 +17,9 @@ Minimize the total number of operations.
 // };
 
 
+// 思路：遇 0 删除，末尾补 0
 // 如果 j 位置的元素命中，则下轮 j - 1
+// 缺点：用了性能很差的 splice 
 var moveZeroes = function (nums) {
     let j = 0
     for (let i = 0; i < nums.length; i++) {
@@ -36,7 +38,8 @@ moveZeroes(array);
 console.log(array);
 
 
-// 其他答案
+// 参考答案
+// 思路：从数组最开始依次赋值为非 0 的元素，再把后边的值改为 0。
 var moveZeroes1 = function (nums) {
     var count = 0;
     for (var i = 0; i < nums.length; ++i) {
@@ -45,11 +48,13 @@ var moveZeroes1 = function (nums) {
             count += 1;
         }
     }
+    console.log(nums, count);
     while (count < nums.length) {
         nums[count] = 0;
         count += 1;
     }
 };
 
-moveZeroes1(array);
-console.log(array);
+let array1 = [0, 0, 1, 2, 3, 0, 0, 5]
+moveZeroes1(array1);
+console.log(array1);

@@ -9,7 +9,7 @@ var num = 17871;
 var isPalindrome1 = function (x) {
     var string = x.toString().split('').reverse().join('');
     var numReverse = parseInt(string);
-    return (numReverse === x) ? true : false;
+    return numReverse === x;
 };
 
 console.log(isPalindrome1(num));
@@ -36,9 +36,6 @@ var isPalindrome2 = function (x) {
     }
 };
 
-console.log(isPalindrome2(num));
-console.log('')
-
 
 // 解法3 (参考了答案的思路) runtime: 240ms
 // Since we divided the number by 10, and multiplied the reversed number by 10, when the original number is less than the reversed number, it means we've processed half of the number digits.
@@ -57,8 +54,3 @@ var isPalindrome3 = function (x) {
 }
 
 console.log(isPalindrome3(num));
-
-
-// 去掉小数
-Math.round(num / 100); // 四舍五入
-parseInt(num / 100); // 直接舍去
