@@ -1,6 +1,30 @@
 // https://juejin.im/post/58f1fa6a44d904006cf25d22
 
-// 改进任务：代码输出 0 -> 1 -> 2 -> 3 -> 4 -> 5 (-> 表示间隔 1秒)
+// 改进任务1：代码输出 5 -> 0,1,2,3,4 (-> 表示间隔 1秒 , 表示间隔忽略不计)
+
+// 用 IIFE
+for (var i = 0; i < 5; i++) {
+    (function (j) {
+        setTimeout(function () {
+            console.log(j, new Date);
+        }, 1000);
+    })(i);
+}
+console.log(i, new Date);
+
+// 利用参数是按值传递的
+let print = function (j) {
+    setTimeout(function () {
+        console.log(j, new Date);
+    }, 1000);
+}
+for (var i = 0; i < 5; i++) {
+    print(i)
+}
+console.log(i, new Date);
+
+
+// 改进任务2：代码输出 0 -> 1 -> 2 -> 3 -> 4 -> 5 (-> 表示间隔 1秒)
 
 // 用 Promise 实现
 let tasks = [];

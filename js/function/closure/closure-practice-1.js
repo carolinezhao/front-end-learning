@@ -46,10 +46,7 @@
 //     })(i), i * 1000);
 // }
 
-// 输出顺序：2 3 5 4 1
-// Promise 的 4 在 1 前面输出的原因：
-// Promise.then() 里面的回调属于 microtask，会在当前 Event Loop 的最后执行；
-// 而 SetTimeout 内的回调属于 macrotask，会在下一个 Event Loop 中执行。
+// promise 和 setTimeout
 setTimeout(function () {
     console.log(1)
 }, 0);
@@ -63,3 +60,10 @@ new Promise(function executor(resolve) {
     console.log(4);
 });
 console.log(5);
+// 输出顺序：2 3 5 4 1
+// Promise 的 4 在 1 前面输出的原因：
+// Promise.then() 里面的回调属于 microtask，会在当前 Event Loop 的最后执行；
+// 而 SetTimeout 内的回调属于 macrotask，会在下一个 Event Loop 中执行。
+
+// 深入：从 Promise 来看 Event Loop、Tasks 和 Microtasks
+// https://github.com/creeperyang/blog/issues/21
