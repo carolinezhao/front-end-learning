@@ -1,5 +1,5 @@
 /*
-this 指向一个对象。
+this 指向一个对象。具体指向哪个对象是在运行时基于函数的执行环境动态绑定的。
 1. 以对象的方法调用，this 指向该对象。
 2. 以普通函数调用，this 指向全局对象。
 3. 构造器调用，this 指向新建对象 or 构造器返回的对象。
@@ -41,7 +41,7 @@ getA();
 
 
 // ===== 构造器调用 =====
-// case6 如果构造函数没有返回对象，this 指向调用构造函数的新对象
+// case6 用 new 调用函数会返回一个对象，构造函数中的 this 指向这个新对象。
 class Person {
     constructor(name) {
         this.name = name;
@@ -52,7 +52,8 @@ class Person {
 let person1 = new Person('caroline');
 console.log(person1.name);
 
-// case7 如果构造函数返回了对象，this 指向这个返回的对象
+// case7 如果 new 调用的构造器的返回值是一个 object 类型的对象，则 this 指向这个对象。
+// 如果构造器没有返回值或者返回的是非对象类型的数据，则同 case6。
 function MyClass(name) {
     this.name = name;
     console.log(this);
@@ -65,3 +66,27 @@ let person2 = new MyClass('caroline');
 console.log(person2.name); // rabbit
 
 // new 关键词的作用见 this-8.js
+
+
+// ===== apply 或 call 调用 =====
+// case8
+var obj1 = {
+    name: 'caroline',
+    getName() {
+        return this.name;
+    }
+};
+
+var obj2 = {
+    name: 'rabbit'
+};
+
+console.log(obj1.getName());
+console.log(obj1.getName.call(obj2));
+
+// 更多见 apply,call,bind.js
+
+
+// ===== 丢失 this =====
+// case4 和 case5 均为隐式绑定丢失，更多见 this-6-2.js
+// case9 见 pattern-this-2.html

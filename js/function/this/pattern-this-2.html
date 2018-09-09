@@ -14,23 +14,44 @@
     
     <script>
         var id = 'globalId';
-        window.id = 'windowId';
+        // window.id = 'windowId';
         document.getElementById('btn1').onclick = function() { 
             console.log(this.id, this);
-            let callback1 = function() {
-                console.log(this.id);
+            let callback1 = function() { // 作为普通函数调用
+                console.log(this.id); // this 指向全局对象
             }
-            let that = this;
+            let that = this; // 不推荐使用
             let callback2 = function() {
                 console.log(that.id);
             }
-            let callback3 = () => {
+            let callback3 = () => { // 推荐使用
                 console.log(this.id);
             }
             callback1();
             callback2();
             callback3();
         }
+
+        // 简化方法
+        let getId1 = function(id) {
+            return document.getElementById(id);
+        }
+        console.log(getId1('btn1'));
+        
+        // 丢失 this
+        // document.getElementById 方法的内部实现会用到 this，并期望其指向 document 对象。
+        // 赋值给新函数后，相当于普通函数调用，this 指向全局对象。
+        let getId2 = document.getElementById;
+        // console.log(getId2('btn1')); // TypeError 
+
+        // 用 apply 修正 this
+        document.getElementById = (function(func) {
+            return function() {
+                return func.apply(document, arguments);
+            }
+        })(document.getElementById);
+        let getId3 = document.getElementById;
+        console.log(getId3('btn1').id);
     </script>
 </body>
 </html>
