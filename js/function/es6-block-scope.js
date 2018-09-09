@@ -42,9 +42,14 @@ const person = {
 person.name = 'Bear'
 console.log(person)
 
+// more: 只要指向的引用不变即可。
+const array = [1, 2, 3]
+array.push(6)
+console.log(array);
+
 // const 与 let
 // 相同：声明的都是块级标识符，执行到块外立即被销毁，不会被提升，禁止重复声明。
-// 不同：const 不可以被再赋值。但如果是对象，则对象中的值可以修改。
+// 不同：const 不可以被再赋值。但如果是引用类型，在不改变引用的情况下，值可以修改。
 
 // 临时死区 TDZ = Temporal Dead Zone
 // JS 引擎扫描代码发现变量声明时：
@@ -136,6 +141,7 @@ for (let key in object) {
 funcs3.forEach(function (func) {
     func()
 })
+// 使用 let 结果为 a b c；使用 var 结果为 c c c
 
 // for-of（补例子）
 
@@ -146,6 +152,32 @@ funcs3.forEach(function (func) {
 
 
 // ====== 全局块作用域绑定 ======
+// var 用于全局作用域时，会创建一个新的全局变量作为全局对象 (浏览器中的 window 对象) 的属性。
+// 因此 var 可能会无意中覆盖一个已经存在的全局变量。
+// 以下在 chrome 中运行
+window.name = 'Caroline'
+var name = 'Rabbit'
+console.log(window.name, window.name === name);
+var city = 'Beijing'
+console.log(window.city, 'city' in window);
+
+// let 和 const 创建的变量不会添加为全局对象的属性。它们不能覆盖全局变量，只能遮蔽它。
+let greeting = 'Hello'
+console.log(window.greeting); // undefined
+console.log('greeting' in window);
+
+const sayHi = 'Hi'
+window.sayHi = 'HiHiHi'
+console.log(sayHi, window.sayHi);
+
+// 使用 this 时，如果默认绑定到全局对象，用 let 和 const 声明的变量无法访问。
+let a = 10;
+var b = 20;
+(function readValue() {
+    console.log(this.a, this.b); // undefined 20
+})();
 
 
 // ====== 块级绑定最佳实践的进化 ======
+// 默认使用 const，只有确实需要改变变量的值时使用 let。
+// 因为大部分变量的值在初始化后不应再改变，而预料外的变量值的改变是很多 bug 的源头。
