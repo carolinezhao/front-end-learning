@@ -18,10 +18,10 @@ function Bar(name, label) {
 Bar.prototype = Object.create(Foo.prototype);
 // 这样就没有 Bar.prototype.constructor 了，如果需要的话可以手动修复。
 
-// 不推荐的做法：使用 Foo 的构造函数调用
+// 不推荐的做法：使用 Foo 的构造函数调用 (可能会有副作用)
 // Bar.prototype = new Foo();
 
-// ES6 添加了辅助函数直接修改关联
+// ES6 添加了辅助函数直接修改关联 (即不需要抛弃默认的 Bar.prototype，而是修改它)
 // Object.setPrototypeOf(Bar.prototype, Foo.prototype)
 
 Bar.prototype.myLabel = function () {
@@ -30,5 +30,6 @@ Bar.prototype.myLabel = function () {
 
 var instance = new Bar('a', 'b');
 
+console.log(instance);
 console.log(instance.myName());
 console.log(instance.myLabel());

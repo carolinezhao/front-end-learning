@@ -122,32 +122,5 @@ console.log('');
 
 
 // 6.3.4 原型式继承
-// 使用 Obejct.create()，接收两个参数：
-// 一个用作新对象原型的对象;
-// (可选的)一个为新对象定义额外属性的对象 (会覆盖原型对象上的同名属性)。
-
-var person = {
-    name: 'rabbit',
-    friends: ['bear', 'helen', 'madell']
-}
-var person1 = Object.create(person);
-person1.name = 'caroline';
-person1.friends.push('alicia');
-
-var person2 = Object.create(person);
-person2.name = 'bernie';
-person2.friends.push('alex');
-
-console.log(person);
-console.log(person1.friends);
-console.log(person2); // 为什么对象不直接打印 friends？不可枚举属性？
-
-var person3 = Object.create(person, {
-    name: {
-        value: 'melon'
-    }
-})
-console.log(person3.name); // 变成不可枚举属性？？
-
-// 如果只想让一个对象与另一个对象保持类似的情况下，原型式继承是可以胜任的。
-// 但包含引用类型值的属性始终都会共享相应的值，就像使用原型模式一样。
+// 使用 Object.create()，基于一个对象创建另一个对象，无需构造函数。
+// 见 04-inheritance-objectcreate.js
