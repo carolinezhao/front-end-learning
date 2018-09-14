@@ -10,7 +10,7 @@ var colors1 = ['white', 'green', 'orange']
 var colors2 = colors1.concat('red', ['grown', 'black'], 'yellow')
 console.log(colors1)
 console.log(colors2)
-// 不传参数相当于复制数组 (与原数组无关)。
+// 不传参数相当于复制数组 (与原数组无关，对数组内容来说是浅拷贝)。
 console.log(colors1.concat())
 // concat() 也可用于字符串。
 console.log('')
@@ -31,7 +31,7 @@ console.log(colors6)
 // 如果结束位置小于起始位置，则返回空数组。
 var colors7 = colors2.slice(3, 1)
 console.log(colors7)
-// 复制数组 (与原数组无关)
+// 不传参数或一个参数 0，相当于复制数组 (与原数组无关，对数组内容来说是浅拷贝)。
 var colors8 = colors1.slice(0)
 console.log(colors8)
 console.log('')
@@ -55,6 +55,7 @@ console.log(fruits)
 // 以上操作的作用结果是累积的
 
 // splice 的实现原理 https://www.jianshu.com/p/483c042cf341
+// 算法中使用 splice 的效率很低，原因是：每次删除都涉及大量元素的重新排列，在插入元素时引入队列来管理。
 console.log('')
 
 
@@ -95,7 +96,7 @@ console.log('')
 
 // 5.2.8 迭代方法 Iterative Methods
 // 参数1 要在每一项上运行的函数，3个参数：数组项的值，该项在数组中的位置和数组对象本身。
-// 参数2(可选) 运行该函数的作用域对象——影响 this 的值。
+// 参数2(可选) 运行该函数的作用域对象——影响 this 的值。(原理见 this-7-3.js)
 // 注意：如果有参数2，参数1不能为箭头函数。
 
 // 对数组中的每一项运行给定函数

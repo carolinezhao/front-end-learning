@@ -4,7 +4,7 @@
 // 创建 Symbol
 // 由于 Symbol 是原始值，不能使用 new 操作符 (TypeError: Symbol is not a constructor)
 let firstname = Symbol();
-let person ={};
+let person = {};
 person[firstname] = 'caroline';
 console.log(person[firstname]);
 // 不能通过 person.firstname 的方式访问该属性。
@@ -32,7 +32,7 @@ console.log('');
 // 创建可共享的 Symbol，使用 Symbol.for()。参数 (键) 作为标识符，也是描述。
 let uid = Symbol.for('uid');
 let object = {
-    [uid]:'12345'
+    [uid]: '12345'
 };
 console.log(uid);
 console.log(object[uid]);
@@ -67,3 +67,4 @@ console.log(object[symbolsArray[0]]);
 
 
 // 通过 well-know Symbol 暴露内部操作
+// Symbol.iterator 与迭代器相关，见 iterator.js

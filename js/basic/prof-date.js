@@ -17,7 +17,7 @@ console.log('');
 
 // 继承的方法
 // 仅在调试代码时比较有用，在显示日期和时间时没有什么价值。
-let string1 = [new Date().toString(), new Date().toLocaleString()];
+let string1 = [(new Date()).toString(), (new Date()).toLocaleString()];
 string1.forEach(element => {
     console.log(element, typeof element);
 });
@@ -26,11 +26,12 @@ console.log('');
 // valueOf() 返回日期的毫秒，可使用比较操作符 (小于或大于) 来比较日期值。
 let date3 = new Date(2018, 0, 1), // 2018.1.1
     date4 = new Date(2018, 2, 1); // 2018.3.1
+console.log(date4);
 console.log(date3 < date4);
 console.log('');
 
 // 日期格式化方法
-let string2 = [new Date().toTimeString(), new Date().toDateString(), new Date().toLocaleTimeString(), new Date().toLocaleDateString()];
+let string2 = [(new Date()).toTimeString(), (new Date()).toDateString(), (new Date()).toLocaleTimeString(), (new Date()).toLocaleDateString()];
 string2.forEach(element => {
     console.log(element, typeof element);
 });

@@ -21,7 +21,7 @@ Object.defineProperty(myObject, 'b', {
 myObject.a = 3;
 
 // 由于只定义了 a 的 getter，所以对 a 的值进行设置时 set 操作会忽略赋值操作，不会抛出错误。
-// 即便有合法的 setter，由于自定义的 getter 只会返回 2，所以 set 操作是没有意义的。？？
+// 即便有合法的 setter，由于自定义的 getter 只会返回 2，所以 set 操作是没有意义的。
 
 console.log(myObject.a); // 2
 console.log(myObject.b); // 4

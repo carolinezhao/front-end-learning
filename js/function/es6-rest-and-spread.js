@@ -1,5 +1,6 @@
 // 不定参数：把多个独立的参数整合为数组后访问。
 // 展开运算符：把数组打散后作为独立的参数传入函数。
+// 都与数组有关。
 
 
 // 不定参数 rest parameters
@@ -29,11 +30,15 @@ let jobData = pick(job, 'city', 'position');
 console.log(jobData);
 
 
+
 // 展开运算符 the spread operator
 // 展开运算符可以简化使用数组给函数传参的编码过程，大多数使用 apply() 的情况都适合用展开运算符替代。
 
 // 内建方法 Math.max() 接受任意个参数并返回最大值，但是不接受数组。
 let values = [5, 50, 75, 25];
+// 旧方法
+console.log(Math.max.apply(null, values));
+// 使用展开运算符
 console.log(Math.max(...values));
 // 等价于
 console.log((Math.max(5, 50, 75, 25)));
@@ -42,3 +47,11 @@ console.log((Math.max(5, 50, 75, 25)));
 // 比如想限定最小值为 0，可以单独传入限定值：
 let values1 = [-5, -50, -75, -25];
 console.log(Math.max(...values1, 0));
+
+// 可用于拼接数组 (和 concat 作用相同)
+let arr1 = [1, 2, 3]
+let arr2 = ['a', 'b', 'c']
+console.log([...arr1, ...arr2]);
+
+// 可将字符串分解为数组 (和 split 作用相同)
+console.log([...'code']);

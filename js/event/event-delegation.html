@@ -80,7 +80,10 @@
         })
 
 
-        // 事件代理
+        // 事件代理/委托
+        // 1.提高事件的处理速度，减少内存的占用；
+        // 2.动态的添加 DOM 元素，不需要因为元素的改动而修改事件绑定。
+
         // 一个 <div> 中包含了若干个 <a>，而且还可能继续增加。如何快捷方便地为所有 <a> 绑定事件呢？
         let div2 = document.querySelector('#div2')
 
@@ -102,20 +105,25 @@
             }
         })
 
-        // 包含事件代理的通用函数，其中 selector 是被代理的元素名称
-        function bindEventAgency(elem, type, func, seletor) {
+        // 包含事件代理的通用函数，此处 selector 是被代理的元素名称
+        function bindEventAgency(elem, type, func, selector) {
             elem.addEventListener(type, function (e) {
-                if (seletor && e.target.nodeName.toLowerCase() === seletor) {
+                if (selector && e.target.nodeName.toLowerCase() === selector) {
                     func.call(e.target, e)
                 // } else {
                 //     func(e)
                 }
             })
         }
+        // 也可以使用 element.matches API 进行判断
+        // element.matches('CSS selector')，返回 boolean
+        // 本例中替换 line 111：e.target.matches(selector)
 
         bindEventAgency(div2, 'click', function (e) {
             alert(e.target.nodeName)
         }, 'a')
+
+        // 更多及 polyfill https://zhuanlan.zhihu.com/p/26536815?refer=qiutc
     </script>
 </body>
 

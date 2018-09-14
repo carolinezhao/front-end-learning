@@ -162,6 +162,8 @@ console.log('')
 
 // arguments 用法见 3.7.1
 // arguments 是一个类数组对象，包含着传入函数中的所有参数。
+
+// ===== arguments.callee 已被弃用！=====
 // 这个对象还有一个名叫 callee 的属性，该属性是一个指针，指向拥有这个 arguments 对象的函数。
 
 // 阶乘函数 (使用递归算法)
@@ -183,6 +185,8 @@ function factorial(num) {
 }
 console.log(factorial(3))
 // 无论引用函数时使用的是什么名字，都可以保证正常完成递归调用。
+// ===== arguments.callee 已被弃用！=====
+
 // 变量 trueFactorial 获得了 factorial 的值，实际上是在另一个位置上保存了一个函数的指针。
 var trueFactorial = factorial
 factorial = function () {
@@ -257,55 +261,5 @@ console.log('')
 // 在创建自定义引用类型以及实现继承时，prototype 属性的作用是极为重要的 (第6章详细介绍)。
 // 在 ECMAScript 5 中，prototype 属性是不可枚举的，因此使用 for-in 无法发现。
 
-// 每个函数都包含两个非继承而来的方法：apply()和 call()。
-// 它们用途都是在特定的作用域中调用函数，实际上等于设置函数体内 this 对象的值。
-// apply() 接收两个参数：一个是在其中运行函数的作用域，另一个是参数数组。
-// 第二个参数可以是 Array 的实例，也可以是 arguments 对象。
-function doSum(num1, num2) {
-    return num1 + num2
-}
-
-function callSum1(num1, num2) {
-    return doSum.apply(this, arguments) // 传入 arguments 对象
-}
-// 这句话不懂？
-// 执行 doSum() 函数时传入了 this 作为 this 值 (因为是在全局作用域中调用的，所以传入的就是 window 对象) 和 arguments 对象。
-function callSum2(num1, num2) {
-    return doSum.apply(this, [num1, num2]) // 传入数组
-}
-
-console.log(callSum1(10, 20))
-console.log(callSum2(10, 20))
-
-// call()
-// 与 apply() 的作用相同，区别仅在于接收参数的方式不同。
-// 第一个参数是 this 值没有变化，变化的是传递给函数的参数必须逐个列举出来 (而不是数组)。
-function callSum3(num1, num2) {
-    return doSum.call(this, num1, num2) // 逐个传入参数
-}
-console.log(callSum3(10, 20))
-console.log('')
-
-// 传参并非 apply() 和 call() 的用武之地，它们真正强大的地方是能够扩充函数赖以运行的作用域。
-// Chrome 中运行
-// window.city = "BJ";
-var obj = { city: "SH" };
-function sayLocation(){
-    console.log(this.city);
-}
-// 在全局作用域中调用，对 this.color 的求值会转换成对 window.color 的求值。
-sayLocation(); // BJ
-// 两种显式地在全局作用域中调用函数的方式
-sayLocation.call(this); // BJ
-// sayLocation.call(window); // BJ
-// 函数体内的 this 对象指向了 obj
-sayLocation.call(obj); // SH
-// 使用 call() 或 apply() 来扩充作用域的最大好处，就是对象不需要与方法有任何耦合关系。
-// 对比 line 198-208
-
-// bind()
-// 会创建一个函数的实例，其 this 值会被绑定到传给 bind() 函数的值。
-var objectSayLocation = sayLocation.bind(obj);
-objectSayLocation(); // SH
-// 使用这种技巧的优点见 22 章。
-// 最后有一段话没看懂。
+// Function.prototype.apply 和 Function.prototype.call
+// 见 this/apply,call,bind.js
