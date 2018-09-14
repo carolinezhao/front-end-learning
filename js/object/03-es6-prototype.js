@@ -44,3 +44,11 @@ let relative = Object.create(dude);
 console.log(person.getGreeting());
 console.log(dude.getGreeting());
 console.log(relative.getGreeting());
+
+// ES6 正式将方法定义为一个函数。
+// 内部的 [[HomeObject]] 属性存储这个方法从属的对象。
+
+// super 的所有引用都通过 [[HomeObject]] 属性来确定后续的运行过程。
+// 1. 在 [[HomeObject]] 属性上调用 Object.getPrototypeOf() 检索原型的引用；
+// 2. 搜索原型找到同名函数；
+// 3. 设置 this 绑定并调用相应的方法。

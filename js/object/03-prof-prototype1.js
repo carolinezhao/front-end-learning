@@ -31,7 +31,8 @@ var person1 = new Person()
 var person2 = new Person()
 
 // 实例的内部包含一个指针 (内部属性)，指向【构造函数的原型对象】，与构造函数无关。
-// 标准中这个指针叫 [[Prototype]]，脚本中无法访问，但是 chrome 中显示为 _proto_
+// 标准中这个指针叫 [[Prototype]]，脚本中无法访问，chrome 中显示为 __proto__
+console.log(person1.__proto__ === Person.prototype); // true
 
 // 脚本中可通过如下方法查看这种关系
 console.log('获取实例的原型对象')
@@ -42,7 +43,7 @@ console.log(Object.getPrototypeOf(person2) === Person.prototype) //true
 console.log(Object.getPrototypeOf(person2).name) //rabbit
 console.log('')
 
-// 与构造函数模式不同的是，原型对象中的属性和方法是由所有实例共享的。
+// 与构造函数模式不同的是，【原型对象中的属性和方法是由所有实例共享的】。
 // person1 和 person2 访问的都是同一组属性和同一个 sayJob() 函数。
 console.log(person1.sayJob === person2.sayJob) //true
 
