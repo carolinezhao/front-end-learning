@@ -1,5 +1,5 @@
 /*
-js 中的 new 操作符与其他面向类的语言中 new 的机制不同。
+js 中的 new 操作符与其他[面向类]的语言中 new 的机制不同。
 
 js 中的“构造函数”：只是一些使用 new 操作符时被调用的函数。
 它们并不会属于某个类，也不会实例化一个类。
@@ -23,3 +23,5 @@ var bar = new foo(2);
 console.log(bar.a) // 2
 
 // new 绑定：使用 new 来调用 foo 时，会构造一个新对象并把它绑定到 foo 调用中的 this 上。
+
+// more：this-new.js
