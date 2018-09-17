@@ -82,6 +82,31 @@ new Foo() 这个函数调用实际上并没有直接创建关联，这个关联�
 
 ### 检查“类”关系
 
+> 注：以下内容中 Foo 是构造函数，a 是由构造函数创建的实例对象。
+
+`a instanceof Foo;`
+
+- 回答的问题是：在 a 的整条 [[Prototype]] 链中是否有指向 Foo.prototype 的对象？
+- 这个方法只能处理对象 (a) 和函数 (带 .prototype 引用的 Foo) 之间的关系。
+- 调用 bind() 生成的函数没有 .prototype，如果使用 instanceof，相当于直接在原函数上操作。
+
+`Foo.prototype.isPrototypeOf(a);`
+
+- 回答的问题与第一个相同。
+- 但不需要间接引用函数，因为 .prototype 属性会被自动访问。？？
+- 可以用于判断两个对象的关系。
+
+`Object.getPrototypeOf(a) === Foo.prototype;`
+
+- ES5 标准，直接获取对象的 [[Prototype]] 链。
+
+`a.__proto__ === Foo.prototype`
+
+- ES6 标准，`__proto__` 引用了内部的 [[Prototype]] 对象。
+- `__proto__` 实际上是存在于内置的 Object.prototype 中，不可枚举，获取方式相当于 getter/setter。
+
+以上四种方法的使用可见 03- / 04- 系列.js
+
 ## 5.4 对象关联
 
 ### 5.4.1 创建关联

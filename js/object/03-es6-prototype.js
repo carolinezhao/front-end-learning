@@ -26,6 +26,8 @@ console.log(friend.getGreeting());
 console.log(Object.getPrototypeOf(friend) === dog);
 console.log('');
 
+// 关于继承：Object.setPrototypeOf() 与 Object.create() 的比较见 04-know-inheritance.js
+
 
 // 简化原型访问：使用 super 关键字
 // super 引用相当于指向对象原型的指针，相当于 Object.getPrototypeOf(this)

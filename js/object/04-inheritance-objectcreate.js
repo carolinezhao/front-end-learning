@@ -24,6 +24,8 @@ var person = {
 var person1 = Object.create(person);
 person1.name = 'caroline';
 person1.city = 'beijing';
+console.log(person.isPrototypeOf(person1));
+console.log(person1.__proto__ === person);
 
 var person2 = Object.create(person);
 person2.friends.push('alex');

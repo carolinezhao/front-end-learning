@@ -14,7 +14,7 @@ function Bar(name, label) {
 // 声明 function Bar() {} 时会有一个 .prototype 关联到默认对象，但是这个对象并不是想要的。
 // 因此需要创建一个新对象并把它关联到希望要的对象上，直接把原始的关联对象抛弃。
 
-// 创建了一个新的 Bar.prototype 对象并关联到 Foo.prototype
+// 创建了一个新的 Bar.prototype 对象并关联到 Foo.prototype (抛弃旧的其实是缺点，ES6 的改进见下)
 Bar.prototype = Object.create(Foo.prototype);
 // 这样就没有 Bar.prototype.constructor 了，如果需要的话可以手动修复。
 
