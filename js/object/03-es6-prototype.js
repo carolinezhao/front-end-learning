@@ -29,6 +29,28 @@ console.log('');
 // 关于继承：Object.setPrototypeOf() 与 Object.create() 的比较见 04-know-inheritance.js
 
 
+
+// __proto__ 是 Object.getPrototypeOf() 和 Object.setPrototypeOf() 的早期实现。
+// 尽管 ES6 正式化了这个属性，但是不推荐使用。建议使用后两者。
+
+// ES6 引擎中，Object.prototype.__proto__ 被定义为一个访问器属性。
+// 其 get 方法会调用 Object.getPrototypeOf()；其 set 方法会调用 Object.setPrototypeOf()。
+// 使用的区别在于 __proto__ 可以直接设置对象字面量的原型。
+let guy = {
+    __proto__: person
+};
+console.log(guy.getGreeting());
+console.log(guy.__proto__ === person);
+
+guy.__proto__ = dog;
+console.log(guy.getGreeting());
+console.log(Object.getPrototypeOf(guy) === dog);
+console.log('');
+
+// 对比：使用 Object.create() 创建对象时，必须为所有其他对象属性指定完整的属性描述符。
+
+
+
 // 简化原型访问：使用 super 关键字
 // super 引用相当于指向对象原型的指针，相当于 Object.getPrototypeOf(this)
 // 只能在使用简写方法的对象中使用。
