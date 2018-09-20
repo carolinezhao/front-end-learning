@@ -4,7 +4,7 @@ reference
 MDN Promise.resolve()
 ---
 
-创建已处理的 Promise，不会有任务编排过程。
+创建已处理的 Promise
 
 Promise.resolve(value); 返回一个解析过带着给定值的 Promise 对象。
 Promise.resolve(Promise 对象); 返回传入的 Promise 对象。
