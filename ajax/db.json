@@ -6,7 +6,10 @@
   "comments": [
     { "id": 1, "body": "some comment", "postId": 1 }
   ],
-  "profile": { "name": "typicode" },
+  "profile": { "url": "http://localhost:3000/login" },
   "login": { "token": "I'm a token from server" },
-  "file": {}
+  "data": [
+    {"id": 1, "url": "http://localhost:3000/profile"},
+    {"id": 2, "url": "http://localhost:3000/comments"}
+  ]
 }

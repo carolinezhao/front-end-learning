@@ -10,7 +10,8 @@ function get(url) {
         req.open('GET', url);
         req.onload = function () { // This is called even on 404 etc
             if (req.status == 200) {
-                resolve(req.response);
+                // resolve(req.response);
+                resolve(req.responseText);
             } else {
                 reject(Error(req.statusText));
             }
@@ -30,31 +31,41 @@ function get(url) {
 }
 
 
+// 使用 json-server 作为服务器，见 ajax/db.json
+
 // 按顺序执行多个异步任务
-get(url)
+get('http://localhost:3000/data')
     .then(function (response) {
         response = JSON.parse(response);
-        var secondURL = response.data.url
+        var secondURL = response[0].url
+        console.log(secondURL);
         return get(secondURL); /* Return another Promise */
     })
     .then(function (response) {
         response = JSON.parse(response);
-        var thirdURL = response.data.url
+        var thirdURL = response.url
+        console.log(thirdURL);
         return get(thirdURL); /* Return another Promise */
     })
+    .then(response => {
+        response = JSON.parse(response);
+        console.log(response.token);
+    })
     .catch(function (err) {
-        handleError(err);
+        // handleError(err);
     });
 
 
 // 在所有子任务完成后执行下一个异步操作
-var arrayOfURLs = ['one.json', 'two.json', 'three.json', 'four.json'];
+var arrayOfURLs = ['http://localhost:3000/posts', 'http://localhost:3000/comments', 'http://localhost:3000/login'];
 var arrayOfPromises = arrayOfURLs.map(get);
 
 Promise.all(arrayOfPromises)
     .then(function (arrayOfResults) {
         /* Do something when all Promises are resolved */
+        var newResults = arrayOfResults.map(result => JSON.parse(result));
+        console.log(newResults);
     })
     .catch(function (err) {
         /* Handle error if any of Promises fails */
-    })
+    });
