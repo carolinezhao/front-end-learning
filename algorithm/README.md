@@ -43,7 +43,7 @@
 - splice 底层是非常复杂的操作，性能很差。
 - push, unshift, reverse
     - 执行速度：unshift << push，应尽可能使用 push。
-    - 如果要达到 unshift 的效果，可以先 reverse，用 push 添加，再执行 reverse。
+    - 在数据量很大的时候，如果要达到 unshift 的效果，可以先 reverse，用 push 添加，再执行 reverse；数据量小的时候还是直接 unshift 更快。
     - reverse 的性能很好。
     - [push 和 unshift 性能比较](http://blog.wangdaodao.com/2016-01-20/js-study-0021.html)
 
