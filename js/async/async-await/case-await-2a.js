@@ -12,27 +12,33 @@ function resolveAfter2Seconds(x) {
 // await 表达式会使 async 函数暂停执行，等待表达式中的 Promise 解析完成后继续执行 async 函数并返回解决结果。
 
 async function add1(num) {
+    console.time('async1');
     let a = await resolveAfter2Seconds(20);
     let b = await resolveAfter2Seconds(30);
-    return a + b + num;
+    let value = a + b + num;
+    console.timeEnd('async1');
+    return value;
 }
 
 // 函数 add1 中，第一个计时器结束后，第二个计时器才被创建。
 // 程序为第一个 await 停留了 2 秒，为第二个 await 又停留了 2 秒。
 
 add1(10).then(v => {
-    console.log(v);
+    console.log('result1: ' + v);
 });
 
 async function add2(num) {
+    console.time('async2');
     let a = resolveAfter2Seconds(20);
     let b = resolveAfter2Seconds(30);
-    return await a + await b + num;
+    let value = await a + await b + num;
+    console.timeEnd('async2');
+    return value;
 }
 
 // 函数 add2 中，两个计时器同时被创建，然后一起被 await。因此运行出结果需要 2 秒而非 4 秒。
 // 但是这两个 await 调用仍然是串行而非并行的。
 
 add2(10).then(v => {
-    console.log(v);
+    console.log('result2: ' + v);
 })
