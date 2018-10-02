@@ -27,12 +27,16 @@ async/await vs. promise
 > async/await do not replace the need for plain promises.
 
 concurrent vs. parallel
+
 > Concurrency is about composing independent processes (in the general meaning of the term process) to work together, while parallelism is about actually executing multiple processes simultaneously. 
 > Concurrency is about the application design and structure, while parallelism is about the actual execution.
 
 -- Ref.2
 
 ## 案例
+
+01-await.js (Ref.0)
+- async/await 基本用法
 
 case-await-1a/b.js (Ref.1)
 - async/await 优化了 Promise 的 then() 链对异步结果的处理。
@@ -42,6 +46,7 @@ case-await-2a/b.js (MDN)
 
 ## Reference
 
+0. https://javascript.info/async-await
 1. https://segmentfault.com/a/1190000007535316
 2. https://nikgrozev.com/2017/10/01/async-await/
 3. https://segmentfault.com/a/1190000016212269
