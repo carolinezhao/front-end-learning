@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>float</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto;
+        }
+
+        .container {
+            border: 1px solid lightcoral;
+            margin-bottom: 40px;
+        }
+
+        #second img,
+        #third>p,
+        #forth img,
+        #fifth img,
+        #fifth>p {
+            float: left;
+            border: 2px solid lightblue;
+        }
+
+        /* 方法1 */
+        .clearfix:after {
+            content: '';
+            display: table;
+            clear: both;
+        }
+
+        /* 方法2 */
+        .clearfix {
+            overflow: auto;
+            zoom: 1; /* 兼容 IE */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" id="first">
+        <img src="img/bear.jpeg">
+        <p>图片无 float 效果。</p>
+    </div>
+
+    <h3>float 的设计初衷是用于文字环绕效果。用于网页布局时会带来以下影响：</h3>
+
+    <div class="container" id="second">
+        <img src="img/bear.jpeg">
+        <div>
+            <p>特点1 脱离文档流。破坏父元素结构 (塌缩)，影响与父元素同级的元素。</p>
+        </div>
+        <img src="img/bear.jpeg">
+    </div>
+
+    <div class="container" id="third">
+        <p>使用了 float 的文本。</p>
+        <div>
+            <p>特点2 包裹性。</p>
+            <p>宽度会自动调整为包裹住内容的宽度 (从而体现环绕效果)，而不是撑满整个父容器。</p>
+            <p>但要注意 display 样式没有变化，仍是 display: block</p>
+        </div>
+    </div>
+
+    <div class="container" id="forth">
+        <img src="img/bear.jpeg">
+        <img src="img/baby.png">
+        <img src="img/circle6.png">
+        <div>
+            <p>特点3 清空格。</p>
+            <p>正常的 img 中间是有空格的，因为多个 img 标签之间的换行会被浏览器识别为空格。</p>
+            <p>这一特性的根本原因是 float 会导致节点脱离文档流结构，因此它们就尽量往一边靠拢。</p>
+        </div>
+    </div>
+
+    <h3>清除 float 的影响 (仅针对脱离文档流)</h3>
+
+    <div class="container clearfix" id="fifth">
+        <p>使用了 float 的文本。</p>
+        <img src="img/bear.jpeg">
+        <img src="img/baby.png">
+        <div>
+            <p>方法1 浮动元素的父标签使用 after 伪对象 (见 CSS)。</p>
+            <p>方法2 浮动元素的父标签设置 overflow 属性为 auto 或 hidden。</p>
+        </div>
+    </div>
+
+    <ul>
+        <li><a href="https://juejin.im/book/5a8f9ddcf265da4e9f6fb959/section/5a8f9f536fb9a063523e069f">reference1</a></li>
+        <li><a href="https://segmentfault.com/a/1190000015773203">reference2</a></li>
+    </ul>
+</body>
+
+</html>
