@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>waterfall</title>
+    <style>
+        .waterfall {
+            column-width: 10em;
+            column-count: 3; /* 列个数 */
+            column-gap: 2em; /* 列间隙 */
+            column-rule: 1px dotted lightcoral;
+            width: 50%;
+        }
+
+        .item {
+            break-inside: avoid; /* 避免元素内部断行并产生新列 */
+            border: 1px solid lightblue;
+            padding: .5em;
+            margin-bottom: .5em;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="waterfall">
+        <div class="item">
+            <img src="img/baby.png">
+        </div>
+        <div class="item">
+            <img src="img/bear.jpeg">
+        </div>
+        <div class="item">
+            <img src="img/baby.png">
+        </div>
+        <div class="item">
+            <img src="img/circle6.png">
+        </div>
+        <div class="item">
+            <img src="img/bear.jpeg">
+        </div>
+        <div class="item">
+            <img src="img/bear.jpeg">
+        </div>
+    </div>
+</body>
+
+</html>
