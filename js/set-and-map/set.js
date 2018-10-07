@@ -1,8 +1,4 @@
-// 数据结构：集合
-
-// ES6: Set 集合，Map 集合
-// Set 集合：常用于检查对象中是否存在某个键名；
-// Map 集合：常用于获取已存的信息。
+// Set
 
 // Set 是一种有序列表，其中含有相互独立的非重复值。
 let set = new Set();
@@ -39,8 +35,10 @@ console.log(set.has(5));
 // 清空集合
 set.clear();
 console.log(set.size);
+console.log('');
 
 // forEach() 方法
+// 参数1: 回调函数
 // 为了与数组的参数保持一致，也用3个参数。
 // 由于 Set 没有键名，所以前两个参数一样，都是值。
 set1.forEach(function (value, key, ownerSet) {
@@ -53,15 +51,42 @@ set.forEach(function (value) {
     console.log(value, typeof value);
 })
 
-// 使用 this
-// 
+// 参数2: this
+// 用法同数组。
+let processor = {
+    output(value) {
+        console.log(value);
+    },
+    process(dataSet) {
+        // this 指向调用此函数的对象。
+        dataSet.forEach(function (value) {
+            this.output(value);
+        }, this);
+        // 传入 process 的 this，如果不绑定，则 this 指向全局。
+    }
+}
+
+processor.process(set);
+
+// 如果使用箭头函数则无需传入 this
+let processor1 = {
+    output(value) {
+        console.log(value);
+    },
+    process(dataSet) {
+        dataSet.forEach(value => this.output(value));
+    } // 箭头函数没有 this，使用外围 process 函数的 this。
+}
+
+processor1.process(set1);
+console.log('');
 
 // 将 Set 集合转换为数组
 // 使用展开运算符
 let set2 = new Set([1, 2, 2, 3, 4, 6, 6]);
 console.log(set2.size);
 let array = [...set2];
-console.log((array));
+console.log(array);
 
 // 基于 Set 对元素去重的特点，如果想返回已有数组的无重复元素版，可以使用此方法。
 function eliminateDuplicates(items) {
@@ -73,46 +98,3 @@ let noDuplicates = eliminateDuplicates(nums);
 console.log(noDuplicates);
 
 // Weak Set 集合
-
-console.log('');
-
-
-// Map 是一种存储键值对的有序列表，键名和值支持所有数据类型。
-// 与对象的区别是，对象的属性名会被强制转换为字符串。
-let map = new Map();
-map.set('name', 'caroline');
-map.set('year', 2018);
-console.log(map.get('name'));
-console.log(map.get('year'));
-
-let key3 = {};
-map.set(key3, 5);
-console.log(map.get(key3));
-console.log('');
-
-// has, delete, clear 与 Set 的方法类似，不过参数是键名。
-console.log(map.size);
-console.log(map.has('name'));
-map.delete('name');
-console.log(map.has('name'));
-map.clear();
-console.log(map.size);
-console.log('');
-
-// 通过传入数组初始化
-// 每个元素都是一个子数组，其中的两个元素是键和值。
-let map1 = new Map([
-    ['age', 25],
-    ['job', 'frontend'],
-    ['city', 'Beijing']
-]);
-console.log(map1.size);
-console.log(map1.get('city'));
-console.log(map1.has('job'));
-
-// forEach() 方法与数组类似
-map1.forEach(function (value, key, map) {
-    console.log(key + ': ' + value);
-})
-
-// Weak Map 集合
