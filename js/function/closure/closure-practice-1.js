@@ -1,5 +1,7 @@
 // https://zhuanlan.zhihu.com/p/25407758
 
+// 考察：变量提升，闭包，setTimeout, Promise，事件循环
+
 // 普通循环
 // for (var i = 0; i < 5; i++) {
 //     console.log(i);
