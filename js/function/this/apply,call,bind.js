@@ -3,7 +3,7 @@ reference
 高程 5.5.5 函数属性和方法
 https://github.com/lin-xin/blog/issues/7
 
-call, apply 和 this 的用法另见 this-7-1.js, this-7-2.js
+call, apply, bind 和 this 的用法另见 this-7, this-10 系列
 高级技巧见 高程 22.1.4 函数绑定
 */
 
