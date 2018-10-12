@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>binding</title>
+</head>
+
+<body>
+    <button id="myBtn">Button</button>
+    <script>
+        // 高程 22.1.4 函数绑定
+
+        var handler = {
+            msg: 'Event Handled',
+            handleClick(event) {
+                console.log(this.msg);
+                console.log(event.type);
+            },
+            handleClick1(name, event) {
+                console.log(this.msg);
+                console.log(event.type);
+                console.log(name);
+            },
+        };
+
+        var btn = document.querySelector('#myBtn');
+
+        // 没有保存 handler.handleClick() 的环境，this 指向 btn 而非 handler。
+        btn.addEventListener('click', handler.handleClick);
+
+        // 通过闭包解决。
+        btn.addEventListener('click', function (event) {
+            handler.handleClick(event);
+        });
+
+        // 使用 bind 创建一个保持了执行环境的函数。
+        btn.addEventListener('click', handler.handleClick.bind(handler));
+        // 更多见 this-7-2.js
+
+        // 使用 bind 实现柯里化。
+        btn.addEventListener('click', handler.handleClick1.bind(handler, 'myBtn'));
+        // 更多见 currying.js
+    </script>
+</body>
+
+</html>

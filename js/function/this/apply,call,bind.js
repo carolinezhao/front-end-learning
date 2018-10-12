@@ -3,8 +3,7 @@ reference
 高程 5.5.5 函数属性和方法
 https://github.com/lin-xin/blog/issues/7
 
-call, apply, bind 和 this 的用法另见 this-7, this-10 系列
-高级技巧见 高程 22.1.4 函数绑定
+相关内容另见 this-7, this-10 系列, binding.html
 */
 
 // ES 规范给所有函数都定义了 call 与 apply 两个方法，它们的作用一样，只是传参的形式不同。
