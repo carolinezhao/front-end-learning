@@ -161,3 +161,48 @@ function getScore(array) {
 let average1 = Math.round(average(getScore(team1)));
 let average2 = Math.round(average(getScore(team2)));
 console.log(average1, average2);
+
+
+// Exercises
+
+// Flattening
+// Use the reduce method in combination with the concat method to “flatten” an array of arrays into a single array that has all the elements of the original arrays.
+let arrays = [
+    [1, 2, 3],
+    [4, 5],
+    [6]
+];
+
+console.log(arrays.reduce((a, b) => a.concat(b)));
+
+// Your own loop
+function loop(n, test, body, update) {
+    while (test(n)) {
+        body(n);
+        n = update(n);
+    }
+}
+
+loop(3, n => n > 0, console.log, n => n - 1);
+
+// Everything
+function everyFunc1(array, test) {
+    for (item of array) {
+        if (!test(item)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+function everyFunc2(array, test) {
+    return !array.some(item => !test(item));
+}
+
+let arr1 = [1, 3, 5];
+let arr2 = [2, 4, 16];
+
+console.log(everyFunc1(arr1, n => n < 10));
+console.log(everyFunc2(arr1, n => n < 10));
+console.log(everyFunc1(arr2, n => n < 10));
+console.log(everyFunc2(arr2, n => n < 10));
