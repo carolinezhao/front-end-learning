@@ -7,7 +7,7 @@
     - [根据原文的整理版](http://www.cnblogs.com/whgk/p/6422391.html)    
     - [原文如果有乱码参考这篇转载](https://blog.csdn.net/shenlei19911210/article/details/49510505)或[这篇转载](https://blog.csdn.net/keda8997110/article/details/16922815)
 
-- [知识点对比总结](https://juejin.im/post/5ad5b9116fb9a028e014fb19?utm_medium=fe&utm_source=weixinqun)
+- [知识点对比总结](https://juejin.im/post/5ad5b9116fb9a028e014fb19)
     - session 和 cookie
     - localStorage, sessionStorage 和 cookie
 

@@ -15,4 +15,6 @@
     - [GitHub](https://github.com/alibaba/anyproxy)
     - [文档](http://anyproxy.io/cn/)
 
+    不能使用 localhost 地址，会发生错误。
+
 - Fiddler
