@@ -124,3 +124,50 @@ console.log('');
 // 6.3.4 原型式继承
 // 使用 Object.create()，基于一个对象创建另一个对象，无需构造函数。
 // 见 04-inheritance-objectcreate.js
+
+
+
+// 6.3.5 寄生式继承 
+
+// 6.3.6 寄生组合式继承
+// 组合继承最大的问题是会调用两次超类型构造函数：一次是在创建子类型原型的时候，另一次是在子类型构造函数内部。
+// 结果就是有两组同名属性：一组在实例上，一组在 SubType 原型中。
+
+// 寄生组合式继承，即通过借用构造函数来继承属性，通过原型链的混成形式来继承方法。
+// 背后的基本思路是，不必为了指定子类型的原型而调用超类型的构造函数，我们所需要的无非就是超类型原型的一个副本而已。
+// 本质上，就是使用寄生式继承来继承超类型的原型，然后再将结果指定给子类型的原型。
+
+function inheritPrototype(subType, superType) {
+    var prototype = Object(superType.prototype); // 创建对象
+    prototype.constructor = subType; // 增强对象
+    subType.prototype = prototype; // 指定对象
+}
+
+function SuperType2(name) {
+    this.name = name;
+    this.colors = ['red', 'green', 'blue'];
+}
+
+SuperType2.prototype.sayName = function () {
+    console.log(this.name);
+}
+
+function SubType2(name, age) {
+    SuperType1.call(this, name);
+    this.age = age;
+}
+
+// 继承
+inheritPrototype(SubType2, SuperType2);
+// 对比
+// Object.setPrototypeOf(SubType2, SuperType2.prototype);
+
+SubType2.prototype.sayAge = function () {
+    console.log(this.age);
+}
+
+var ins1 = new SubType2('Rabbit', 16);
+
+// 对比
+console.log(instance1);
+console.log(ins1);
