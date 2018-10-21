@@ -27,6 +27,7 @@ Child.prototype = new Parent();
 var parent = new Parent();
 var child1 = new Child();
 var child2 = new Child();
+console.log(Object.getPrototypeOf(child1) === Object.getPrototypeOf(child2));
 
 child1.a = 11;
 child2.a = 12;
