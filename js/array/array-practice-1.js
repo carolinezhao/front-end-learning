@@ -82,3 +82,11 @@ Math.pow(基数，指数)
 
 [].reduce(Math.pow); 数组为空，会报错。
 */
+
+
+// 数组乱序
+function arrRandom(arr) {
+  return arr.sort(item => 0.5 - Math.random())
+}
+
+console.log(arrRandom([1, 0, null, '']));
