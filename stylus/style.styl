@@ -1,36 +1,64 @@
-border-radius(val)
-  -webkit-border-radius: val
-  -moz-border-radius: val
-  border-radius: val
+// variable
+vendors = webkit moz o ms official
+mainBlue = #4D8CF8
+
+// function
+border-radius()
+  for vendor in vendors
+    if vendor == official
+      border-radius: arguments
+    else 
+      -{vendor}-border-radius: arguments // interpolation
 
 border(color)
   border: 1px solid color
 
+flex(direction, main-axis, sub-axis)
+  display: flex
+  flex-direction: direction
+  justify-content: main-axis
+  align-items: sub-axis
+
+measure(height, width)
+  height: height
+  width: width
+
+
 section
   font: 14px/1.5 Helvetica, arial, sans-serif
   #box
-    border(#4D8CF8)
-    border-radius(5px)
+    border(mainBlue)
+    border-radius: 5px
   button
   input[type='button']
-    border(#4D8CF8)
+    border(mainBlue)
     cursor: pointer
-    border-radius(5px)
-    &:hover
-      background-color: #4D8CF8
+    border-radius(3px)
+    &:hover // parent reference
+      background-color: mainBlue
       color: #fff
 
 #prompt
-  background-color: #4D8CF8
+  background-color: mainBlue
   color: #fff
   width: w = 300px
   height: (w / 3)
-  margin: (@width / 100)
+  margin: (@width / 100) // block property access by @
 
+// iteration
 table
-  for row in 1 2 3 4 5
+  font: 16px Roboto
+  for row in 1..5 // from 1 to 5
     tr:nth-child({row})
       height: 10px * row
+    td
+      border(mainBlue)
   for row in 1 3 5
     tr:nth-child({row})
-      color: #4D8CF8
+      color: mainBlue
+
+#set
+  padding: '%s %s' % (20px 10px) // the sprintf operator
+  border(mainBlue)
+  flex(column, space-around, center)
+  measure(50px, 50 * 3px)
