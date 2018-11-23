@@ -1,9 +1,8 @@
-### 以下全部在 .git 所在路径下进行。
+## 情况1: 在源项目中开分支
 
 1.下载 master 内最新代码到本地；
 
 	git pull
-
 
 2.新建分支，分支名通常以`-`连接；
 
@@ -15,6 +14,8 @@
 	
 	gid add .
 	git commit -m "msg"
+
+[commit message 格式](https://juejin.im/post/5afc5242f265da0b7f44bee4)
 
 5.与远端的 master rebase，检查远端 master 是否有更新。加了`origin/`表示远端，不加表示本地。
 
@@ -29,8 +30,6 @@
 8.等待代码被合并，本地切到 master 分支，pull 代码到 master。
 
 	git checkout master
-	
-***
 
 第4步之后，如果直接 git push 了，则可以通过与本地 master 对比解决冲突。
    
@@ -50,4 +49,10 @@
     git commit -m ""
     git push
    
-   
+## 情况2: fork 源项目，在新的 repo 里开分支
+
+整理思路一致。可以从新 repo 的分支提交 Merge Request 到源项目 master。
+
+## reference
+
+- https://medium.freecodecamp.org/how-to-become-a-git-expert-e7c38bf54826

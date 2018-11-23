@@ -15,3 +15,8 @@
 3. 用 ssh 访问 `ssh -T git@gitlab.xxx.com` 
    - 注意使用的服务器是什么
    - 首次访问回答问题 yes
+
+## reference
+
+- https://help.github.com/articles/about-ssh/
+- https://medium.com/@coderonfleek/how-to-setup-your-computer-to-push-code-to-github-240afcba9359
