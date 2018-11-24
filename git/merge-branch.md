@@ -51,7 +51,11 @@
    
 ## 情况2: fork 源项目，在新的 repo 里开分支
 
-整理思路一致。可以从新 repo 的分支提交 Merge Request 到源项目 master。
+整体思路一致。可以从新 repo 的分支提交 Merge Request 到源项目 master。
+
+踩过的坑：
+1. 在项目 public/project 中创建本地分支 branch-a，提交 commit，push 到远程 master。
+2. fork 得到 my/project，创建本地分支 branch-a，这个分支和步骤 1 中的分支是同一个。如果在未拉取远程分支的情况下做改动，则 push 的时候可能会产生冲突。
 
 ## reference
 

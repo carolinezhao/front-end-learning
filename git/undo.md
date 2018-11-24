@@ -24,3 +24,20 @@ Undo the commit but keep all changes staged
     git reset SHA前7位
     
 则最新的 commit 被撤销
+
+## 删除分支
+
+Delete Local Branch
+
+    git branch -d <branch_name>
+
+Delete Remote Branch
+
+    git push <remote_name> --delete <branch_name>
+
+The remote name is `origin`.
+
+## reference
+
+- https://zhuanlan.zhihu.com/p/42929114
+- https://stackoverflow.com/questions/2003505/how-do-i-delete-a-git-branch-both-locally-and-remotely

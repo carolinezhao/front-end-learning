@@ -1,10 +1,20 @@
 # SSH key
 
-## 默认路径
+SSH key 包含一对公钥和私钥。在不同地方尽量不使用同一组 key。
+
+通过 ssh-agent 管理。
+
+使用场景
+- GitHub/GitLab
+- 测试服务器
+
+## 存放路径
+
+### 默认路径
 
 `~/.ssh/id_rsa`
 
-## 非默认路径
+### 非默认路径
 
 `~/path/.ssh/id_rsa`
 
