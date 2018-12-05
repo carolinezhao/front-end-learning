@@ -57,6 +57,32 @@
 1. 在项目 public/project 中创建本地分支 branch-a，提交 commit，push 到远程 master。
 2. fork 得到 my/project，创建本地分支 branch-a，这个分支和步骤 1 中的分支是同一个。如果在未拉取远程分支的情况下做改动，则 push 的时候可能会产生冲突。
 
+同步源项目代码
+
+在 fork 得到的项目 my/project 中查看本地仓库关联了哪些远程仓库
+   
+        git remote -v
+
+得到以下结果表示只有默认的远端仓库 (my/project)
+
+    origin <URL> (fetch)
+    origin <URL> (push)
+
+添加源项目 (public/project) 地址作为远端仓库，其中 name 是用于识别该地址的自定义名称
+
+    git remote add <name> <URL>
+
+同步该仓库 (public/project) 代码到本地
+
+    git pull <name> master
+
+同步到自己仓库 (my/project) 的远端
+
+    git push
+
+在本地以 master 为基础新建分支
+    
 ## reference
 
 - https://medium.freecodecamp.org/how-to-become-a-git-expert-e7c38bf54826
+- http://xigua366.iteye.com/blog/2400153
