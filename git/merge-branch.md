@@ -57,6 +57,8 @@
 1. 在项目 public/project 中创建本地分支 branch-a，提交 commit，push 到远程 master。
 2. fork 得到 my/project，创建本地分支 branch-a，这个分支和步骤 1 中的分支是同一个。如果在未拉取远程分支的情况下做改动，则 push 的时候可能会产生冲突。
 
+---
+
 同步源项目代码
 
 在 fork 得到的项目 my/project 中查看本地仓库关联了哪些远程仓库
@@ -81,8 +83,32 @@
     git push
 
 在本地以 master 为基础新建分支
+
+---
+
+在分支 a 改动代码后，想切换到分支 b，但是还没有准备好提交代码，可以将改动暂存
+
+    git stash
+
+暂存前后通过 `git status` 查看工作目录中的文件状态
+
+查看现有暂存
+
+    git stash list
+
+从分支 b 切回分支 a 后，想继续之前的改动，则取出暂存的内容
+
+    git stash apply
+
+如果有多个暂存条目，通过在 list 中的编号访问它们
+
+    git stash apply stash@{n}
+
+新创建的文件没有被 git 追踪，因此不会进入 stash list。在切换分支时，该新建文件一直存在。
     
 ## reference
 
 - https://medium.freecodecamp.org/how-to-become-a-git-expert-e7c38bf54826
 - http://xigua366.iteye.com/blog/2400153
+- https://git-scm.com/book/zh/v1/Git-%E5%B7%A5%E5%85%B7-%E5%82%A8%E8%97%8F%EF%BC%88Stashing%EF%BC%89
+- https://segmentfault.com/q/1010000000156026
