@@ -63,7 +63,7 @@
 
 在 fork 得到的项目 my/project 中查看本地仓库关联了哪些远程仓库
    
-        git remote -v
+    git remote -v
 
 得到以下结果表示只有默认的远端仓库 (my/project)
 
@@ -105,6 +105,10 @@
     git stash apply stash@{n}
 
 新创建的文件没有被 git 追踪，因此不会进入 stash list。在切换分支时，该新建文件一直存在。
+
+移除暂存
+
+    git stash drop stash@{n}
     
 ## reference
 
